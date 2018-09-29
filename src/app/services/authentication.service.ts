@@ -10,7 +10,7 @@ const TOKEN_KEY = 'auth-token';
 })
 export class AuthenticationService {
 
-  authenticationState = new BehaviorSubject(false);
+  authenticationState = new BehaviorSubject(null);
 
   constructor(private storage: Storage, private platform: Platform) {
     this.platform.ready().then(() => {
@@ -18,27 +18,31 @@ export class AuthenticationService {
     });
   }
 
-  login() {
-    return this.storage.set(TOKEN_KEY, 'Bearer 123456').then(res => {
-      this.authenticationState.next(true);
+  // login() {
+  //   return this.storage.set(TOKEN_KEY, 'Bearer 123456').then(res => {
+  //     this.authenticationState.next(true);
+  //   });
+  // }
+
+  loginWithToken(token: String) {
+    return this.storage.set(TOKEN_KEY, token).then(res => {
+      this.authenticationState.next(token);
     });
   }
 
   logout() {
     return this.storage.remove(TOKEN_KEY).then(() => {
-      this.authenticationState.next(false);
+      this.authenticationState.next(null);
     });
   }
 
   isAuthenticated() {
-    return this.authenticationState.value;
+    return this.authenticationState.value !== null;
   }
 
   checkToken() {
-    return this.storage.get(TOKEN_KEY).then(res => {
-      if (res) {
-        this.authenticationState.next(true);
-      }
+    return this.storage.get(TOKEN_KEY).then(token => {
+        this.authenticationState.next(token);
     });
   }
 

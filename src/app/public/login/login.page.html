@@ -5,6 +5,15 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-button (click)="login()" expand="block">Login</ion-button>
-  <ion-button expand="block" color="secondary" href="/register" routerDirection="forward">Register</ion-button>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <ion-item>
+      <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
+    </ion-item>
+    <!-- <p *ngIf="!loginForm.controls.email.valid">The given email is not valid</p> -->
+    <ion-item>
+      <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
+    </ion-item>
+    <!-- <p *ngIf="!loginForm.controls.password.valid">The password shohuld not be blank</p> -->
+    <ion-button margin-top expand="block" type="submit" [disabled]="!loginForm.valid">Login</ion-button>
+  </form>
 </ion-content>

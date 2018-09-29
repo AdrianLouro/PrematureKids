@@ -25,9 +25,10 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authService.authenticationState.subscribe(state => {
-        console.log('Auth changed: ' + state);
-        this.router.navigate(state ? ['members', 'dashboard'] : ['login']);
+      this.authService.authenticationState.subscribe(token => {
+        console.log('Token: ' + token);
+        // this.router.navigate(state ? ['members', 'dashboard'] : ['home']);
+        this.router.navigate(token !== null ? ['members', 'dashboard'] : ['home']);
       });
     });
   }
