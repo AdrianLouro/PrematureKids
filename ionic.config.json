@@ -1,0 +1,7 @@
+{
+  "name": "PrematureKids",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
