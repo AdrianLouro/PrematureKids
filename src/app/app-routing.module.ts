@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './services/authentication/auth-guard.service';
+import { DoctorAuthGuardService } from './services/authentication/doctor-auth-guard.service';
+import { ParentAuthGuardService } from './services/authentication/parent-auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -8,9 +10,19 @@ const routes: Routes = [
   { path: 'login', loadChildren: './public/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './public/register/register.module#RegisterPageModule' },
   {
-    path: 'members',
+    path: 'private/shared',
     canActivate: [AuthGuardService],
-    loadChildren: './members/member-routing.module#MemberRoutingModule'
+    loadChildren: './private/shared/shared-routing.module#SharedRoutingModule'
+  },
+  {
+    path: 'private/doctors',
+    canActivate: [DoctorAuthGuardService],
+    loadChildren: './private/doctors/doctor-routing.module#DoctorRoutingModule'
+  },
+  {
+    path: 'private/parents',
+    canActivate: [ParentAuthGuardService],
+    loadChildren: './private/parents/parent-routing.module#ParentRoutingModule'
   }
 ];
 

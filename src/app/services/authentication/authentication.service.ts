@@ -18,11 +18,13 @@ export class AuthenticationService {
     });
   }
 
-  // login() {
-  //   return this.storage.set(TOKEN_KEY, 'Bearer 123456').then(res => {
-  //     this.authenticationState.next(true);
-  //   });
-  // }
+  isAuthenticated() {
+    return this.authenticationState.value !== null;
+  }
+
+  isAuthenticatedAs(role: string) {
+    return this.authenticationState.value === role;
+  }
 
   loginWithToken(token: String) {
     return this.storage.set(TOKEN_KEY, token).then(res => {
@@ -34,10 +36,6 @@ export class AuthenticationService {
     return this.storage.remove(TOKEN_KEY).then(() => {
       this.authenticationState.next(null);
     });
-  }
-
-  isAuthenticated() {
-    return this.authenticationState.value !== null;
   }
 
   checkToken() {
