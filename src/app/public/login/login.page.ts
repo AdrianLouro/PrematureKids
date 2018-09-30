@@ -20,15 +20,10 @@ export class LoginPage implements OnInit {
 
   initLoginForm() {
     this.loginForm = this.formBuilder.group({
-      email: ['email@email.es', Validators.email],
+      email: ['email@email.es', [Validators.email, Validators.required]],
       password: ['', Validators.required]
     });
-    console.log(this.loginForm);
   }
-
-  // login() {
-  //   this.authService.login();
-  // }
 
   login() {
     this.authService.loginWithToken(this.loginForm.value['password']);
