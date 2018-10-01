@@ -13,8 +13,4 @@ export class ParentDashboardPage implements OnInit {
   ngOnInit() {
   }
 
-  // logout() {
-  //   this.authService.logout();
-  // }
-
 }

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Chats</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let chat of chats" (click)="openChat()">
+      <ion-avatar item-start>
+        <img src="resources/icon.png">
+      </ion-avatar>
+      <h2>John Doe</h2>
+      <p>Lorem ipsum dolor sit amet.</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

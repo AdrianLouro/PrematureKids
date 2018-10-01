@@ -13,8 +13,4 @@ export class DoctorDashboardPage implements OnInit {
   ngOnInit() {
   }
 
-  // logout() {
-  //   this.authService.logout();
-  // }
-
 }

@@ -35,36 +35,46 @@ export class AppComponent {
   checkAuthenticationState() {
     this.authService.authenticationState.subscribe(token => {
       this.setMenuForRole(token);
-      this.navigateWitToken(token);
+      this.navigateWithToken(token);
     });
   }
 
-  navigateWitToken(token: string) {
+  navigateWithToken(token: string) {
     this.router.navigate(token === null ? ['home'] :
       token === 'doctor' ? ['private', 'doctors', 'doctor-dashboard'] :
         ['private', 'parents', 'parent-dashboard']);
   }
 
-  setMenuForRole(role: string): any {
+  setMenuForRole(role: string) {
     role === 'doctor' ? this.setMenuForDoctor() : this.setMenuForParent();
   }
 
-  setMenuForParent(): any {
+  setMenuForParent() {
     this.appPages = [
       {
         title: 'Parent Dashboard',
         url: '/private/parents/parent-dashboard',
         icon: 'home'
+      },
+      {
+        title: 'Parent profile',
+        url: '/private/parents/parent-profile',
+        icon: 'person'
       }
     ];
   }
 
-  setMenuForDoctor(): any {
+  setMenuForDoctor() {
     this.appPages = [
       {
         title: 'Doctor Dashboard',
         url: '/private/doctors/doctor-dashboard',
         icon: 'home'
+      },
+      {
+        title: 'Doctor profile',
+        url: '/private/doctors/doctor-profile',
+        icon: 'person'
       }
     ];
   }
