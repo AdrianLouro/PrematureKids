@@ -42,7 +42,7 @@ export class AppComponent {
   navigateWithToken(token: string) {
     this.router.navigate(token === null ? ['home'] :
       token === 'doctor' ? ['private', 'doctors', 'doctor-dashboard'] :
-        ['private', 'parents', 'parent-dashboard']);
+        ['private', 'parents', 'parent-assignments']);
   }
 
   setMenuForRole(role: string) {
@@ -52,27 +52,32 @@ export class AppComponent {
   setMenuForParent() {
     this.appPages = [
       {
-        title: 'Parent Dashboard',
-        url: '/private/parents/parent-dashboard',
-        icon: 'home'
+        title: 'My exercises',
+        url: '/private/parents/parent-assignments',
+        icon: 'paper'
       },
       {
-        title: 'Parent profile',
+        title: 'My children',
+        url: '/private/shared/children',
+        icon: 'happy'
+      },
+      {
+        title: 'My profile',
         url: '/private/parents/parent-profile',
         icon: 'person'
-      }
+      },
     ];
   }
 
   setMenuForDoctor() {
     this.appPages = [
       {
-        title: 'Doctor Dashboard',
+        title: 'Doctor dashboard',
         url: '/private/doctors/doctor-dashboard',
         icon: 'home'
       },
       {
-        title: 'Doctor profile',
+        title: 'My profile',
         url: '/private/doctors/doctor-profile',
         icon: 'person'
       }

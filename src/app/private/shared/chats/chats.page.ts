@@ -24,4 +24,8 @@ export class ChatsPage implements OnInit {
     this.router.navigate(['private', 'shared', 'chat']);
   }
 
+  navigateToContacts() {
+    this.router.navigate(['private', 'shared', 'contacts']);
+  }
+
 }

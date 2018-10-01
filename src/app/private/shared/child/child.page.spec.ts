@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParentDashboardPage } from './parent-dashboard.page';
+import { ChildPage } from './child.page';
 
-describe('ParentDashboardPage', () => {
-  let component: ParentDashboardPage;
-  let fixture: ComponentFixture<ParentDashboardPage>;
+describe('ChildPage', () => {
+  let component: ChildPage;
+  let fixture: ComponentFixture<ChildPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ParentDashboardPage ],
+      declarations: [ ChildPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ParentDashboardPage);
+    fixture = TestBed.createComponent(ChildPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>My exercises</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="currentTab" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="all">
+      All
+    </ion-segment-button>
+    <ion-segment-button value="pending">
+      Pending
+    </ion-segment-button>
+    <ion-segment-button value="finished">
+      Finished
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-card *ngFor="let assignment of currentAssignments" (click)="navigateToAssignment()">
+    <ion-card-header>
+      <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text>Lorem ipsum dolor sit amet.</ion-text>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

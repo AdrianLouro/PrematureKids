@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-buttons margin-right slot="end">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    <ion-buttons *ngIf="authenticatedAsParent" slot="end">
+      <ion-button style="margin-right: 16px" (click)="editChild()">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+      <ion-button style="margin-right: 16px" (click)="removeChild()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Child</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+</ion-content>

@@ -5,14 +5,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding-vertical>
   <ion-list>
     <ion-item *ngFor="let chat of chats" (click)="openChat()">
-      <ion-avatar item-start>
+      <ion-avatar slot="start">
         <img src="resources/icon.png">
       </ion-avatar>
-      <h2>John Doe</h2>
-      <p>Lorem ipsum dolor sit amet.</p>
+      <ion-label>
+        <h2>John Doe</h2>
+        <p>Lorem ipsum dolor sit amet.</p>
+      </ion-label>
     </ion-item>
   </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToContacts()">
+    <ion-fab-button>
+      <ion-icon name="chatbubbles"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-parent-profile',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParentProfilePage implements OnInit {
 
-  constructor() { }
+  constructor(private toastController: ToastController) { }
 
   ngOnInit() {
+  }
+
+  editProfile() {
+    this.presentToast();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your profile has been edited.',
+      cssClass: 'primary',
+      showCloseButton: true,
+      closeButtonText: 'OK'
+    });
+    toast.present();
   }
 
 }
