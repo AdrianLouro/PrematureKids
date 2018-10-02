@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../../services/authentication/authenti
 export class ChildPage implements OnInit {
 
   authenticatedAsParent = false;
+  currentTab = 'profile';
 
   constructor(/*private popoverController: PopoverController*/
     private alertController: AlertController,
@@ -59,7 +60,7 @@ export class ChildPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'danger',
-          handler: (blah) => {
+          handler: () => {
           }
         }, {
           text: 'Remove child',

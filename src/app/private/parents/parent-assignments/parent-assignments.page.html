@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-segment [(ngModel)]="currentTab" (ionChange)="segmentChanged($event)">
+  <ion-segment [(ngModel)]="currentTab">
     <ion-segment-button value="all">
       All
     </ion-segment-button>
@@ -18,12 +18,36 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-card *ngFor="let assignment of currentAssignments" (click)="navigateToAssignment()">
-    <ion-card-header>
-      <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-text>Lorem ipsum dolor sit amet.</ion-text>
-    </ion-card-content>
-  </ion-card>
+  <div [ngSwitch]="currentTab">
+    <div *ngSwitchCase="'all'">
+      <ion-card *ngFor="let assignment of assignments" (click)="navigateToAssignment()">
+        <ion-card-header>
+          <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text>Lorem ipsum dolor sit amet.</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div *ngSwitchCase="'pending'">
+      <ion-card *ngFor="let assignment of pendingAssignments" (click)="navigateToAssignment()">
+        <ion-card-header>
+          <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text>Lorem ipsum dolor sit amet.</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div *ngSwitchCase="'finished'">
+      <ion-card *ngFor="let assignment of finishedAssignments" (click)="navigateToAssignment()">
+        <ion-card-header>
+          <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-text>Lorem ipsum dolor sit amet.</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>

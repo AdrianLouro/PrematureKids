@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class ParentAssignmentsPage implements OnInit {
 
   assignments: any[];
-  currentAssignments: any[];
+  pendingAssignments: any[];
+  finishedAssignments: any[];
   currentTab = 'all';
 
   constructor(private router: Router) { }
@@ -19,18 +20,12 @@ export class ParentAssignmentsPage implements OnInit {
   }
   loadAssignments() {
     this.assignments = [true, true, false, false, true];
-    this.currentAssignments = this.assignments;
+    this.pendingAssignments = this.assignments.filter(assignment => !assignment);
+    this.finishedAssignments = this.assignments.filter(assignment => assignment);
   }
 
   navigateToAssignment() {
     this.router.navigate(['private', 'shared', 'assignment']);
-  }
-
-  segmentChanged(event: any) {
-    this.currentAssignments = event.detail.value === 'all' ? this.assignments :
-      this.assignments.filter(assignment =>
-        event.detail.value === 'pending' ? !assignment : assignment
-      );
   }
 
 }
