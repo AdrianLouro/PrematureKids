@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'children', loadChildren: './children/children.module#ChildrenPageModule' },
   { path: 'child', loadChildren: './child/child.module#ChildPageModule' },
   { path: 'assignment', loadChildren: './assignment/assignment.module#AssignmentPageModule' },
+  { path: 'session', loadChildren: './session/session.module#SessionPageModule' },
 ];
 
 @NgModule({

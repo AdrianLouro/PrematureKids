@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-create-child',
-  templateUrl: './create-child.page.html',
-  styleUrls: ['./create-child.page.scss'],
+  selector: 'app-create-session',
+  templateUrl: './create-session.page.html',
+  styleUrls: ['./create-session.page.scss'],
 })
-export class CreateChildPage implements OnInit {
+export class CreateSessionPage implements OnInit {
 
   constructor(private location: Location) { }
 
   ngOnInit() {
   }
 
-  createChild() {
+  createSession() {
     this.location.back();
   }
 

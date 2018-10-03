@@ -8,5 +8,37 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="info">
+      Info
+    </ion-segment-button>
+    <ion-segment-button value="sessions">
+      Sessions
+    </ion-segment-button>
+  </ion-segment>
 
+  <div [ngSwitch]="segment" padding-vertical>
+
+    <div *ngSwitchCase="'info'">
+      Exercise info
+    </div>
+
+    <div *ngSwitchCase="'sessions'">
+      <ion-card *ngFor="let session of sessions" (click)="navigateToSession()">
+        <ion-card-header>
+          <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Lorem ipsum dolor sit amet.</p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-fab *ngIf="authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToCreateSession()">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+
+  </div>
 </ion-content>

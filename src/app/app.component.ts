@@ -28,7 +28,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.checkAuthenticationState();
+      this.checkAuthenticationState(); // TODO: do not show split pane when not authenticated
     });
   }
 

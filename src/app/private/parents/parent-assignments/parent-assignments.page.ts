@@ -11,7 +11,7 @@ export class ParentAssignmentsPage implements OnInit {
   assignments: any[];
   pendingAssignments: any[];
   finishedAssignments: any[];
-  currentTab = 'all';
+  segment = 'all';
 
   constructor(private router: Router) { }
 

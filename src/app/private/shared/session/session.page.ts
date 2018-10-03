@@ -1,55 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
-import { Router } from '@angular/router';
+import { ToastController, AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-child',
-  templateUrl: './child.page.html',
-  styleUrls: ['./child.page.scss'],
+  selector: 'app-session',
+  templateUrl: './session.page.html',
+  styleUrls: ['./session.page.scss'],
 })
-export class ChildPage implements OnInit {
+export class SessionPage implements OnInit {
 
   authenticatedAsParent = false;
-  segment = 'assignments';
-  assignments: any[];
 
-  constructor(/*private popoverController: PopoverController*/
+  constructor(
     private alertController: AlertController,
     private toastController: ToastController,
-    private router: Router,
     private location: Location,
     private authService: AuthenticationService) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
   }
 
   ngOnInit() {
-    this.loadAssignments();
   }
 
-  loadAssignments() {
-    this.assignments = [1, 2, 3, 4, 5];
-  }
-
-  // TODO: probar Popovers
-  // https://stackoverflow.com/questions/41943716/ionic-2-how-to-call-parent-page-function-from-popover-component
-  // https://www.youtube.com/watch?v=jRxPOs1OM34
-  // async presentPopover(event: any) {
-  //   const popover = await this.popoverController.create({
-  //     component: ChildPage,
-  //     event: event,
-  //   });
-  //   return await popover.present();
-  // }
-
-  editChild() {
+  editSession() {
     this.presentToast();
   }
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your child has been edited.',
+      message: 'The session has been edited.',
       cssClass: 'primary',
       showCloseButton: true,
       closeButtonText: 'OK'
@@ -57,13 +37,13 @@ export class ChildPage implements OnInit {
     toast.present();
   }
 
-  removeChild() {
+  removeSession() {
     this.presentConfirmationAlert();
   }
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete your child?',
+      header: 'Are you sure you want to delete the session?',
       message: 'It will be permanently deleted!',
       buttons: [
         {
@@ -73,7 +53,7 @@ export class ChildPage implements OnInit {
           handler: () => {
           }
         }, {
-          text: 'Remove child',
+          text: 'Remove session',
           handler: () => {
             this.location.back();
           }
@@ -82,10 +62,6 @@ export class ChildPage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  navigateToAssignment() {
-    this.router.navigate(['private', 'shared', 'assignment']);
   }
 
 }

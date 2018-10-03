@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="authenticatedAsParent" slot="end">
+      <ion-button style="margin-right: 16px" (click)="editSession()">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+      <ion-button style="margin-right: 16px" *ngIf="authenticatedAsParent" (click)="
+          removeSession()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Session</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+</ion-content>
