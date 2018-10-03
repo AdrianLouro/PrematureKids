@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-buttons slot="end" *ngIf="authenticatedAsParent">
+      <ion-button style="margin-right: 16px" (click)="editProfile()">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ authenticatedAsParent ? 'My profile' : 'Parent profile' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+</ion-content>

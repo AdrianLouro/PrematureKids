@@ -63,8 +63,13 @@ export class AppComponent {
       },
       {
         title: 'My profile',
-        url: '/private/parents/parent-profile',
+        url: '/private/shared/parent-profile',
         icon: 'person'
+      },
+      {
+        title: 'My doctors',
+        url: '/private/parents/doctors',
+        icon: 'contacts'
       },
     ];
   }
@@ -78,7 +83,7 @@ export class AppComponent {
       },
       {
         title: 'My profile',
-        url: '/private/doctors/doctor-profile',
+        url: '/private/shared/doctor-profile',
         icon: 'person'
       }
     ];

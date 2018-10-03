@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-parent-profile',
@@ -8,7 +9,12 @@ import { ToastController } from '@ionic/angular';
 })
 export class ParentProfilePage implements OnInit {
 
-  constructor(private toastController: ToastController) { }
+  authenticatedAsParent = false;
+
+  constructor(private toastController: ToastController,
+    private authService: AuthenticationService) {
+    this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
+  }
 
   ngOnInit() {
   }
