@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Associate new parent</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar placeholder="Parent ID" (ionInput)="searchParent($event)"></ion-searchbar>
+
+  <ion-card *ngIf="parent != null" (click)="addParent()">
+    <ion-card-header>
+      <ion-card-title>John Doe Jr.</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Lorem ipsum dolor sit amet.</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

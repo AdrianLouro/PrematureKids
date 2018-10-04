@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './public/home/home.module#HomePageModule' },
   { path: 'login', loadChildren: './public/login/login.module#LoginPageModule' },
-  { path: 'register', loadChildren: './public/register/register.module#RegisterPageModule' },
+  { path: 'register-parent', loadChildren: './public/register-parent/register-parent.module#RegisterParentPageModule' },
+  { path: 'register-doctor', loadChildren: './public/register-doctor/register-doctor.module#RegisterDoctorPageModule' },
   {
     path: 'private/shared',
     canActivate: [AuthGuardService],
@@ -23,7 +24,7 @@ const routes: Routes = [
     path: 'private/parents',
     canActivate: [ParentAuthGuardService],
     loadChildren: './private/parents/parent-routing.module#ParentRoutingModule'
-  }
+  },
 ];
 
 @NgModule({

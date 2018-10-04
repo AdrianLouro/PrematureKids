@@ -73,7 +73,7 @@ export class ChildPage implements OnInit {
           handler: () => {
           }
         }, {
-          text: 'Remove child',
+          text: 'Delete child',
           handler: () => {
             this.location.back();
           }
@@ -82,6 +82,10 @@ export class ChildPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  navigateToCreateAssignment() {
+    this.router.navigate(['private', 'doctors', 'create-assignment']);
   }
 
   navigateToAssignment() {

@@ -41,7 +41,7 @@ export class AppComponent {
 
   navigateWithToken(token: string) {
     this.router.navigate(token === null ? ['home'] :
-      token === 'doctor' ? ['private', 'doctors', 'doctor-dashboard'] :
+      token === 'doctor' ? ['private', 'doctors', 'patients'] :
         ['private', 'parents', 'parent-assignments']);
   }
 
@@ -77,9 +77,14 @@ export class AppComponent {
   setMenuForDoctor() {
     this.appPages = [
       {
-        title: 'Doctor dashboard',
-        url: '/private/doctors/doctor-dashboard',
-        icon: 'home'
+        title: 'My patients',
+        url: '/private/doctors/patients',
+        icon: 'happy'
+      },
+      {
+        title: 'My parents',
+        url: '/private/doctors/parents',
+        icon: 'contacts'
       },
       {
         title: 'My profile',

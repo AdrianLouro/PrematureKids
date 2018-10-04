@@ -3,6 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
+    <ion-buttons *ngIf="!authenticatedAsParent" slot="end">
+      <ion-button style="margin-right: 16px" (click)="removeAssignment()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Exercise</ion-title>
   </ion-toolbar>
 </ion-header>

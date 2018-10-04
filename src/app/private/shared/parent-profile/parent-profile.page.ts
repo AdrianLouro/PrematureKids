@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-parent-profile',
@@ -12,6 +13,7 @@ export class ParentProfilePage implements OnInit {
   authenticatedAsParent = false;
 
   constructor(private toastController: ToastController,
+    private router: Router,
     private authService: AuthenticationService) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
   }
@@ -31,6 +33,10 @@ export class ParentProfilePage implements OnInit {
       closeButtonText: 'OK'
     });
     toast.present();
+  }
+
+  openChat() {
+    this.router.navigate(['private', 'shared', 'chat']);
   }
 
 }

@@ -53,7 +53,7 @@ export class SessionPage implements OnInit {
           handler: () => {
           }
         }, {
-          text: 'Remove session',
+          text: 'Delete session',
           handler: () => {
             this.location.back();
           }

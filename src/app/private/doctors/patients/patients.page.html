@@ -1,12 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-menu-button slot="start"></ion-menu-button>
-    <ion-title>My children</ion-title>
+    <ion-title>My patients</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let child of children" (click)="navigateToChild()">
+  <ion-searchbar placeholder="Patient name" (ionInput)="filterPatients($event)"></ion-searchbar>
+
+  <ion-card *ngFor="let patient of patients" (click)="navigateToPatient()">
     <ion-card-header>
       <ion-card-title>John Doe Jr.</ion-card-title>
     </ion-card-header>
@@ -15,9 +17,4 @@
       <p>Finished exercises: 2</p>
     </ion-card-content>
   </ion-card>
-  <ion-fab *ngIf="authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToCreateChild()">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>

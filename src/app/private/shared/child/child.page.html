@@ -42,6 +42,12 @@
           <p>Lorem ipsum dolor sit amet.</p>
         </ion-card-content>
       </ion-card>
+
+      <ion-fab *ngIf="!authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToCreateAssignment()">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     </div>
 
     <div *ngSwitchCase="'profile'">
