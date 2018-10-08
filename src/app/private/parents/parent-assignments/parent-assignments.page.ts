@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-parent-assignments',
@@ -13,11 +14,13 @@ export class ParentAssignmentsPage implements OnInit {
   finishedAssignments: any[];
   segment = 'all';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private http: HttpService) { }
 
   ngOnInit() {
     this.loadAssignments();
   }
+
   loadAssignments() {
     this.assignments = [true, true, false, false, true];
     this.pendingAssignments = this.assignments.filter(assignment => !assignment);

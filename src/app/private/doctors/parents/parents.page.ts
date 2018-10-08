@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class ParentsPage implements OnInit {
 
   parents: any[];
+  nameFilter: string;
 
   constructor(private router: Router) { }
 
@@ -18,6 +19,11 @@ export class ParentsPage implements OnInit {
 
   loadParents() {
     this.parents = [1, 2, 3, 4, 5];
+  }
+
+  filterParents(event: any) {
+    this.nameFilter = event.target.value;
+    this.parents = Array.from(Array(Math.max(0, 5 - this.nameFilter.length)).keys());
   }
 
   navigateToParent() {
