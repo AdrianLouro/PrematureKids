@@ -53,6 +53,10 @@
         The password does not match
       </p>
     </div>
+    <ion-item>
+      <ion-checkbox no-margin formControlName="acceptTerms"></ion-checkbox>
+      <ion-item href="/terms" routerDirection="forward">I do accept Terms & Conditions</ion-item>
+    </ion-item>
     <ion-button margin-top expand="block" type="submit" [disabled]="!registerParentForm.valid">Register</ion-button>
   </form>
 </ion-content>

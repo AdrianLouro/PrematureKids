@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './public/login/login.module#LoginPageModule' },
   { path: 'register-parent', loadChildren: './public/register-parent/register-parent.module#RegisterParentPageModule' },
   { path: 'register-doctor', loadChildren: './public/register-doctor/register-doctor.module#RegisterDoctorPageModule' },
+  { path: 'terms', loadChildren: './public/terms/terms.module#TermsPageModule' },
   {
     path: 'private/shared',
     canActivate: [AuthGuardService],
