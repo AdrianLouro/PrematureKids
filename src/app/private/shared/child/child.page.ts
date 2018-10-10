@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, Datetime } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-child',
@@ -14,18 +15,51 @@ export class ChildPage implements OnInit {
   authenticatedAsParent = false;
   segment = 'assignments';
   assignments: any[];
+  parents: any[];
+  editChildForm: FormGroup;
 
   constructor(/*private popoverController: PopoverController*/
     private alertController: AlertController,
     private toastController: ToastController,
     private router: Router,
     private location: Location,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private formBuilder: FormBuilder) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
+    this.initEditChildForm();
+    this.makeEditChildFormReadonlyIfNotParent();
+  }
+
+  initEditChildForm() {
+    this.editChildForm = this.formBuilder.group({
+      fullName: ['', Validators.required],
+      gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+    });
+  }
+
+  makeEditChildFormReadonlyIfNotParent() {
+    if (!this.authenticatedAsParent) {
+      this.editChildForm.disable();
+    }
   }
 
   ngOnInit() {
     this.loadAssignments();
+    this.loadChildProfile();
+    this.loadParents();
+  }
+
+  loadParents() {
+    this.parents = [1, 2];
+  }
+
+  loadChildProfile() {
+    this.editChildForm.setValue({
+      fullName: 'John Doe Jr',
+      gender: Math.random() > 0.5 ? 'm' : 'f',
+      dateOfBirth: new Date().toISOString(),
+    });
   }
 
   loadAssignments() {
@@ -90,6 +124,10 @@ export class ChildPage implements OnInit {
 
   navigateToAssignment() {
     this.router.navigate(['private', 'shared', 'assignment']);
+  }
+
+  navigateToAddParent() {
+    this.router.navigate(['private', 'parents', 'add-parent']);
   }
 
 }

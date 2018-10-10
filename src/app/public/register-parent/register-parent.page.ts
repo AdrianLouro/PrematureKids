@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-parent',
@@ -14,8 +13,7 @@ export class RegisterParentPage implements OnInit {
   private passwordsFormGroup: FormGroup;
 
   constructor(private authService: AuthenticationService,
-    private formBuilder: FormBuilder,
-    private router: Router) {
+    private formBuilder: FormBuilder) {
     this.initRegisterParentForm();
   }
 

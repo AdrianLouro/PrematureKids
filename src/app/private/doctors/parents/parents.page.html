@@ -3,11 +3,10 @@
     <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>My parents</ion-title>
   </ion-toolbar>
+  <ion-searchbar placeholder="Parent name" (ionInput)="filterParents($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar placeholder="Parent name" (ionInput)="filterParents($event)"></ion-searchbar>
-
   <ion-list>
     <ion-item *ngFor="let parent of parents" (click)="navigateToParent()">
       <ion-avatar slot="start">
@@ -20,9 +19,4 @@
     </ion-item>
   </ion-list>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addParent()">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>

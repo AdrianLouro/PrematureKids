@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 export class PatientsPage implements OnInit {
 
   patients: any[];
-  nameFilter: string;
 
   constructor(private router: Router) { }
 
@@ -22,12 +21,15 @@ export class PatientsPage implements OnInit {
   }
 
   filterPatients(event: any) {
-    this.nameFilter = event.target.value;
-    this.patients = Array.from(Array(Math.max(0, 5 - this.nameFilter.length)).keys());
+    this.patients = Array.from(Array(Math.max(0, 5 - event.target.value.length)).keys());
   }
 
   navigateToPatient() {
     this.router.navigate(['private', 'shared', 'child']);
+  }
+
+  navigateToAddPatient() {
+    this.router.navigate(['private', 'doctors', 'add-patient']);
   }
 
 }

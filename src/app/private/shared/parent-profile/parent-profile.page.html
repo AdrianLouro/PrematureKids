@@ -3,7 +3,7 @@
     <ion-menu-button slot="start" *ngIf="authenticatedAsParent"></ion-menu-button>
     <ion-back-button slot="start" *ngIf="!authenticatedAsParent"></ion-back-button>
     <ion-buttons slot="end" *ngIf="authenticatedAsParent">
-      <ion-button style="margin-right: 16px" (click)="editProfile()">
+      <ion-button style="margin-right: 16px" (click)="editProfile()" [disabled]="!editParentForm.valid">
         <ion-icon name="save"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -12,6 +12,30 @@
 </ion-header>
 
 <ion-content padding>
+  <form [formGroup]="editParentForm" (ngSubmit)="editParent()">
+    <ion-item>
+      <ion-label position="floating">Full name*</ion-label>
+      <ion-input type="text" formControlName="fullName"></ion-input>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!editParentForm.controls.fullName.pristine && !editParentForm.controls.fullName.valid">
+      The name should not be blank
+    </p>
+    <ion-item>
+      <ion-label position="floating">ID*</ion-label>
+      <ion-input type="text" formControlName="id"></ion-input>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!editParentForm.controls.id.pristine && !editParentForm.controls.id.valid">
+      The ID should not be blank
+    </p>
+    <ion-item>
+      <ion-label position="floating">Telephone*</ion-label>
+      <ion-input type="tel" formControlName="telephone"></ion-input>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!editParentForm.controls.telephone.pristine && !editParentForm.controls.telephone.valid">
+      The telephone should not be blank
+    </p>
+  </form>
+
   <ion-fab *ngIf="!authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed" (click)="openChat()">
     <ion-fab-button>
       <ion-icon name="chatbubbles"></ion-icon>

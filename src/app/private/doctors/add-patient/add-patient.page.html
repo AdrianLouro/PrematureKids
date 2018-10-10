@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Associate new patient</ion-title>
+  </ion-toolbar>
+  <ion-searchbar placeholder="Parent ID" (ionInput)="searchPatients($event)"></ion-searchbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let patient of patients" (click)="addPatient()">
+    <ion-card-header>
+      <ion-card-title>John Doe Jr.</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Lorem ipsum dolor sit amet.</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

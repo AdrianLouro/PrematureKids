@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-contacts',
@@ -9,8 +10,11 @@ import { Router } from '@angular/router';
 export class ContactsPage implements OnInit {
 
   contacts: any[];
+  authenticatedAsParent: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    private authService: AuthenticationService) {
+    this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
   }
 
   ngOnInit() {
@@ -18,7 +22,11 @@ export class ContactsPage implements OnInit {
   }
 
   loadContacts() {
-    this.contacts = [1, 2, 3];
+    this.contacts = [1, 2, 3, 4, 5];
+  }
+
+  filterContacts(event: any) {
+    this.contacts = Array.from(Array(Math.max(0, 5 - event.target.value.length)).keys());
   }
 
   createNewChat() {

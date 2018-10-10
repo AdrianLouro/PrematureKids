@@ -3,7 +3,7 @@
     <ion-menu-button slot="start" *ngIf="authenticatedAsDoctor"></ion-menu-button>
     <ion-back-button slot="start" *ngIf="!authenticatedAsDoctor"></ion-back-button>
     <ion-buttons slot="end" *ngIf="authenticatedAsDoctor">
-      <ion-button style="margin-right: 16px" (click)="editProfile()">
+      <ion-button style="margin-right: 16px" (click)="editProfile()" [disabled]="!editDoctorForm.valid">
         <ion-icon name="save"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -12,6 +12,30 @@
 </ion-header>
 
 <ion-content padding>
+  <form [formGroup]="editDoctorForm" (ngSubmit)="editDoctor()">
+    <ion-item>
+      <ion-label position="floating">Full name*</ion-label>
+      <ion-input type="text" formControlName="fullName"></ion-input>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!editDoctorForm.controls.fullName.pristine && !editDoctorForm.controls.fullName.valid">
+      The name should not be blank
+    </p>
+    <ion-item>
+      <ion-label position="floating">Board number*</ion-label>
+      <ion-input type="text" formControlName="boardNumber"></ion-input>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!editDoctorForm.controls.boardNumber.pristine && !editDoctorForm.controls.boardNumber.valid">
+      The board number should not be blank
+    </p>
+    <ion-item>
+      <ion-label position="floating">Telephone*</ion-label>
+      <ion-input type="tel" formControlName="telephone"></ion-input>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!editDoctorForm.controls.telephone.pristine && !editDoctorForm.controls.telephone.valid">
+      The telephone should not be blank
+    </p>
+  </form>
+
   <ion-fab *ngIf="!authenticatedAsDoctor" vertical="bottom" horizontal="end" slot="fixed" (click)="openChat()">
     <ion-fab-button>
       <ion-icon name="chatbubbles"></ion-icon>

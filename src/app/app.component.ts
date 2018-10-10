@@ -62,14 +62,14 @@ export class AppComponent {
         icon: 'happy'
       },
       {
-        title: 'My profile',
-        url: '/private/shared/parent-profile',
-        icon: 'person'
-      },
-      {
         title: 'My doctors',
         url: '/private/parents/doctors',
         icon: 'contacts'
+      },
+      {
+        title: 'My profile',
+        url: '/private/shared/parent-profile',
+        icon: 'person'
       },
     ];
   }

@@ -9,7 +9,7 @@
         </ion-button>
       </ion-buttons> -->
     <ion-buttons *ngIf="authenticatedAsParent && segment === 'profile'" slot="end">
-      <ion-button style="margin-right: 16px" (click)="editChild()">
+      <ion-button style="margin-right: 16px" (click)="editChild()" [disabled]="!editChildForm.valid">
         <ion-icon name="save"></ion-icon>
       </ion-button>
       <ion-button style="margin-right: 16px" *ngIf="authenticatedAsParent && segment === 'profile'" (click)="
@@ -28,6 +28,9 @@
     </ion-segment-button>
     <ion-segment-button value="profile">
       Profile
+    </ion-segment-button>
+    <ion-segment-button value="parents">
+      Parents
     </ion-segment-button>
   </ion-segment>
 
@@ -51,7 +54,52 @@
     </div>
 
     <div *ngSwitchCase="'profile'">
-      Child profile
+      <form [formGroup]="editChildForm">
+        <ion-item>
+          <ion-label position="floating">Full name*</ion-label>
+          <ion-input type="text" formControlName="fullName"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" *ngIf="!editChildForm.controls.fullName.pristine && !editChildForm.controls.fullName.valid">
+          The name should not be blank
+        </p>
+        <ion-item margin-top>
+          <ion-label>Gender*</ion-label>
+          <ion-select placeholder="Select one" formControlName="gender">
+            <ion-select-option value="m">Male</ion-select-option>
+            <ion-select-option value="f">Female</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <!-- <p ion-text color="danger" *ngIf="!editChildForm.controls.gender.pristine && !editChildForm.controls.gender.valid">
+          The gender should not be blank
+        </p> -->
+        <ion-item>
+          <ion-label position="floating">Date of birth*</ion-label>
+          <ion-datetime display-format="DD/MM/YYYY" formControlName="dateOfBirth"></ion-datetime>
+        </ion-item>
+        <!-- <p ion-text color="danger" *ngIf="!editChildForm.controls.dateOfBirth.pristine && !editChildForm.controls.dateOfBirth.valid">
+          The date of birth should not be blank
+        </p> -->
+      </form>
+    </div>
+
+    <div *ngSwitchCase="'parents'">
+      <ion-list>
+        <ion-item *ngFor="let parent of parents">
+          <ion-avatar slot="start">
+            <img src="resources/icon.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>John Doe</h2>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-fab *ngIf="authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToAddParent()">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     </div>
 
   </div>

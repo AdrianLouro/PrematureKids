@@ -3,11 +3,10 @@
     <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>My patients</ion-title>
   </ion-toolbar>
+  <ion-searchbar placeholder="Patient name" (ionInput)="filterPatients($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar placeholder="Patient name" (ionInput)="filterPatients($event)"></ion-searchbar>
-
   <ion-card *ngFor="let patient of patients" (click)="navigateToPatient()">
     <ion-card-header>
       <ion-card-title>John Doe Jr.</ion-card-title>
@@ -17,4 +16,10 @@
       <p>Finished exercises: 2</p>
     </ion-card-content>
   </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToAddPatient()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
