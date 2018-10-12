@@ -64,4 +64,8 @@ export class AssignmentPage implements OnInit {
     this.router.navigate(['private', 'parents', 'create-session']);
   }
 
+  navigateToOpinion() {
+    this.router.navigate(['private', 'parents', 'opinion']);
+  }
+
 }

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Exercise</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="info">
+      Info
+    </ion-segment-button>
+    <ion-segment-button value="opinions">
+      Opinions
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="segment" padding-vertical>
+
+    <div *ngSwitchCase="'info'">
+      Exercise info
+    </div>
+
+    <div *ngSwitchCase="'opinions'">
+      <ion-card *ngFor="let opinion of opinions">
+        <ion-card-header>
+          <ion-card-title>John Doe</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Lorem ipsum dolor sit amet.</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+  </div>
+</ion-content>

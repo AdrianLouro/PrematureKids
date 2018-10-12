@@ -8,7 +8,7 @@
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Exercise</ion-title>
+    <ion-title>Assignment</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,6 +26,11 @@
 
     <div *ngSwitchCase="'info'">
       Exercise info
+      <ion-item-divider></ion-item-divider>
+      <ion-item (click)="navigateToOpinion()">
+        <ion-text>Write an opinion</ion-text>
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+      </ion-item>
     </div>
 
     <div *ngSwitchCase="'sessions'">

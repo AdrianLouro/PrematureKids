@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Opinion</ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="margin-right: 16px" (click)="saveOpinion()" [disabled]="!opinionForm.valid">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+      <ion-button style="margin-right: 16px" *ngIf="opinion != null" (click)="removeOpinion()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="opinionForm">
+    <ion-textarea style="background-color: gainsboro" formControlName="text" rows="10" placeholder="Enter your opinions about the exercise">
+    </ion-textarea>
+  </form>
+</ion-content>

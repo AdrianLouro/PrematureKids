@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'create-session', loadChildren: './create-session/create-session.module#CreateSessionPageModule' },
   { path: 'doctors', loadChildren: './doctors/doctors.module#DoctorsPageModule' },
   { path: 'add-parent', loadChildren: './add-parent/add-parent.module#AddParentPageModule' },
+  { path: 'opinion', loadChildren: './opinion/opinion.module#OpinionPageModule' },
 ];
 
 @NgModule({

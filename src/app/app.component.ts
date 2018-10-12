@@ -87,10 +87,20 @@ export class AppComponent {
         icon: 'contacts'
       },
       {
+        title: 'My exercises',
+        url: '/private/doctors/doctor-exercises',
+        icon: 'paper'
+      },
+      {
         title: 'My profile',
         url: '/private/shared/doctor-profile',
         icon: 'person'
-      }
+      },
+      {
+        title: 'Exercises',
+        url: '/private/doctors/exercises',
+        icon: 'paper'
+      },
     ];
   }
 
