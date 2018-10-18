@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginPage implements OnInit {
 
   private loginForm: FormGroup;
+  private invalidCredentials = false;
 
-  constructor(private authService: AuthenticationService, private formBuilder: FormBuilder) {
+  constructor(private authService: AuthenticationService,
+    private formBuilder: FormBuilder,
+    private http: HttpService) {
     this.initLoginForm();
   }
 
@@ -20,13 +24,17 @@ export class LoginPage implements OnInit {
 
   initLoginForm() {
     this.loginForm = this.formBuilder.group({
-      email: ['email@email.es', [Validators.email, Validators.required]],
-      password: ['', Validators.required]
+      email: ['p@p', [Validators.email, Validators.required]],
+      password: ['p', Validators.required]
     });
   }
 
   login() {
-    this.authService.loginWithToken(this.loginForm.value['password']);
+    this.http.post('/login', this.loginForm.value).subscribe((res: any) => {
+      this.authService.loginWithToken(res.token);
+    },
+      err => this.invalidCredentials = true
+    );
   }
 
 }

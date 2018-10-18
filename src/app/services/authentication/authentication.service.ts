@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { Platform } from '@ionic/angular';
+import { JwtHelper } from 'angular2-jwt';
 
-const TOKEN_KEY = 'auth-token';
+const TOKEN_KEY = 'jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,13 @@ const TOKEN_KEY = 'auth-token';
 export class AuthenticationService {
 
   authenticationState = new BehaviorSubject(null);
+  jwtHelper: JwtHelper;
 
-  constructor(private storage: Storage, private platform: Platform) {
+  constructor(private storage: Storage,
+    private platform: Platform,
+  ) {
     this.platform.ready().then(() => {
+      this.jwtHelper = new JwtHelper();
       this.checkToken();
     });
   }
@@ -26,9 +31,9 @@ export class AuthenticationService {
     return this.authenticationState.value === role;
   }
 
-  loginWithToken(token: String) {
+  loginWithToken(token: string) {
     return this.storage.set(TOKEN_KEY, token).then(res => {
-      this.authenticationState.next(token);
+      this.authenticationState.next(this.jwtHelper.decodeToken(token).role);
     });
   }
 
@@ -40,7 +45,10 @@ export class AuthenticationService {
 
   checkToken() {
     return this.storage.get(TOKEN_KEY).then(token => {
-        this.authenticationState.next(token);
+      this.authenticationState.next(
+        token == null || this.jwtHelper.isTokenExpired(token) ?
+          null : this.jwtHelper.decodeToken(token).role
+      );
     });
   }
 

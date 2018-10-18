@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { HttpService } from './services/http.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private http: HttpService
   ) {
     this.initializeApp();
   }
@@ -33,15 +35,15 @@ export class AppComponent {
   }
 
   checkAuthenticationState() {
-    this.authService.authenticationState.subscribe(token => {
-      this.setMenuForRole(token);
-      this.navigateWithToken(token);
+    this.authService.authenticationState.subscribe(role => {
+      this.setMenuForRole(role);
+      this.navigateWithRole(role);
     });
   }
 
-  navigateWithToken(token: string) {
-    this.router.navigate(token === null ? ['home'] :
-      token === 'doctor' ? ['private', 'doctors', 'patients'] :
+  navigateWithRole(role: any) {
+    this.router.navigate(role === null ? ['home'] :
+      role === 'doctor' ? ['private', 'doctors', 'patients'] :
         ['private', 'parents', 'parent-assignments']);
   }
 

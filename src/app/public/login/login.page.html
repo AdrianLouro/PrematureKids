@@ -23,6 +23,9 @@
     <p ion-text color="danger" *ngIf="!loginForm.controls.password.pristine && !loginForm.controls.password.valid">
       The password should not be blank
     </p>
+    <p ion-text color="danger" *ngIf="invalidCredentials">
+      The given credentials are not valid
+    </p>
     <ion-button margin-top expand="block" type="submit" [disabled]="!loginForm.valid">Login</ion-button>
   </form>
 </ion-content>
