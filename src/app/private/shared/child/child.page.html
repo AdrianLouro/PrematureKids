@@ -57,9 +57,9 @@
       <form [formGroup]="editChildForm">
         <ion-item>
           <ion-label position="floating">Full name*</ion-label>
-          <ion-input type="text" formControlName="fullName"></ion-input>
+          <ion-input type="text" formControlName="name"></ion-input>
         </ion-item>
-        <p ion-text color="danger" *ngIf="!editChildForm.controls.fullName.pristine && !editChildForm.controls.fullName.valid">
+        <p ion-text color="danger" *ngIf="!editChildForm.controls.name.pristine && !editChildForm.controls.name.valid">
           The name should not be blank
         </p>
         <ion-item margin-top>

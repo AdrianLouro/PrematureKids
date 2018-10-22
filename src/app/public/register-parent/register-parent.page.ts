@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { HttpService } from '../../services/http.service';
+import { ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-register-parent',
@@ -15,6 +17,8 @@ export class RegisterParentPage implements OnInit {
 
   constructor(private authService: AuthenticationService,
     private http: HttpService,
+    private toastController: ToastController,
+    private location: Location,
     private formBuilder: FormBuilder) {
     this.initRegisterParentForm();
   }
@@ -31,7 +35,7 @@ export class RegisterParentPage implements OnInit {
     );
 
     this.registerParentForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
+      name: ['', Validators.required],
       idNumber: ['', Validators.required],
       telephone: ['', Validators.required],
       email: ['', [Validators.email, Validators.required]],
@@ -43,17 +47,28 @@ export class RegisterParentPage implements OnInit {
   registerParent() {
     this.http.post('/parents', {
 
-      'name': this.registerParentForm.value['fullName'],
+      'name': this.registerParentForm.value['name'],
       'idNumber': this.registerParentForm.value['idNumber'],
       'telephone': this.registerParentForm.value['telephone'],
       'email': this.registerParentForm.value['email'],
       'password': this.passwordsFormGroup.value['password']
 
     }).subscribe((res: any) => {
-      console.log("OK: " + res);
+      this.presentToast();
+      this.location.back();
     },
       err => console.log('ERROR: ' + err));
     // this.authService.loginWithToken('parent');
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your account has been created.',
+      cssClass: 'primary',
+      showCloseButton: true,
+      closeButtonText: 'OK'
+    });
+    toast.present();
   }
 
 }

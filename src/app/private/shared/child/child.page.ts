@@ -32,7 +32,7 @@ export class ChildPage implements OnInit {
 
   initEditChildForm() {
     this.editChildForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
+      name: ['', Validators.required],
       gender: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
     });
@@ -56,7 +56,7 @@ export class ChildPage implements OnInit {
 
   loadChildProfile() {
     this.editChildForm.setValue({
-      fullName: 'John Doe Jr',
+      name: 'John Doe Jr',
       gender: Math.random() > 0.5 ? 'm' : 'f',
       dateOfBirth: new Date().toISOString(),
     });

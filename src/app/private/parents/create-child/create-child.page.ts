@@ -18,7 +18,7 @@ export class CreateChildPage implements OnInit {
 
   initCreateChildForm() {
     this.createChildForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
+      name: ['', Validators.required],
       gender: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
     });

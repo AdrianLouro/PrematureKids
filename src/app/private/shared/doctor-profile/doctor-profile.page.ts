@@ -3,6 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -17,6 +18,7 @@ export class DoctorProfilePage implements OnInit {
   constructor(private toastController: ToastController,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
+    private http: HttpService,
     private router: Router) {
     this.authenticatedAsDoctor = this.authService.isAuthenticatedAs('doctor');
     this.initEditDoctorForm();
@@ -25,7 +27,7 @@ export class DoctorProfilePage implements OnInit {
 
   initEditDoctorForm() {
     this.editDoctorForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
+      name: ['', Validators.required],
       boardNumber: ['', Validators.required],
       telephone: ['', Validators.required],
     });
@@ -42,15 +44,21 @@ export class DoctorProfilePage implements OnInit {
   }
 
   loadDoctorProfile() {
-    this.editDoctorForm.setValue({
-      fullName: 'John Doe',
-      boardNumber: '353529748',
-      telephone: '645987412',
-    });
+    this.http.get('/doctors/' + this.authService.getUserId()).subscribe((res: any) => {
+      this.editDoctorForm.setValue({
+        name: res.name,
+        boardNumber: res.boardNumber,
+        telephone: res.telephone,
+      });
+    },
+      err => console.log(err));
   }
 
   editProfile() {
-    this.presentToast();
+    this.http.put('/doctors/' + this.authService.getUserId(), this.editDoctorForm.value).subscribe((res: any) => {
+      this.presentToast();
+    },
+      err => console.log(err));
   }
 
   async presentToast() {

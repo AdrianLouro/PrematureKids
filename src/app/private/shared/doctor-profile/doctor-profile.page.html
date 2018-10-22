@@ -15,9 +15,9 @@
   <form [formGroup]="editDoctorForm" (ngSubmit)="editDoctor()">
     <ion-item>
       <ion-label position="floating">Full name*</ion-label>
-      <ion-input type="text" formControlName="fullName"></ion-input>
+      <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!editDoctorForm.controls.fullName.pristine && !editDoctorForm.controls.fullName.valid">
+    <p ion-text color="danger" *ngIf="!editDoctorForm.controls.name.pristine && !editDoctorForm.controls.name.valid">
       The name should not be blank
     </p>
     <ion-item>

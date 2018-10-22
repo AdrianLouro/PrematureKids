@@ -3,6 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-parent-profile',
@@ -16,6 +17,7 @@ export class ParentProfilePage implements OnInit {
 
   constructor(private toastController: ToastController,
     private router: Router,
+    private http: HttpService,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
@@ -25,8 +27,8 @@ export class ParentProfilePage implements OnInit {
 
   initEditParentForm() {
     this.editParentForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
-      id: ['', Validators.required],
+      name: ['', Validators.required],
+      idNumber: ['', Validators.required],
       telephone: ['', Validators.required],
     });
   }
@@ -42,15 +44,21 @@ export class ParentProfilePage implements OnInit {
   }
 
   loadParentProfile() {
-    this.editParentForm.setValue({
-      fullName: 'John Doe',
-      id: '42895827X',
-      telephone: '636782109',
-    });
+    this.http.get('/parents/' + this.authService.getUserId()).subscribe((res: any) => {
+      this.editParentForm.setValue({
+        name: res.name,
+        idNumber: res.idNumber,
+        telephone: res.telephone,
+      });
+    },
+      err => console.log(err));
   }
 
   editProfile() {
-    this.presentToast();
+    this.http.put('/parents/' + this.authService.getUserId(), this.editParentForm.value).subscribe((res: any) => {
+      this.presentToast();
+    },
+      err => console.log(err));
   }
 
   async presentToast() {

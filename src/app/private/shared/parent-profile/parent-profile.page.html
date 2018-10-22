@@ -15,16 +15,16 @@
   <form [formGroup]="editParentForm" (ngSubmit)="editParent()">
     <ion-item>
       <ion-label position="floating">Full name*</ion-label>
-      <ion-input type="text" formControlName="fullName"></ion-input>
+      <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!editParentForm.controls.fullName.pristine && !editParentForm.controls.fullName.valid">
+    <p ion-text color="danger" *ngIf="!editParentForm.controls.name.pristine && !editParentForm.controls.name.valid">
       The name should not be blank
     </p>
     <ion-item>
       <ion-label position="floating">ID*</ion-label>
-      <ion-input type="text" formControlName="id"></ion-input>
+      <ion-input type="text" formControlName="idNumber"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!editParentForm.controls.id.pristine && !editParentForm.controls.id.valid">
+    <p ion-text color="danger" *ngIf="!editParentForm.controls.idNumber.pristine && !editParentForm.controls.idNumber.valid">
       The ID should not be blank
     </p>
     <ion-item>

@@ -13,6 +13,7 @@ export class AuthenticationService {
 
   authenticationState = new BehaviorSubject(null);
   jwtHelper: JwtHelper;
+  decodedToken: any;
 
   constructor(private storage: Storage,
     private platform: Platform,
@@ -33,23 +34,36 @@ export class AuthenticationService {
 
   loginWithToken(token: string) {
     return this.storage.set(TOKEN_KEY, token).then(res => {
+      this.decodedToken = this.jwtHelper.decodeToken(token);
       this.authenticationState.next(this.jwtHelper.decodeToken(token).role);
     });
   }
 
   logout() {
     return this.storage.remove(TOKEN_KEY).then(() => {
+      this.decodedToken = null;
       this.authenticationState.next(null);
     });
   }
 
   checkToken() {
     return this.storage.get(TOKEN_KEY).then(token => {
+      if (token !== null) {
+        this.decodedToken = this.jwtHelper.decodeToken(token);
+      }
       this.authenticationState.next(
         token == null || this.jwtHelper.isTokenExpired(token) ?
           null : this.jwtHelper.decodeToken(token).role
       );
     });
+  }
+
+  getDecodedToken() {
+    return this.decodedToken;
+  }
+
+  getUserId() {
+    return this.decodedToken.sub;
   }
 
 }
