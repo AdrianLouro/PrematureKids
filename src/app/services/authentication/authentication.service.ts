@@ -63,7 +63,7 @@ export class AuthenticationService {
   }
 
   getUserId() {
-    return this.decodedToken.sub;
+    return this.decodedToken == null ? undefined : this.decodedToken.sub;
   }
 
 }

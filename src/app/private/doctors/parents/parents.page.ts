@@ -25,7 +25,7 @@ export class ParentsPage implements OnInit {
   }
 
   navigateToParent() {
-    this.router.navigate(['private', 'shared', 'parent-profile']);
+    this.router.navigate(['private', 'shared', 'parent-profile', '11111111-1111-1111-1111-111111111111']);
   }
 
 }

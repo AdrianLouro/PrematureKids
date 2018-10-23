@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-card *ngFor="let child of children" (click)="navigateToChild()">
     <ion-card-header>
-      <ion-card-title>John Doe Jr.</ion-card-title>
+      <ion-card-title>{{ child.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p>Pending exercises: 1</p>

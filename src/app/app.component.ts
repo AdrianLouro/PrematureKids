@@ -70,7 +70,7 @@ export class AppComponent {
       },
       {
         title: 'My profile',
-        url: '/private/shared/parent-profile',
+        url: '/private/shared/parent-profile/' + this.authService.getUserId(),
         icon: 'person'
       },
     ];
@@ -95,7 +95,7 @@ export class AppComponent {
       },
       {
         title: 'My profile',
-        url: '/private/shared/doctor-profile',
+        url: '/private/shared/doctor-profile/' + this.authService.getUserId(),
         icon: 'person'
       },
       {

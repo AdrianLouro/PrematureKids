@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
 
@@ -14,12 +14,14 @@ export class ParentProfilePage implements OnInit {
 
   editParentForm: FormGroup;
   authenticatedAsParent = false;
+  parentId: string;
 
   constructor(private toastController: ToastController,
     private router: Router,
     private http: HttpService,
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private route: ActivatedRoute) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
     this.initEditParentForm();
     this.makeEditParentFormReadonlyIfNotParent();
@@ -40,11 +42,14 @@ export class ParentProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    this.loadParentProfile();
+    this.route.params.subscribe(params => {
+      this.parentId = params['id'];
+      this.loadParentProfile();
+    });
   }
 
   loadParentProfile() {
-    this.http.get('/parents/' + this.authService.getUserId()).subscribe((res: any) => {
+    this.http.get('/parents/' + this.parentId).subscribe((res: any) => {
       this.editParentForm.setValue({
         name: res.name,
         idNumber: res.idNumber,

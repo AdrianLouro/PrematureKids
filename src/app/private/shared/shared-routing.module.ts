@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: 'child', loadChildren: './child/child.module#ChildPageModule' },
   { path: 'assignment', loadChildren: './assignment/assignment.module#AssignmentPageModule' },
   { path: 'session', loadChildren: './session/session.module#SessionPageModule' },
-  { path: 'parent-profile', loadChildren: './parent-profile/parent-profile.module#ParentProfilePageModule' },
-  { path: 'doctor-profile', loadChildren: './doctor-profile/doctor-profile.module#DoctorProfilePageModule' },
+  { path: 'parent-profile/:id', loadChildren: './parent-profile/parent-profile.module#ParentProfilePageModule' },
+  { path: 'doctor-profile/:id', loadChildren: './doctor-profile/doctor-profile.module#DoctorProfilePageModule' },
 ];
 
 @NgModule({

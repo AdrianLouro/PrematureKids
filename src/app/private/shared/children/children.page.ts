@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-children',
@@ -14,6 +15,7 @@ export class ChildrenPage implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
+    private http: HttpService,
     private router: Router
   ) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
@@ -24,7 +26,10 @@ export class ChildrenPage implements OnInit {
   }
 
   loadChildren() {
-    this.children = [1, 2];
+    this.http.get('/parents/' + this.authService.getUserId() + '/children').subscribe((res: any) => {
+      this.children = res;
+    },
+      err => console.log(err));
   }
 
   navigateToCreateChild() {

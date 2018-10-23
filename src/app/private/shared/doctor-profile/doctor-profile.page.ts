@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
 
@@ -14,12 +14,14 @@ export class DoctorProfilePage implements OnInit {
 
   editDoctorForm: FormGroup;
   authenticatedAsDoctor = false;
+  doctorId: string;
 
   constructor(private toastController: ToastController,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private http: HttpService,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute) {
     this.authenticatedAsDoctor = this.authService.isAuthenticatedAs('doctor');
     this.initEditDoctorForm();
     this.makeEditDoctorFormReadonlyIfNotDoctor();
@@ -40,11 +42,14 @@ export class DoctorProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    this.loadDoctorProfile();
+    this.route.params.subscribe(params => {
+      this.doctorId = params['id'];
+      this.loadDoctorProfile();
+    });
   }
 
   loadDoctorProfile() {
-    this.http.get('/doctors/' + this.authService.getUserId()).subscribe((res: any) => {
+    this.http.get('/doctors/' + this.doctorId).subscribe((res: any) => {
       this.editDoctorForm.setValue({
         name: res.name,
         boardNumber: res.boardNumber,
@@ -55,7 +60,7 @@ export class DoctorProfilePage implements OnInit {
   }
 
   editProfile() {
-    this.http.put('/doctors/' + this.authService.getUserId(), this.editDoctorForm.value).subscribe((res: any) => {
+    this.http.put('/doctors/' + this.doctorId, this.editDoctorForm.value).subscribe((res: any) => {
       this.presentToast();
     },
       err => console.log(err));

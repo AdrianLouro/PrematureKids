@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from '../../../services/http.service';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-doctors',
@@ -10,18 +12,23 @@ export class DoctorsPage implements OnInit {
 
   doctors: any[];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private authService: AuthenticationService,
+    private http: HttpService) { }
 
   ngOnInit() {
     this.loadDoctors();
   }
 
   loadDoctors(): any {
-    this.doctors = [1, 2];
+    this.http.get('/parents/' + this.authService.getUserId() + '/doctors').subscribe((res: any) => {
+      this.doctors = res;
+    },
+      err => console.log(err));
   }
 
-  navigateToDoctor() {
-    this.router.navigate(['private', 'shared', 'doctor-profile']);
+  navigateToDoctor(id: any) {
+    this.router.navigate(['private', 'shared', 'doctor-profile', id]);
   }
 
 }

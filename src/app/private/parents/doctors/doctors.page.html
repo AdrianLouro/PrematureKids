@@ -6,9 +6,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let doctor of doctors" (click)="navigateToDoctor()">
+  <ion-card *ngFor="let doctor of doctors" (click)="navigateToDoctor(doctor.id)">
     <ion-card-header>
-      <ion-card-title>John Doe</ion-card-title>
+      <ion-card-title>{{ doctor.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p>Lorem ipsum dolor sit amet.</p>
