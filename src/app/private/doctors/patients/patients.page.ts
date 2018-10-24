@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from '../../../services/http.service';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-patients',
@@ -10,22 +12,27 @@ export class PatientsPage implements OnInit {
 
   patients: any[];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private http: HttpService,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadPatients();
   }
 
   loadPatients() {
-    this.patients = [1, 2, 3, 4, 5];
+    this.http.get('/doctors/' + this.authService.getUserId() + '/patients').subscribe((res: any) => {
+      this.patients = res;
+    },
+      err => console.log(err)
+    );
   }
 
-  filterPatients(event: any) {
-    this.patients = Array.from(Array(Math.max(0, 5 - event.target.value.length)).keys());
-  }
-
-  navigateToPatient() {
-    this.router.navigate(['private', 'shared', 'child']);
+  navigateToPatient(id: any) {
+    this.router.navigate(['private', 'shared', 'child', id]);
   }
 
   navigateToAddPatient() {

@@ -18,6 +18,9 @@ export class ContactsPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadContacts();
   }
 

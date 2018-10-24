@@ -3,13 +3,13 @@
     <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>My patients</ion-title>
   </ion-toolbar>
-  <ion-searchbar placeholder="Patient name" (ionInput)="filterPatients($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="nameFilter" placeholder="Patient name"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let patient of patients" (click)="navigateToPatient()">
+  <ion-card *ngFor="let patient of patients | search : nameFilter" (click)="navigateToPatient(patient.id)">
     <ion-card-header>
-      <ion-card-title>John Doe Jr.</ion-card-title>
+      <ion-card-title>{{ patient.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p>Pending exercises: 1</p>

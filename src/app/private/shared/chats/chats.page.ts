@@ -18,6 +18,9 @@ export class ChatsPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadChats();
   }
 

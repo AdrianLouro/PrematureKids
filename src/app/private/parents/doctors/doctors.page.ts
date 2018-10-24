@@ -17,6 +17,9 @@ export class DoctorsPage implements OnInit {
     private http: HttpService) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadDoctors();
   }
 
@@ -24,7 +27,8 @@ export class DoctorsPage implements OnInit {
     this.http.get('/parents/' + this.authService.getUserId() + '/doctors').subscribe((res: any) => {
       this.doctors = res;
     },
-      err => console.log(err));
+      err => console.log(err)
+    );
   }
 
   navigateToDoctor(id: any) {

@@ -14,6 +14,9 @@ export class DoctorExercisesPage implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadExercises();
     this.loadCategories();
   }

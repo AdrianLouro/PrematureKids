@@ -18,6 +18,9 @@ export class ParentAssignmentsPage implements OnInit {
     private http: HttpService) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadAssignments();
   }
 

@@ -22,6 +22,9 @@ export class ChildrenPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadChildren();
   }
 
@@ -29,15 +32,16 @@ export class ChildrenPage implements OnInit {
     this.http.get('/parents/' + this.authService.getUserId() + '/children').subscribe((res: any) => {
       this.children = res;
     },
-      err => console.log(err));
+      err => console.log(err)
+    );
   }
 
   navigateToCreateChild() {
     this.router.navigate(['private', 'parents', 'create-child']);
   }
 
-  navigateToChild() {
-    this.router.navigate(['private', 'shared', 'child']);
+  navigateToChild(id: any) {
+    this.router.navigate(['private', 'shared', 'child', id]);
   }
 
 }

@@ -42,6 +42,9 @@ export class ParentProfilePage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.route.params.subscribe(params => {
       this.parentId = params['id'];
       this.loadParentProfile();
@@ -63,7 +66,8 @@ export class ParentProfilePage implements OnInit {
     this.http.put('/parents/' + this.authService.getUserId(), this.editParentForm.value).subscribe((res: any) => {
       this.presentToast();
     },
-      err => console.log(err));
+      err => console.log(err)
+    );
   }
 
   async presentToast() {

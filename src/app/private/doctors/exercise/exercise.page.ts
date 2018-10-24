@@ -13,6 +13,9 @@ export class ExercisePage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadOpinions();
   }
 

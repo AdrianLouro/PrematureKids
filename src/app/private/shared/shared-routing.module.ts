@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
   { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsPageModule' },
   { path: 'children', loadChildren: './children/children.module#ChildrenPageModule' },
-  { path: 'child', loadChildren: './child/child.module#ChildPageModule' },
+  { path: 'child/:id', loadChildren: './child/child.module#ChildPageModule' },
   { path: 'assignment', loadChildren: './assignment/assignment.module#AssignmentPageModule' },
   { path: 'session', loadChildren: './session/session.module#SessionPageModule' },
   { path: 'parent-profile/:id', loadChildren: './parent-profile/parent-profile.module#ParentProfilePageModule' },

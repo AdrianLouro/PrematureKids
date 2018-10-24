@@ -23,6 +23,9 @@ export class AssignmentPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadSessions();
   }
 

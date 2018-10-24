@@ -44,10 +44,9 @@ export class HttpService {
     return this.http.put(this.apiUrl + endpoint, data, this.httpOptions);
   }
 
-  delete(endpoint, data) {
+  delete(endpoint) {
     this.refreshHeaders();
     return this.http.delete(this.apiUrl + endpoint, this.httpOptions);
   }
-
 
 }

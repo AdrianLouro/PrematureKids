@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController, Datetime } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-child',
@@ -17,12 +18,15 @@ export class ChildPage implements OnInit {
   assignments: any[];
   parents: any[];
   editChildForm: FormGroup;
+  childId: string;
 
   constructor(/*private popoverController: PopoverController*/
     private alertController: AlertController,
     private toastController: ToastController,
     private router: Router,
     private location: Location,
+    private http: HttpService,
+    private route: ActivatedRoute,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
@@ -45,21 +49,34 @@ export class ChildPage implements OnInit {
   }
 
   ngOnInit() {
-    this.loadAssignments();
-    this.loadChildProfile();
-    this.loadParents();
+  }
+
+  ionViewWillEnter() {
+    this.route.params.subscribe(params => {
+      this.childId = params['id'];
+      this.loadAssignments();
+      this.loadChildProfile();
+      this.loadParents();
+    });
   }
 
   loadParents() {
-    this.parents = [1, 2];
+    this.http.get('/children/' + this.childId + '/parents').subscribe((res: any) => {
+      this.parents = res;
+    },
+      err => console.log(err)
+    );
   }
 
   loadChildProfile() {
-    this.editChildForm.setValue({
-      name: 'John Doe Jr',
-      gender: Math.random() > 0.5 ? 'm' : 'f',
-      dateOfBirth: new Date().toISOString(),
-    });
+    this.http.get('/children/' + this.childId).subscribe((res: any) => {
+      this.editChildForm.setValue({
+        name: res.name,
+        gender: res.gender,
+        dateOfBirth: new Date(res.dateOfBirth).toISOString(),
+      });
+    },
+      err => console.log(err));
   }
 
   loadAssignments() {
@@ -78,7 +95,27 @@ export class ChildPage implements OnInit {
   // }
 
   editChild() {
-    this.presentToast();
+    this.http.put('/children/' + this.childId, {
+      name: this.editChildForm.value['name'],
+      dateOfBirth: !this.dateIsValid() ? new Date(
+        this.editChildForm.value['dateOfBirth'].year.value,
+        this.editChildForm.value['dateOfBirth'].month.value,
+        this.editChildForm.value['dateOfBirth'].day.value,
+        0,
+        0,
+        0,
+        0
+      ) : new Date(this.editChildForm.value['dateOfBirth']),
+      gender: this.editChildForm.value['gender']
+    }).subscribe((res: any) => {
+      this.presentToast();
+    },
+      err => console.log(err)
+    );
+  }
+
+  dateIsValid(): boolean {
+    return !isNaN(new Date(this.editChildForm.value['dateOfBirth']).getTime());
   }
 
   async presentToast() {
@@ -109,7 +146,11 @@ export class ChildPage implements OnInit {
         }, {
           text: 'Delete child',
           handler: () => {
-            this.location.back();
+            this.http.delete('/children/' + this.childId).subscribe((res: any) => {
+              this.location.back();
+            },
+              err => console.log(err)
+            );
           }
         }
       ]

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from '../../../services/http.service';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-parents',
@@ -10,22 +12,31 @@ export class ParentsPage implements OnInit {
 
   parents: any[];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private authService: AuthenticationService,
+    private http: HttpService) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.loadParents();
   }
 
   loadParents() {
-    this.parents = [1, 2, 3, 4, 5];
+    this.http.get('/doctors/' + this.authService.getUserId() + '/parents').subscribe((res: any) => {
+      this.parents = res;
+    },
+      err => console.log(err)
+    );
   }
 
   filterParents(event: any) {
     this.parents = Array.from(Array(Math.max(0, 5 - event.target.value.length)).keys());
   }
 
-  navigateToParent() {
-    this.router.navigate(['private', 'shared', 'parent-profile', '11111111-1111-1111-1111-111111111111']);
+  navigateToParent(id: any) {
+    this.router.navigate(['private', 'shared', 'parent-profile', id]);
   }
 
 }

@@ -42,6 +42,9 @@ export class DoctorProfilePage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.route.params.subscribe(params => {
       this.doctorId = params['id'];
       this.loadDoctorProfile();
@@ -63,7 +66,8 @@ export class DoctorProfilePage implements OnInit {
     this.http.put('/doctors/' + this.doctorId, this.editDoctorForm.value).subscribe((res: any) => {
       this.presentToast();
     },
-      err => console.log(err));
+      err => console.log(err)
+    );
   }
 
   async presentToast() {
