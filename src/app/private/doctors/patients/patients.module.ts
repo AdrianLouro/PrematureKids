@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { PatientsPage } from './patients.page';
 import { SearchPipe } from '../../../pipes/search.pipe';
+import { SharedModule } from '../../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    SharedModule
   ],
-  declarations: [PatientsPage, SearchPipe]
+  declarations: [PatientsPage]
 })
 export class PatientsPageModule {}

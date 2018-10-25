@@ -31,10 +31,6 @@ export class ParentsPage implements OnInit {
     );
   }
 
-  filterParents(event: any) {
-    this.parents = Array.from(Array(Math.max(0, 5 - event.target.value.length)).keys());
-  }
-
   navigateToParent(id: any) {
     this.router.navigate(['private', 'shared', 'parent-profile', id]);
   }

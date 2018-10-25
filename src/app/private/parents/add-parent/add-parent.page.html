@@ -11,7 +11,7 @@
 <ion-content padding>
   <ion-card *ngIf="parent != null" (click)="addParent()">
     <ion-card-header>
-      <ion-card-title>John Doe</ion-card-title>
+      <ion-card-title>{{ parent.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p>Lorem ipsum dolor sit amet.</p>

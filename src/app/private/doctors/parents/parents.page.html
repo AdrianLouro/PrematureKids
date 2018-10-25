@@ -3,12 +3,12 @@
     <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>My parents</ion-title>
   </ion-toolbar>
-  <ion-searchbar placeholder="Parent name" (ionInput)="filterParents($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="nameFilter" placeholder="Parent name"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let parent of parents" (click)="navigateToParent(parent.id)">
+    <ion-item *ngFor="let parent of parents | search : nameFilter" (click)="navigateToParent(parent.id)">
       <ion-avatar slot="start">
         <img src="resources/icon.png">
       </ion-avatar>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AlertController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-add-parent',
@@ -10,15 +12,30 @@ import { AlertController } from '@ionic/angular';
 export class AddParentPage implements OnInit {
 
   parent: any;
+  childId: any;
 
   constructor(private location: Location,
+    private route: ActivatedRoute,
+    private http: HttpService,
     private alertController: AlertController) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.childId = params['childId'];
+    });
   }
 
   searchParent(event: any) {
-    this.parent = event.target.value.length === 9 ? 1 : undefined;
+    if (event.target.value.length !== 9) {
+      this.parent = undefined;
+      return;
+    }
+
+    this.http.get('/parents?idNumber=' + event.target.value).subscribe((res: any) => {
+      this.parent = res[0];
+    },
+      err => console.log(err)
+    );
   }
 
   addParent() {
@@ -39,7 +56,11 @@ export class AddParentPage implements OnInit {
         }, {
           text: 'Associate parent',
           handler: () => {
-            this.location.back();
+            this.http.post('/children/' + this.childId + '/parents/' + this.parent.id, {}).subscribe((res: any) => {
+              this.location.back();
+            },
+              err => console.log(err)
+            );
           }
         }
       ]

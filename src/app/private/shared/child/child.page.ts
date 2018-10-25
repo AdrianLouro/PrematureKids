@@ -168,7 +168,7 @@ export class ChildPage implements OnInit {
   }
 
   navigateToAddParent() {
-    this.router.navigate(['private', 'parents', 'add-parent']);
+    this.router.navigate(['private', 'parents', 'add-parent', { childId: this.childId }]);
   }
 
 }
