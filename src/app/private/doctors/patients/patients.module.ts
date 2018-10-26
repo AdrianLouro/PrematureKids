@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { PatientsPage } from './patients.page';
-import { SearchPipe } from '../../../pipes/search.pipe';
 import { SharedModule } from '../../../shared/shared.module';
 
 const routes: Routes = [

@@ -36,10 +36,6 @@ export class ChildrenPage implements OnInit {
     );
   }
 
-  navigateToCreateChild() {
-    this.router.navigate(['private', 'parents', 'create-child']);
-  }
-
   navigateToChild(id: any) {
     this.router.navigate(['private', 'shared', 'child', id]);
   }

@@ -31,19 +31,20 @@ export class ChildPage implements OnInit {
     private formBuilder: FormBuilder) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
     this.initEditChildForm();
-    this.makeEditChildFormReadonlyIfNotParent();
+    this.makeEditChildFormReadonlyIfNotDoctor();
   }
 
   initEditChildForm() {
     this.editChildForm = this.formBuilder.group({
+      medicalHistoryId: ['', Validators.required],
       name: ['', Validators.required],
       gender: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
     });
   }
 
-  makeEditChildFormReadonlyIfNotParent() {
-    if (!this.authenticatedAsParent) {
+  makeEditChildFormReadonlyIfNotDoctor() {
+    if (this.authenticatedAsParent) {
       this.editChildForm.disable();
     }
   }
@@ -71,6 +72,7 @@ export class ChildPage implements OnInit {
   loadChildProfile() {
     this.http.get('/children/' + this.childId).subscribe((res: any) => {
       this.editChildForm.setValue({
+        medicalHistoryId: res.medicalHistoryId,
         name: res.name,
         gender: res.gender,
         dateOfBirth: new Date(res.dateOfBirth).toISOString(),
@@ -96,6 +98,7 @@ export class ChildPage implements OnInit {
 
   editChild() {
     this.http.put('/children/' + this.childId, {
+      medicalHistoryId: this.editChildForm.value['medicalHistoryId'],
       name: this.editChildForm.value['name'],
       dateOfBirth: !this.dateIsValid() ? new Date(
         this.editChildForm.value['dateOfBirth'].year.value,
@@ -120,7 +123,7 @@ export class ChildPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your child has been edited.',
+      message: 'The patient has been edited.',
       cssClass: 'primary',
       showCloseButton: true,
       closeButtonText: 'OK'
@@ -134,7 +137,7 @@ export class ChildPage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete your child?',
+      header: 'Are you sure you want to delete the patient?',
       message: 'It will be permanently deleted!',
       buttons: [
         {
@@ -144,10 +147,37 @@ export class ChildPage implements OnInit {
           handler: () => {
           }
         }, {
-          text: 'Delete child',
+          text: 'Delete patient',
           handler: () => {
             this.http.delete('/children/' + this.childId).subscribe((res: any) => {
               this.location.back();
+            },
+              err => console.log(err)
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async deleteParent(parentId: any) {
+    const alert = await this.alertController.create({
+      header: 'Are you sure you want to dissociate the parent from the patient?',
+      message: 'The parent will not be able to see the child!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+          }
+        }, {
+          text: 'Dissociate',
+          handler: () => {
+            this.http.delete('/children/' + this.childId + '/parents/' + parentId).subscribe((res: any) => {
+              this.parents = this.parents.filter(parent => parent.id !== parentId);
             },
               err => console.log(err)
             );
@@ -168,7 +198,7 @@ export class ChildPage implements OnInit {
   }
 
   navigateToAddParent() {
-    this.router.navigate(['private', 'parents', 'add-parent', { childId: this.childId }]);
+    this.router.navigate(['private', 'doctors', 'add-parent', { childId: this.childId }]);
   }
 
 }

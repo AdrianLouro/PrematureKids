@@ -57,8 +57,8 @@ export class RegisterParentPage implements OnInit {
       this.presentToast();
       this.location.back();
     },
-      err => console.log('ERROR: ' + err));
-    // this.authService.loginWithToken('parent');
+      err => console.log('ERROR: ' + err)
+    );
   }
 
   async presentToast() {

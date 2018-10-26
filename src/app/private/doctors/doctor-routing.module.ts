@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'doctor-exercises', loadChildren: './doctor-exercises/doctor-exercises.module#DoctorExercisesPageModule' },
   { path: 'exercise', loadChildren: './exercise/exercise.module#ExercisePageModule' },
   { path: 'exercises', loadChildren: './exercises/exercises.module#ExercisesPageModule' },
+  { path: 'add-parent', loadChildren: './add-parent/add-parent.module#AddParentPageModule' },
 ];
 
 @NgModule({

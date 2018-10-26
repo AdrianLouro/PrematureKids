@@ -27,7 +27,7 @@
     <div *ngSwitchCase="'info'">
       Exercise info
       <ion-item-divider></ion-item-divider>
-      <ion-item (click)="navigateToOpinion()">
+      <ion-item *ngIf="authenticatedAsParent" (click)="navigateToOpinion()">
         <ion-text>Write an opinion</ion-text>
         <ion-icon name="arrow-forward" slot="end"></ion-icon>
       </ion-item>

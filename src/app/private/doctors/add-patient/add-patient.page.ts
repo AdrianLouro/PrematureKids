@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { AlertController } from '@ionic/angular';
 import { HttpService } from '../../../services/http.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-patient',
@@ -11,46 +12,101 @@ import { AuthenticationService } from '../../../services/authentication/authenti
 })
 export class AddPatientPage implements OnInit {
 
-  patients: any[];
+  addPatientForm: FormGroup;
+  patientDataFormGroup: FormGroup;
+  patient: any;
 
   constructor(private location: Location,
     private http: HttpService,
+    private formBuilder: FormBuilder,
     private authService: AuthenticationService,
-    private alertController: AlertController) { }
+    private alertController: AlertController) {
+    this.initAddPatientForm();
+  }
+
+  initAddPatientForm() {
+    this.patientDataFormGroup = this.formBuilder.group({
+      name: ['', Validators.required],
+      gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+    });
+
+    this.addPatientForm = this.formBuilder.group({
+      medicalHistoryId: ['', Validators.required],
+      patientDataFormGroup: this.patientDataFormGroup
+    });
+  }
 
   ngOnInit() {
   }
 
-  searchParent(event: any) {
+  searchPatient(event: any) {
     if (event.target.value.length !== 9) {
-      this.patients = undefined;
+      if (this.patient != null) { this.patientDataFormGroup.reset(); }
+      this.patient = undefined;
       return;
     }
 
-    this.http.get('/parents?idNumber=' + event.target.value).subscribe((res: any) => {
+    this.http.get('/children?medicalHistoryId=' + event.target.value).subscribe((res: any) => {
       if (res.length > 0) {
-        this.searchPatientsOfParent(res[0]);
+        this.setPatient(res[0]);
+      } else {
+        this.patient = undefined;
       }
     },
       err => console.log(err)
     );
   }
 
-  searchPatientsOfParent(parent: any) {
-    this.http.get('/parents/' + parent.id + '/children').subscribe((res: any) => {
-      this.patients = res;
+  setPatient(patient: any) {
+    this.patient = patient;
+
+    this.addPatientForm.setValue({
+      medicalHistoryId: patient.medicalHistoryId,
+      patientDataFormGroup:
+      {
+        name: patient.name,
+        gender: patient.gender,
+        dateOfBirth: new Date(patient.dateOfBirth).toISOString(),
+      }
+    });
+
+    // this.patientDataFormGroup.setValue({
+    //   name: patient.name,
+    //   gender: patient.gender,
+    //   dateOfBirth: new Date(patient.dateOfBirth).toISOString(),
+    // });
+  }
+
+  addPatient() {
+    this.patient != null ? this.associatePatient() : this.createChild();
+  }
+
+  createChild() {
+    this.http.post('/children', {
+      medicalHistoryId: this.addPatientForm.value['medicalHistoryId'],
+      name: this.patientDataFormGroup.value['name'],
+      gender: this.patientDataFormGroup.value['gender'],
+      dateOfBirth: new Date(
+        this.patientDataFormGroup.value['dateOfBirth'].year.value,
+        this.patientDataFormGroup.value['dateOfBirth'].month.value,
+        this.patientDataFormGroup.value['dateOfBirth'].day.value,
+        0,
+        0,
+        0,
+        0
+      ),
+      doctorId: this.authService.getUserId()
+    }).subscribe((res: any) => {
+      this.location.back();
     },
       err => console.log(err)
     );
   }
 
-  addPatient(patientId: any) {
-    this.presentConfirmationAlert(patientId);
-  }
-
-  async presentConfirmationAlert(patientId: any) {
+  async associatePatient() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to associate this patient?',
+      header: 'Are you sure you want to associate this existent patient?',
       // message: 'It will be permanently deleted!',
       buttons: [
         {
@@ -62,7 +118,7 @@ export class AddPatientPage implements OnInit {
         }, {
           text: 'Associate patient',
           handler: () => {
-            this.http.post('/doctors/' + this.authService.getUserId() + '/patients/' + patientId, {}).subscribe((res: any) => {
+            this.http.post('/doctors/' + this.authService.getUserId() + '/patients/' + this.patient.id, {}).subscribe((res: any) => {
               this.location.back();
             },
               err => console.log(err)
