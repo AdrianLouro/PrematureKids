@@ -24,7 +24,6 @@ export class DoctorProfilePage implements OnInit {
     private route: ActivatedRoute) {
     this.authenticatedAsDoctor = this.authService.isAuthenticatedAs('doctor');
     this.initEditDoctorForm();
-    this.makeEditDoctorFormReadonlyIfNotDoctor();
   }
 
   initEditDoctorForm() {
@@ -33,12 +32,6 @@ export class DoctorProfilePage implements OnInit {
       boardNumber: ['', Validators.required],
       telephone: ['', Validators.required],
     });
-  }
-
-  makeEditDoctorFormReadonlyIfNotDoctor() {
-    if (!this.authenticatedAsDoctor) {
-      this.editDoctorForm.disable();
-    }
   }
 
   ngOnInit() {

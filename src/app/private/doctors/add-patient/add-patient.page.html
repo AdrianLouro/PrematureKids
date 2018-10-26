@@ -46,6 +46,20 @@
       <!-- <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.dateOfBirth.pristine && !patientDataFormGroup.controls.dateOfBirth.valid">
           The date of birth should not be blank
         </p> -->
+      <ion-item>
+        <ion-label position="floating">Weeks of pregnancy*</ion-label>
+        <ion-input type="number" formControlName="weeksOfPregnancy" [readonly]="authenticatedAsParent"></ion-input>
+      </ion-item>
+      <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.weeksOfPregnancy.pristine && !patientDataFormGroup.controls.weeksOfPregnancy.valid">
+        The weeks of pregnancy should not be blank
+      </p>
+      <ion-item margin-top>
+          <ion-textarea formControlName="medicalHistory" *ngIf="!authenticatedAsParent" style="background-color:gainsboro"
+            rows="10" placeholder="Enter relevant information about the patient"></ion-textarea>
+        </ion-item>
+      <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.medicalHistory.pristine && !patientDataFormGroup.controls.medicalHistory.valid">
+        The medical history should not be blank
+      </p>
     </div>
   </form>
 </ion-content>

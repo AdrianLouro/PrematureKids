@@ -24,7 +24,6 @@ export class ParentProfilePage implements OnInit {
     private route: ActivatedRoute) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
     this.initEditParentForm();
-    this.makeEditParentFormReadonlyIfNotParent();
   }
 
   initEditParentForm() {
@@ -33,12 +32,6 @@ export class ParentProfilePage implements OnInit {
       idNumber: ['', Validators.required],
       telephone: ['', Validators.required],
     });
-  }
-
-  makeEditParentFormReadonlyIfNotParent() {
-    if (!this.authenticatedAsParent) {
-      this.editParentForm.disable();
-    }
   }
 
   ngOnInit() {

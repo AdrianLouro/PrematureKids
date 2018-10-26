@@ -31,7 +31,6 @@ export class ChildPage implements OnInit {
     private formBuilder: FormBuilder) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
     this.initEditChildForm();
-    this.makeEditChildFormReadonlyIfNotDoctor();
   }
 
   initEditChildForm() {
@@ -40,13 +39,9 @@ export class ChildPage implements OnInit {
       name: ['', Validators.required],
       gender: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
+      weeksOfPregnancy: ['', Validators.required],
+      medicalHistory: ['', Validators.required]
     });
-  }
-
-  makeEditChildFormReadonlyIfNotDoctor() {
-    if (this.authenticatedAsParent) {
-      this.editChildForm.disable();
-    }
   }
 
   ngOnInit() {
@@ -76,6 +71,8 @@ export class ChildPage implements OnInit {
         name: res.name,
         gender: res.gender,
         dateOfBirth: new Date(res.dateOfBirth).toISOString(),
+        weeksOfPregnancy: res.weeksOfPregnancy,
+        medicalHistory: res.medicalHistory,
       });
     },
       err => console.log(err));
@@ -100,6 +97,7 @@ export class ChildPage implements OnInit {
     this.http.put('/children/' + this.childId, {
       medicalHistoryId: this.editChildForm.value['medicalHistoryId'],
       name: this.editChildForm.value['name'],
+      gender: this.editChildForm.value['gender'],
       dateOfBirth: !this.dateIsValid() ? new Date(
         this.editChildForm.value['dateOfBirth'].year.value,
         this.editChildForm.value['dateOfBirth'].month.value,
@@ -109,7 +107,8 @@ export class ChildPage implements OnInit {
         0,
         0
       ) : new Date(this.editChildForm.value['dateOfBirth']),
-      gender: this.editChildForm.value['gender']
+      weeksOfPregnancy: this.editChildForm.value['weeksOfPregnancy'],
+      medicalHistory: this.editChildForm.value['medicalHistory'],
     }).subscribe((res: any) => {
       this.presentToast();
     },

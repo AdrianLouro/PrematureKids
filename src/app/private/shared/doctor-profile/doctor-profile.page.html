@@ -15,21 +15,21 @@
   <form [formGroup]="editDoctorForm" (ngSubmit)="editDoctor()">
     <ion-item>
       <ion-label position="floating">Full name*</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
+      <ion-input type="text" formControlName="name" [readonly]="!authenticatedAsDoctor"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!editDoctorForm.controls.name.pristine && !editDoctorForm.controls.name.valid">
       The name should not be blank
     </p>
     <ion-item>
       <ion-label position="floating">Board number*</ion-label>
-      <ion-input type="text" formControlName="boardNumber"></ion-input>
+      <ion-input type="text" formControlName="boardNumber" [readonly]="!authenticatedAsDoctor"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!editDoctorForm.controls.boardNumber.pristine && !editDoctorForm.controls.boardNumber.valid">
       The board number should not be blank
     </p>
     <ion-item>
       <ion-label position="floating">Telephone*</ion-label>
-      <ion-input type="tel" formControlName="telephone"></ion-input>
+      <ion-input type="tel" formControlName="telephone" [readonly]="!authenticatedAsDoctor"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!editDoctorForm.controls.telephone.pristine && !editDoctorForm.controls.telephone.valid">
       The telephone should not be blank

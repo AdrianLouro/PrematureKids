@@ -29,6 +29,8 @@ export class AddPatientPage implements OnInit {
       name: ['', Validators.required],
       gender: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
+      weeksOfPregnancy: ['', Validators.required],
+      medicalHistory: ['', Validators.required]
     });
 
     this.addPatientForm = this.formBuilder.group({
@@ -68,14 +70,10 @@ export class AddPatientPage implements OnInit {
         name: patient.name,
         gender: patient.gender,
         dateOfBirth: new Date(patient.dateOfBirth).toISOString(),
+        weeksOfPregnancy: patient.weeksOfPregnancy,
+        medicalHistory: patient.medicalHistory
       }
     });
-
-    // this.patientDataFormGroup.setValue({
-    //   name: patient.name,
-    //   gender: patient.gender,
-    //   dateOfBirth: new Date(patient.dateOfBirth).toISOString(),
-    // });
   }
 
   addPatient() {
@@ -96,6 +94,8 @@ export class AddPatientPage implements OnInit {
         0,
         0
       ),
+      weeksOfPregnancy: this.patientDataFormGroup.value['weeksOfPregnancy'],
+      medicalHistory: this.patientDataFormGroup.value['medicalHistory'],
       doctorId: this.authService.getUserId()
     }).subscribe((res: any) => {
       this.location.back();

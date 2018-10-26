@@ -57,21 +57,21 @@
       <form [formGroup]="editChildForm">
         <ion-item>
           <ion-label position="floating">Full name*</ion-label>
-          <ion-input type="text" formControlName="name"></ion-input>
+          <ion-input type="text" formControlName="name" [readonly]="authenticatedAsParent"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="!editChildForm.controls.name.pristine && !editChildForm.controls.name.valid">
           The name should not be blank
         </p>
         <ion-item>
           <ion-label position="floating">Medical history ID*</ion-label>
-          <ion-input type="text" formControlName="medicalHistoryId"></ion-input>
+          <ion-input type="text" formControlName="medicalHistoryId" [readonly]="authenticatedAsParent"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="!editChildForm.controls.medicalHistoryId.pristine && !editChildForm.controls.medicalHistoryId.valid">
           The medical history ID should not be blank
         </p>
         <ion-item margin-top>
           <ion-label>Gender*</ion-label>
-          <ion-select placeholder="Select one" formControlName="gender">
+          <ion-select placeholder="Select one" formControlName="gender" [disabled]="authenticatedAsParent">
             <ion-select-option value="M">Male</ion-select-option>
             <ion-select-option value="F">Female</ion-select-option>
           </ion-select>
@@ -81,11 +81,25 @@
         </p> -->
         <ion-item>
           <ion-label position="floating">Date of birth*</ion-label>
-          <ion-datetime display-format="DD/MM/YYYY" formControlName="dateOfBirth"></ion-datetime>
+          <ion-datetime display-format="DD/MM/YYYY" formControlName="dateOfBirth" [disabled]="authenticatedAsParent"></ion-datetime>
         </ion-item>
         <!-- <p ion-text color="danger" *ngIf="!editChildForm.controls.dateOfBirth.pristine && !editChildForm.controls.dateOfBirth.valid">
           The date of birth should not be blank
         </p> -->
+        <ion-item>
+          <ion-label position="floating">Weeks of pregnancy*</ion-label>
+          <ion-input type="number" formControlName="weeksOfPregnancy" [readonly]="authenticatedAsParent"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" *ngIf="!editChildForm.controls.weeksOfPregnancy.pristine && !editChildForm.controls.weeksOfPregnancy.valid">
+          The weeks of pregnancy should not be blank
+        </p>
+        <ion-item margin-top>
+          <ion-textarea formControlName="medicalHistory" *ngIf="!authenticatedAsParent" style="background-color:gainsboro"
+            rows="10" placeholder="Enter relevant information about the patient"></ion-textarea>
+        </ion-item>
+        <p ion-text color="danger" *ngIf="!editChildForm.controls.medicalHistory.pristine && !editChildForm.controls.medicalHistory.valid">
+          The medical history should not be blank
+        </p>
       </form>
     </div>
 
