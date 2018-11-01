@@ -61,13 +61,17 @@ export class ExercisePage implements OnInit {
     this.http.get('/exercises/' + id).subscribe((res: any) => {
       this.exercise = res;
       this.iAmAuthor = this.authService.getUserId() === this.exercise.doctor.id;
-      this.editExerciseForm.setValue({
-        title: res.title,
-        category: res.category.id
-      });
+      this.setExercise();
     },
       err => console.log(err)
     );
+  }
+
+  setExercise() {
+    this.editExerciseForm.setValue({
+      title: this.exercise.title,
+      category: this.exercise.category.id
+    });
   }
 
   loadOpinionsOfExercise(id: any) {

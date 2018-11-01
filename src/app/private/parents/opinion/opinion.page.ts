@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
 import { ToastController, AlertController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { HttpService } from '../../../services/http.service';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-opinion',
@@ -12,9 +14,12 @@ export class OpinionPage implements OnInit {
 
   opinion: any;
   opinionForm: FormGroup;
+  exerciseId: any;
 
   constructor(private formBuilder: FormBuilder,
-    private location: Location,
+    private route: ActivatedRoute,
+    private http: HttpService,
+    private authService: AuthenticationService,
     private toastController: ToastController,
     private alertController: AlertController) {
     this.initOpinionForm();
@@ -27,6 +32,27 @@ export class OpinionPage implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.exerciseId = params['exerciseId'];
+      this.loadOpinion();
+    });
+  }
+
+  loadOpinion() {
+    this.http.get('/opinions?exerciseId=' + this.exerciseId + '&parentId=' + this.authService.getUserId()).subscribe((res: any) => {
+      this.opinion = res[0];
+      if (this.opinion !== undefined) {
+        this.setOpinion();
+      }
+    },
+      err => console.log(err)
+    );
+  }
+
+  setOpinion() {
+    this.opinionForm.setValue({
+      text: this.opinion.text
+    });
   }
 
   saveOpinion() {
@@ -34,14 +60,28 @@ export class OpinionPage implements OnInit {
   }
 
   createOpinion() {
-    console.log("creando");
-    this.opinion = {};
-    this.presentToast();
+    this.http.post('/opinions', {
+      text: this.opinionForm.value['text'],
+      exerciseId: this.exerciseId,
+      parentId: this.authService.getUserId()
+    }).subscribe((res: any) => {
+      this.opinion = res;
+      this.presentToast();
+    },
+      err => console.log(err)
+    );
   }
 
   editOpinion() {
-    console.log("editando");
-    this.presentToast();
+    this.http.put('/opinions/' + this.opinion.id, {
+      text: this.opinionForm.value['text'],
+      exerciseId: this.exerciseId,
+      parentId: this.authService.getUserId()
+    }).subscribe((res: any) => {
+      this.presentToast();
+    },
+      err => console.log(err)
+    );
   }
 
   removeOpinion() {
@@ -50,7 +90,7 @@ export class OpinionPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your opinion has been sent.',
+      message: 'Your opinion has been ' + (this.opinion !== undefined ? 'sent' : 'deleted') + '.',
       cssClass: 'primary',
       showCloseButton: true,
       closeButtonText: 'OK'
@@ -72,7 +112,12 @@ export class OpinionPage implements OnInit {
         }, {
           text: 'Delete opinion',
           handler: () => {
-            this.location.back();
+            this.http.delete('/opinions/' + this.opinion.id).subscribe((res: any) => {
+              this.opinion = undefined;
+              this.presentToast();
+            },
+              err => console.log(err)
+            );
           }
         }
       ]
