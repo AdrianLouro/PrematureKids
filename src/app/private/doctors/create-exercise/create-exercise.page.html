@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create exercise</ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="margin-right: 16px" (click)="createExercise()" [disabled]="!createExerciseForm.valid">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="createExerciseForm">
+    <ion-item>
+      <ion-label position="floating">Title*</ion-label>
+      <ion-input type="text" formControlName="title"></ion-input>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!createExerciseForm.controls.title.pristine && !createExerciseForm.controls.title.valid">
+      The title should not be blank
+    </p>
+    <ion-item margin-top>
+      <ion-label>Category*</ion-label>
+      <ion-select placeholder="Select one" formControlName="category">
+        <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+</ion-content>

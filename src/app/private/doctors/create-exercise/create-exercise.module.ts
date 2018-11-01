@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DoctorExercisesPage } from './doctor-exercises.page';
-import { SharedModule } from '../../../shared/shared.module';
+import { CreateExercisePage } from './create-exercise.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DoctorExercisesPage
+    component: CreateExercisePage
   }
 ];
 
@@ -21,8 +20,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    SharedModule
+    ReactiveFormsModule
   ],
-  declarations: [DoctorExercisesPage]
+  declarations: [CreateExercisePage]
 })
-export class DoctorExercisesPageModule {}
+export class CreateExercisePageModule { }

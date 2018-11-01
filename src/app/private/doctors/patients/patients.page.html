@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let patient of patients | search : nameFilter" (click)="navigateToPatient(patient.id)">
+  <ion-card *ngFor="let patient of patients | search : nameFilter : 'name'" (click)="navigateToPatient(patient.id)">
     <ion-card-header>
       <ion-card-title>{{ patient.name }}</ion-card-title>
     </ion-card-header>

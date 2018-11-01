@@ -4,23 +4,25 @@
     <ion-title>Exercises</ion-title>
   </ion-toolbar>
 
-  <ion-searchbar placeholder="Exercise title" (ionInput)="filterExercises($event)"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="titleFilter" placeholder="Exercise title"></ion-searchbar>
 
   <ion-item>
-    <ion-select placeholder="Category">
+    <ion-select [(ngModel)]="categoryFilter" placeholder="Category">
       <ion-select-option value="">Show all</ion-select-option>
-      <ion-select-option *ngFor="let category of categories" value="category">Lorem ipsum</ion-select-option>
+      <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
     </ion-select>
   </ion-item>
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let exercise of exercises" (click)="navigateToExercise()">
+  <ion-card *ngFor="let exercise of exercises | search : titleFilter : ['title'] | search : categoryFilter : ['category', 'id']"
+    (click)="navigateToExercise(exercise.id)">
     <ion-card-header>
-      <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
+      <ion-card-title>{{ exercise.title }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Lorem ipsum dolor sit amet.</p>
+      <p>Doctor: {{ exercise.doctor.name }}</p>
+      <p>Category: {{ exercise.category.name }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

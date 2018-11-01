@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from '../../../services/http.service';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-doctor-exercises',
@@ -11,7 +13,9 @@ export class DoctorExercisesPage implements OnInit {
   exercises: any[];
   categories: any[];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private http: HttpService,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -22,19 +26,23 @@ export class DoctorExercisesPage implements OnInit {
   }
 
   loadExercises() {
-    this.exercises = [1, 2, 3, 4, 5];
+    this.http.get('/doctors/' + this.authService.getUserId() + '/exercises').subscribe((res: any) => {
+      this.exercises = res;
+    },
+      err => console.log(err)
+    );
   }
 
   loadCategories() {
-    this.categories = [1, 2, 3, 4];
+    this.http.get('/categories').subscribe((res: any) => {
+      this.categories = res;
+    },
+      err => console.log(err)
+    );
   }
 
-  filterExercises(event: any) {
-    this.exercises = Array.from(Array(Math.max(0, 5 - event.target.value.length)).keys());
-  }
-
-  navigateToExercise() {
-    this.router.navigate(['private', 'doctors', 'exercise']);
+  navigateToExercise(id: any) {
+    this.router.navigate(['private', 'doctors', 'exercise', id]);
   }
 
   navigateToCreateExercise() {

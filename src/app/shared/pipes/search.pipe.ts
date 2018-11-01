@@ -5,10 +5,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchPipe implements PipeTransform {
 
-  transform(items: any[], terms: string): any[] {
+  transform(items: any[], terms: string, field: string[]): any[] {
     return !terms ?
       items :
-      items.filter(item => item.name.toLowerCase().includes(terms.toLowerCase()));
+      items.filter(item => {
+        switch (field.length) {
+          case 1: return item[field[0]].toLowerCase().includes(terms.toLowerCase());
+          case 2: return item[field[0]][field[1]].toLowerCase().includes(terms.toLowerCase());
+          default: return [];
+        }
+      });
   }
 
 }

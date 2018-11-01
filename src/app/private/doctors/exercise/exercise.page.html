@@ -4,6 +4,15 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Exercise</ion-title>
+
+    <ion-buttons *ngIf="iAmAuthor" slot="end">
+      <ion-button style="margin-right: 16px" (click)="editExercise()" [disabled]="!editExerciseForm.valid">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
+      <ion-button style="margin-right: 16px" (click)="removeExercise()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,16 +29,30 @@
   <div [ngSwitch]="segment" padding-vertical>
 
     <div *ngSwitchCase="'info'">
-      Exercise info
+      <form [formGroup]="editExerciseForm">
+        <ion-item>
+          <ion-label position="floating">Title*</ion-label>
+          <ion-input type="text" formControlName="title" [readonly]="!iAmAuthor"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" *ngIf="!editExerciseForm.controls.title.pristine && !editExerciseForm.controls.title.valid">
+          The title should not be blank
+        </p>
+        <ion-item margin-top>
+          <ion-label>Category*</ion-label>
+          <ion-select placeholder="Select one" formControlName="category" [disabled]="!iAmAuthor">
+            <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </form>
     </div>
 
     <div *ngSwitchCase="'opinions'">
       <ion-card *ngFor="let opinion of opinions">
         <ion-card-header>
-          <ion-card-title>John Doe</ion-card-title>
+          <ion-card-title>{{ opinion.parent.name }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <p>Lorem ipsum dolor sit amet.</p>
+          <p>{{ opinion.text }}</p>
         </ion-card-content>
       </ion-card>
     </div>
