@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Location } from '@angular/common';
 import { AlertController } from '@ionic/angular';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-assignment',
@@ -17,6 +18,8 @@ export class AssignmentPage implements OnInit {
 
   constructor(private router: Router,
     private location: Location,
+    private http: HttpService,
+    private route: ActivatedRoute,
     private alertController: AlertController,
     private authService: AuthenticationService) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
@@ -26,11 +29,17 @@ export class AssignmentPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.loadSessions();
+    this.route.params.subscribe(params => {
+      this.loadSessions(params['id']);
+    });
   }
 
-  loadSessions(): any {
-    this.sessions = [1, 2, 3];
+  loadSessions(assignmentId: any) {
+    this.http.get('/assignments/' + assignmentId + '/sessions').subscribe((res: any) => {
+      this.sessions = res;
+    },
+      err => console.log(err)
+    );
   }
 
   removeAssignment() {
@@ -59,8 +68,8 @@ export class AssignmentPage implements OnInit {
 
     await alert.present();
   }
-  navigateToSession() {
-    this.router.navigate(['private', 'shared', 'session']);
+  navigateToSession(id: any) {
+    this.router.navigate(['private', 'shared', 'session', id]);
   }
 
   navigateToCreateSession() {

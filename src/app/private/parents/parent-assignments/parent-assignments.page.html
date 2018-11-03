@@ -7,47 +7,24 @@
 
 <ion-content padding>
   <ion-segment [(ngModel)]="segment">
-    <ion-segment-button value="all">
-      All
+    <ion-segment-button value="in progress">
+      In progress
     </ion-segment-button>
-    <ion-segment-button value="pending">
-      Pending
+    <ion-segment-button value="disrupted">
+      Disrupted
     </ion-segment-button>
-    <ion-segment-button value="finished">
-      Finished
+    <ion-segment-button value="achieved">
+      Achieved
     </ion-segment-button>
   </ion-segment>
 
-  <div [ngSwitch]="segment">
-    <div *ngSwitchCase="'all'">
-      <ion-card *ngFor="let assignment of assignments" (click)="navigateToAssignment()">
-        <ion-card-header>
-          <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-text>Lorem ipsum dolor sit amet.</ion-text>
-        </ion-card-content>
-      </ion-card>
-    </div>
-    <div *ngSwitchCase="'pending'">
-      <ion-card *ngFor="let assignment of pendingAssignments" (click)="navigateToAssignment()">
-        <ion-card-header>
-          <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-text>Lorem ipsum dolor sit amet.</ion-text>
-        </ion-card-content>
-      </ion-card>
-    </div>
-    <div *ngSwitchCase="'finished'">
-      <ion-card *ngFor="let assignment of finishedAssignments" (click)="navigateToAssignment()">
-        <ion-card-header>
-          <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-text>Lorem ipsum dolor sit amet.</ion-text>
-        </ion-card-content>
-      </ion-card>
-    </div>
-  </div>
+  <ion-card *ngFor="let assignment of assignments | search : segment : ['state']" (click)="navigateToAssignment(assignment.id)">
+    <ion-card-header>
+      <ion-card-title>{{ assignment.child.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text>{{ assignment.exercise.title }}</ion-text>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

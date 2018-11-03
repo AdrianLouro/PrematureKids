@@ -37,12 +37,12 @@
   <div [ngSwitch]="segment" padding-vertical>
 
     <div *ngSwitchCase="'assignments'">
-      <ion-card *ngFor="let assignment of assignments" (click)="navigateToAssignment()">
+      <ion-card *ngFor="let assignment of assignments" (click)="navigateToAssignment(assignment.id)">
         <ion-card-header>
-          <ion-card-title>Lorem ipsum dolor sit amet.</ion-card-title>
+          <ion-card-title>{{ assignment.exercise.title }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <p>Lorem ipsum dolor sit amet.</p>
+          <ion-text>State: {{ assignment.state }}</ion-text>
         </ion-card-content>
       </ion-card>
 

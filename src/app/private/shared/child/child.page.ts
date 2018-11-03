@@ -79,7 +79,11 @@ export class ChildPage implements OnInit {
   }
 
   loadAssignments() {
-    this.assignments = [1, 2, 3, 4, 5];
+    this.http.get('/children/' + this.childId + '/assignments').subscribe((res: any) => {
+      this.assignments = res;
+    },
+      err => console.log(err)
+    );
   }
 
   // TODO: probar Popovers
@@ -192,8 +196,8 @@ export class ChildPage implements OnInit {
     this.router.navigate(['private', 'doctors', 'create-assignment']);
   }
 
-  navigateToAssignment() {
-    this.router.navigate(['private', 'shared', 'assignment']);
+  navigateToAssignment(id: any) {
+    this.router.navigate(['private', 'shared', 'assignment', id]);
   }
 
   navigateToAddParent() {
