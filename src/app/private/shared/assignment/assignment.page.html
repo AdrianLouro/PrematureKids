@@ -3,7 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-buttons *ngIf="!authenticatedAsParent" slot="end">
+    <ion-buttons *ngIf="iAmAuthor" slot="end">
+      <ion-button style="margin-right: 16px" (click)="editAssignment()" [disabled]="!editAssignmentForm.valid">
+        <ion-icon name="save"></ion-icon>
+      </ion-button>
       <ion-button style="margin-right: 16px" (click)="removeAssignment()">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
@@ -17,6 +20,9 @@
     <ion-segment-button value="info">
       Info
     </ion-segment-button>
+    <ion-segment-button value="exercise">
+      Exercise
+    </ion-segment-button>
     <ion-segment-button value="sessions">
       Sessions
     </ion-segment-button>
@@ -25,7 +31,54 @@
   <div [ngSwitch]="segment" padding-vertical>
 
     <div *ngSwitchCase="'info'">
-      Exercise info
+      <form [formGroup]="editAssignmentForm">
+        <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-datetime display-format="DD/MM/YYYY" formControlName="date" [disabled]="true"></ion-datetime>
+        </ion-item>
+        <ion-item margin-top>
+          <ion-label>State*</ion-label>
+          <ion-select placeholder="Select one" formControlName="state" [disabled]="!iAmAuthor">
+            <ion-select-option value="in progress">In progress</ion-select-option>
+            <ion-select-option value="disrupted">Disrupted</ion-select-option>
+            <ion-select-option value="achieved">Achieved</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item margin-top>
+          <ion-label position="floating">Exercise frequency*</ion-label>
+          <ion-input type="text" formControlName="exerciseFrequency" [readonly]="!iAmAuthor"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.exerciseFrequency.pristine && !editAssignmentForm.controls.exerciseFrequency.valid">
+          The exercise frequency should not be blank
+        </p>
+        <ion-item>
+          <ion-label position="floating">Exercise duration*</ion-label>
+          <ion-input type="text" formControlName="exerciseDuration" [readonly]="!iAmAuthor"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.exerciseDuration.pristine && !editAssignmentForm.controls.exerciseDuration.valid">
+          The exercise duration should not be blank
+        </p>
+        <ion-item>
+          <ion-label position="floating">Feedback frequency*</ion-label>
+          <ion-input type="text" formControlName="feedbackFrequency" [readonly]="!iAmAuthor"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.feedbackFrequency.pristine && !editAssignmentForm.controls.feedbackFrequency.valid">
+          The feedback frequency should not be blank
+        </p>
+        <ion-item margin-top>
+          <ion-textarea formControlName="notes" [readonly]="!iAmAuthor" style="background-color:gainsboro" rows="10"
+            placeholder="Enter relevant info for the assignment"></ion-textarea>
+        </ion-item>
+        <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.notes.pristine && !editAssignmentForm.controls.notes.valid">
+          The notes should not be blank
+        </p>
+      </form>
+    </div>
+
+    <div *ngSwitchCase="'exercise'">
+      <ion-item>{{ assignment.exercise.title }}</ion-item>
+      <ion-item *ngIf="!editAssignmentForm">Category: {{ assignment.exercise.category.name }}</ion-item>
+
       <div *ngIf="authenticatedAsParent">
         <ion-item-divider></ion-item-divider>
         <ion-item (click)="navigateToOpinion()">

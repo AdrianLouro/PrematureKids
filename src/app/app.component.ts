@@ -54,7 +54,7 @@ export class AppComponent {
   setMenuForParent() {
     this.appPages = [
       {
-        title: 'My exercises',
+        title: 'My assignments',
         url: '/private/parents/parent-assignments',
         icon: 'paper'
       },
