@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
+import { DateService } from '../../../services/date.service';
 
 @Component({
   selector: 'app-child',
@@ -24,6 +25,7 @@ export class ChildPage implements OnInit {
     private alertController: AlertController,
     private toastController: ToastController,
     private router: Router,
+    private dateService: DateService,
     private location: Location,
     private http: HttpService,
     private route: ActivatedRoute,
@@ -70,7 +72,7 @@ export class ChildPage implements OnInit {
         medicalHistoryId: res.medicalHistoryId,
         name: res.name,
         gender: res.gender,
-        dateOfBirth: new Date(res.dateOfBirth).toISOString(),
+        dateOfBirth: this.dateService.apiDateTimeToIonDateTimeStringDate(res.dateOfBirth),
         weeksOfPregnancy: res.weeksOfPregnancy,
         medicalHistory: res.medicalHistory,
       });
@@ -102,15 +104,7 @@ export class ChildPage implements OnInit {
       medicalHistoryId: this.editChildForm.value['medicalHistoryId'],
       name: this.editChildForm.value['name'],
       gender: this.editChildForm.value['gender'],
-      dateOfBirth: !this.dateIsValid() ? new Date(
-        this.editChildForm.value['dateOfBirth'].year.value,
-        this.editChildForm.value['dateOfBirth'].month.value,
-        this.editChildForm.value['dateOfBirth'].day.value,
-        0,
-        0,
-        0,
-        0
-      ) : new Date(this.editChildForm.value['dateOfBirth']),
+      dateOfBirth: this.dateService.ionDateTimeDateToUTC(this.editChildForm.value['dateOfBirth']),
       weeksOfPregnancy: this.editChildForm.value['weeksOfPregnancy'],
       medicalHistory: this.editChildForm.value['medicalHistory'],
     }).subscribe((res: any) => {
@@ -118,10 +112,6 @@ export class ChildPage implements OnInit {
     },
       err => console.log(err)
     );
-  }
-
-  dateIsValid(): boolean {
-    return !isNaN(new Date(this.editChildForm.value['dateOfBirth']).getTime());
   }
 
   async presentToast() {

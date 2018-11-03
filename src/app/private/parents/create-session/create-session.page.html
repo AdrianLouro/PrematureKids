@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button style="margin-right: 16px" (click)="createSession()">
+      <ion-button style="margin-right: 16px" (click)="createSession()" [disabled]="!createSessionForm.valid">
         <ion-icon name="save"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -13,5 +13,16 @@
 </ion-header>
 
 <ion-content padding>
-
+  <form [formGroup]="createSessionForm">
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime display-format="DD/MM/YYYY" formControlName="date"></ion-datetime>
+    </ion-item>
+    <ion-item margin-top>
+      <ion-textarea formControlName="parentNotes" style="background-color:gainsboro" rows="10" placeholder="Enter relevant info about the session"></ion-textarea>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!createSessionForm.controls.parentNotes.pristine && !createSessionForm.controls.parentNotes.valid">
+      The notes should not be blank
+    </p>
+  </form>
 </ion-content>

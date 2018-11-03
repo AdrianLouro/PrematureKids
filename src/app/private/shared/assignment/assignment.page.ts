@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { AlertController, ToastController } from '@ionic/angular';
 import { HttpService } from '../../../services/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DateService } from '../../../services/date.service';
 
 @Component({
   selector: 'app-assignment',
@@ -24,6 +25,7 @@ export class AssignmentPage implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     private http: HttpService,
+    private dateService: DateService,
     private route: ActivatedRoute,
     private alertController: AlertController,
     private toastController: ToastController,
@@ -57,7 +59,7 @@ export class AssignmentPage implements OnInit {
   loadAssignment(assignmentId: any) {
     this.http.get('/assignments/' + assignmentId).subscribe((res: any) => {
       this.assignment = res;
-      this.iAmAuthor = this.assignment.doctor.id === this.authService.getUserId();
+      this.iAmAuthor = !this.authenticatedAsParent && this.assignment.doctor.id === this.authService.getUserId();
       this.setAssignment();
     },
       err => console.log(err)
@@ -67,7 +69,7 @@ export class AssignmentPage implements OnInit {
   setAssignment() {
     this.editAssignmentForm.setValue({
       doctorId: this.assignment.doctor.id,
-      date: new Date(this.assignment.date).toISOString(),
+      date: this.dateService.apiDateTimeToIonDateTimeStringDate(this.assignment.date),
       notes: this.assignment.notes,
       exerciseFrequency: this.assignment.exerciseFrequency,
       exerciseDuration: this.assignment.exerciseDuration,
@@ -133,11 +135,11 @@ export class AssignmentPage implements OnInit {
     await alert.present();
   }
   navigateToSession(id: any) {
-    this.router.navigate(['private', 'shared', 'session', id]);
+    this.router.navigate(['private', 'shared', 'session', id, { iAmAssignmentAuthor: this.iAmAuthor }]);
   }
 
   navigateToCreateSession() {
-    this.router.navigate(['private', 'parents', 'create-session']);
+    this.router.navigate(['private', 'parents', 'create-session', { assignmentId: this.assignment.id }]);
   }
 
   navigateToOpinion() {

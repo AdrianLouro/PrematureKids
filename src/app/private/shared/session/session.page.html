@@ -3,12 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-buttons *ngIf="authenticatedAsParent" slot="end">
-      <ion-button style="margin-right: 16px" (click)="editSession()">
+    <ion-buttons slot="end">
+      <ion-button style="margin-right: 16px" *ngIf="iAmAuthor || iAmAssignmentAuthor" (click)="editSession()">
         <ion-icon name="save"></ion-icon>
       </ion-button>
-      <ion-button style="margin-right: 16px" *ngIf="authenticatedAsParent" (click)="
-          removeSession()">
+      <ion-button style="margin-right: 16px" *ngIf="iAmAuthor" (click)="removeSession()">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,5 +16,24 @@
 </ion-header>
 
 <ion-content padding>
-
+  <form [formGroup]="editSessionForm">
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime display-format="DD/MM/YYYY" formControlName="date" [disabled]="!iAmAuthor"></ion-datetime>
+    </ion-item>
+    <ion-item margin-top>
+      <ion-textarea formControlName="parentNotes" style="background-color:gainsboro" rows="10" placeholder="Enter relevant info about the session"
+        [readonly]="!iAmAuthor"></ion-textarea>
+    </ion-item>
+    <p ion-text color="danger" *ngIf="!editSessionForm.controls.parentNotes.pristine && !editSessionForm.controls.parentNotes.valid">
+      The notes should not be blank
+    </p>
+    <ion-item margin-top>
+      <ion-textarea formControlName="doctorNotes" *ngIf="!authenticatedAsParent && iAmAssignmentAuthor" style="background-color:gainsboro"
+        rows="10" placeholder="Enter any notes about the session"></ion-textarea>
+      <ion-text *ngIf="!iAmAssignmentAuthor && session?.doctorNotes" text-justify>
+        {{ session.assignment.doctor.name }} says: {{ session.doctorNotes }}
+      </ion-text>
+    </ion-item>
+  </form>
 </ion-content>

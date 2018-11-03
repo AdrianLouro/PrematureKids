@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { HttpService } from '../../../services/http.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DateService } from '../../../services/date.service';
 
 @Component({
   selector: 'app-add-patient',
@@ -19,6 +20,7 @@ export class AddPatientPage implements OnInit {
   constructor(private location: Location,
     private http: HttpService,
     private formBuilder: FormBuilder,
+    private dateService: DateService,
     private authService: AuthenticationService,
     private alertController: AlertController) {
     this.initAddPatientForm();
@@ -69,7 +71,7 @@ export class AddPatientPage implements OnInit {
       {
         name: patient.name,
         gender: patient.gender,
-        dateOfBirth: new Date(patient.dateOfBirth).toISOString(),
+        dateOfBirth: this.dateService.apiDateTimeToIonDateTimeStringDate(patient.dateOfBirth),
         weeksOfPregnancy: patient.weeksOfPregnancy,
         medicalHistory: patient.medicalHistory
       }
@@ -85,15 +87,7 @@ export class AddPatientPage implements OnInit {
       medicalHistoryId: this.addPatientForm.value['medicalHistoryId'],
       name: this.patientDataFormGroup.value['name'],
       gender: this.patientDataFormGroup.value['gender'],
-      dateOfBirth: new Date(
-        this.patientDataFormGroup.value['dateOfBirth'].year.value,
-        this.patientDataFormGroup.value['dateOfBirth'].month.value,
-        this.patientDataFormGroup.value['dateOfBirth'].day.value,
-        0,
-        0,
-        0,
-        0
-      ),
+      dateOfBirth: this.dateService.ionDateTimeDateToUTC(this.patientDataFormGroup.value['dateOfBirth']),
       weeksOfPregnancy: this.patientDataFormGroup.value['weeksOfPregnancy'],
       medicalHistory: this.patientDataFormGroup.value['medicalHistory'],
       doctorId: this.authService.getUserId()
