@@ -183,7 +183,7 @@ export class ChildPage implements OnInit {
   }
 
   navigateToCreateAssignment() {
-    this.router.navigate(['private', 'doctors', 'create-assignment']);
+    this.router.navigate(['private', 'doctors', 'create-assignment', { childId: this.childId }]);
   }
 
   navigateToAssignment(id: any) {

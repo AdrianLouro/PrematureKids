@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { HttpService } from '../../../services/http.service';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-assignment',
@@ -8,13 +12,58 @@ import { Location } from '@angular/common';
 })
 export class CreateAssignmentPage implements OnInit {
 
-  constructor(private location: Location) { }
+  childId: any;
+  createAssignmentForm: FormGroup;
+  exercises: any[];
+
+  constructor(private location: Location,
+    private http: HttpService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService) {
+    this.initCreateAssignmentForm();
+  }
+
+  initCreateAssignmentForm() {
+    this.createAssignmentForm = this.formBuilder.group({
+      exercise: ['', Validators.required],
+      notes: ['', Validators.required],
+      exerciseFrequency: ['', Validators.required],
+      exerciseDuration: ['', Validators.required],
+      feedbackFrequency: ['', Validators.required],
+    });
+  }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.childId = params['childId'];
+      this.loadExercises();
+    });
+  }
+
+  loadExercises() {
+    this.http.get('/exercises').subscribe((res: any) => {
+      this.exercises = res;
+    },
+      err => console.log(err)
+    );
   }
 
   createAssignment() {
-    this.location.back();
+    this.http.post('/assignments', {
+      childId: this.childId,
+      doctorId: this.authService.getUserId(),
+      exerciseId: this.createAssignmentForm.value['exercise'],
+      notes: this.createAssignmentForm.value['notes'],
+      exerciseFrequency: this.createAssignmentForm.value['exerciseFrequency'],
+      exerciseDuration: this.createAssignmentForm.value['exerciseDuration'],
+      feedbackFrequency: this.createAssignmentForm.value['feedbackFrequency'],
+      state: 'in progress'
+    }).subscribe((res: any) => {
+      this.location.back();
+    },
+      err => console.log(err)
+    );
   }
 
 }
