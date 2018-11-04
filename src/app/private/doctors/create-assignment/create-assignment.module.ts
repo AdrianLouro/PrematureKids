@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { CreateAssignmentPage } from './create-assignment.page';
 
+import { IonicSelectableModule } from 'ionic-selectable';
+
 const routes: Routes = [
   {
     path: '',
@@ -20,8 +22,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    IonicSelectableModule
   ],
   declarations: [CreateAssignmentPage]
 })
-export class CreateAssignmentPageModule {}
+export class CreateAssignmentPageModule { }

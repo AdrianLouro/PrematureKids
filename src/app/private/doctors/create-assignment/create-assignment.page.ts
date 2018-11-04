@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { HttpService } from '../../../services/http.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 @Component({
   selector: 'app-create-assignment',
@@ -11,6 +12,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./create-assignment.page.scss'],
 })
 export class CreateAssignmentPage implements OnInit {
+
+  @ViewChild('exerciseSelect') selectComponent: IonicSelectableComponent;
 
   childId: any;
   createAssignmentForm: FormGroup;
@@ -53,7 +56,7 @@ export class CreateAssignmentPage implements OnInit {
     this.http.post('/assignments', {
       childId: this.childId,
       doctorId: this.authService.getUserId(),
-      exerciseId: this.createAssignmentForm.value['exercise'],
+      exerciseId: this.createAssignmentForm.value['exercise'].id,
       notes: this.createAssignmentForm.value['notes'],
       exerciseFrequency: this.createAssignmentForm.value['exerciseFrequency'],
       exerciseDuration: this.createAssignmentForm.value['exerciseDuration'],
