@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -13,7 +14,7 @@ import { HttpService } from '../../../services/http.service';
 export class DoctorProfilePage implements OnInit {
 
   editDoctorForm: FormGroup;
-  authenticatedAsDoctor = false;
+  authenticatedUserRole: string;
   doctorId: string;
 
   constructor(private toastController: ToastController,
@@ -21,8 +22,10 @@ export class DoctorProfilePage implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpService,
     private router: Router,
+    private location: Location,
+    private alertController: AlertController,
     private route: ActivatedRoute) {
-    this.authenticatedAsDoctor = this.authService.isAuthenticatedAs('doctor');
+    this.authenticatedUserRole = this.authService.getDecodedToken().role;
     this.initEditDoctorForm();
   }
 
@@ -65,12 +68,40 @@ export class DoctorProfilePage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your profile has been edited.',
+      message: this.authenticatedUserRole === 'doctor' ? 'Your profile has been edited.' : 'The doctor profile has been edited.',
       cssClass: 'primary',
       showCloseButton: true,
       closeButtonText: 'OK'
     });
     toast.present();
+  }
+
+  async removeDoctor() {
+    const alert = await this.alertController.create({
+      header: 'Are you sure you want to delete this doctor?',
+      message: 'It will be permanently deleted!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+          }
+        }, {
+          text: 'Delete doctor',
+          handler: () => {
+            this.http.delete('/doctors/' + this.doctorId).subscribe((res: any) => {
+              this.location.back();
+            },
+              err => console.log(err)
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
   }
 
   openChat() {

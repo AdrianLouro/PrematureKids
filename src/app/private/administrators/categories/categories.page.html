@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Categories</ion-title>
+  </ion-toolbar>
+  <ion-searchbar [(ngModel)]="nameFilter" placeholder="Category name"></ion-searchbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let category of categories | search : nameFilter : ['name']" (click)="navigateToCategory(category.id)">
+      {{ category.name }}
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToCreateCategory()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

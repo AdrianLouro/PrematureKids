@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuardService } from './services/authentication/auth-guard.service';
 import { DoctorAuthGuardService } from './services/authentication/doctor-auth-guard.service';
 import { ParentAuthGuardService } from './services/authentication/parent-auth-guard.service';
+import { AdministratorAuthGuardService } from './services/authentication/administrator-auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,6 +15,11 @@ const routes: Routes = [
     path: 'private/shared',
     canActivate: [AuthGuardService],
     loadChildren: './private/shared/shared-routing.module#SharedRoutingModule'
+  },
+  {
+    path: 'private/administrators',
+    canActivate: [AdministratorAuthGuardService],
+    loadChildren: './private/administrators/administrator-routing.module#AdministratorRoutingModule'
   },
   {
     path: 'private/doctors',

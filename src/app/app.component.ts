@@ -15,6 +15,12 @@ export class AppComponent {
 
   appPages: any[];
 
+  homePages = {
+    'doctor': ['private', 'doctors', 'patients'],
+    'administrator': ['private', 'administrators', 'doctors'],
+    'parent': ['private', 'parents', 'parent-assignments']
+  };
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -42,13 +48,37 @@ export class AppComponent {
   }
 
   navigateWithRole(role: any) {
-    this.router.navigate(role === null ? ['home'] :
-      role === 'doctor' ? ['private', 'doctors', 'patients'] :
-        ['private', 'parents', 'parent-assignments']);
+    this.router.navigate(role === null ? ['home'] : this.homePages[role]);
   }
 
   setMenuForRole(role: string) {
-    role === 'doctor' ? this.setMenuForDoctor() : this.setMenuForParent();
+    if (role === 'doctor') {
+      this.setMenuForDoctor();
+    } else if (role === 'administrator') {
+      this.setMenuForAdministrator();
+    } else {
+      this.setMenuForParent();
+    }
+  }
+
+  setMenuForAdministrator() {
+    this.appPages = [
+      {
+        title: 'Doctors',
+        url: '/private/administrators/doctors',
+        icon: 'contacts'
+      },
+      {
+        title: 'Categories',
+        url: '/private/administrators/categories',
+        icon: 'paper'
+      },
+      {
+        title: 'My profile',
+        url: '/private/administrators/administrator-profile',
+        icon: 'person'
+      },
+    ];
   }
 
   setMenuForParent() {
@@ -65,13 +95,18 @@ export class AppComponent {
       },
       {
         title: 'My doctors',
-        url: '/private/parents/doctors',
+        url: '/private/parents/parent-doctors',
         icon: 'contacts'
       },
       {
         title: 'My profile',
         url: '/private/shared/parent-profile/' + this.authService.getUserId(),
         icon: 'person'
+      },
+      {
+        title: 'Chat',
+        url: '/private/shared/chats',
+        icon: 'chatbubbles'
       },
     ];
   }
@@ -102,6 +137,11 @@ export class AppComponent {
         title: 'Exercises',
         url: '/private/doctors/exercises',
         icon: 'paper'
+      },
+      {
+        title: 'Chat',
+        url: '/private/shared/chats',
+        icon: 'chatbubbles'
       },
     ];
   }

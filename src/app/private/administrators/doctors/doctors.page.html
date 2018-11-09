@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Doctors</ion-title>
+  </ion-toolbar>
+  <ion-searchbar [(ngModel)]="nameFilter" placeholder="Doctor name"></ion-searchbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let doctor of doctors | search : nameFilter : ['name']" (click)="navigateToDoctor(doctor.id)">
+    <ion-card-header>
+      <ion-card-title>{{ doctor.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Board number: {{ doctor.boardNumber }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToCreateDoctor()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

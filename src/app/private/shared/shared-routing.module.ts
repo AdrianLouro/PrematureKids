@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'session/:id', loadChildren: './session/session.module#SessionPageModule' },
   { path: 'parent-profile/:id', loadChildren: './parent-profile/parent-profile.module#ParentProfilePageModule' },
   { path: 'doctor-profile/:id', loadChildren: './doctor-profile/doctor-profile.module#DoctorProfilePageModule' },
+  { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
 ];
 
 @NgModule({

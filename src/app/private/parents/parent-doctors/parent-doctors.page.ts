@@ -4,11 +4,11 @@ import { HttpService } from '../../../services/http.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
-  selector: 'app-doctors',
-  templateUrl: './doctors.page.html',
-  styleUrls: ['./doctors.page.scss'],
+  selector: 'app-parent-doctors',
+  templateUrl: './parent-doctors.page.html',
+  styleUrls: ['./parent-doctors.page.scss'],
 })
-export class DoctorsPage implements OnInit {
+export class ParentDoctorsPage implements OnInit {
 
   doctors: any[];
 
