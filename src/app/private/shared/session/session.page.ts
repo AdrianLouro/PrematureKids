@@ -15,6 +15,7 @@ import { DateService } from '../../../services/date.service';
 export class SessionPage implements OnInit {
 
   session: any;
+  segment = 'info';
   iAmAuthor = false;
   iAmAssignmentAuthor = false;
   authenticatedAsParent = false;

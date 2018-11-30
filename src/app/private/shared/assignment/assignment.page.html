@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-buttons *ngIf="iAmAuthor" slot="end">
+    <ion-buttons *ngIf="iAmAuthor && segment === 'info'" slot="end">
       <ion-button style="margin-right: 16px" (click)="editAssignment()" [disabled]="!editAssignmentForm.valid">
         <ion-icon name="save"></ion-icon>
       </ion-button>
@@ -76,11 +76,19 @@
     </div>
 
     <div *ngSwitchCase="'exercise'">
-      <ion-item>{{ assignment.exercise.title }}</ion-item>
-      <ion-item *ngIf="!editAssignmentForm">Category: {{ assignment.exercise.category.name }}</ion-item>
+      <ion-item>
+        <h4>{{ assignment.exercise.title }}</h4>
+      </ion-item>
+      <ion-item text-justify>{{ assignment.exercise.description }}</ion-item>
+
+      <ion-item-divider></ion-item-divider>
+      <ion-item margin-top>Video</ion-item>
+      <ion-item-divider></ion-item-divider>
+      <ion-item margin-top>Images</ion-item>
 
       <div *ngIf="authenticatedAsParent">
         <ion-item-divider></ion-item-divider>
+
         <ion-item (click)="navigateToOpinion()">
           <ion-text>Write an opinion</ion-text>
           <ion-icon name="arrow-forward" slot="end"></ion-icon>

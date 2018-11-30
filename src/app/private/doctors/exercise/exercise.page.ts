@@ -33,6 +33,7 @@ export class ExercisePage implements OnInit {
   initEditExerciseForm() {
     this.editExerciseForm = this.formBuilder.group({
       title: ['', Validators.required],
+      description: ['', Validators.required],
       category: ['', Validators.required],
     });
   }
@@ -70,6 +71,7 @@ export class ExercisePage implements OnInit {
   setExercise() {
     this.editExerciseForm.setValue({
       title: this.exercise.title,
+      description: this.exercise.description,
       category: this.exercise.category.id
     });
   }
@@ -85,6 +87,7 @@ export class ExercisePage implements OnInit {
   editExercise() {
     this.http.put('/exercises/' + this.exercise.id, {
       title: this.editExerciseForm.value['title'],
+      description: this.editExerciseForm.value['description'],
       categoryId: this.editExerciseForm.value['category'],
       doctorId: this.authService.getUserId()
     }).subscribe((res: any) => {

@@ -24,6 +24,7 @@ export class CreateExercisePage implements OnInit {
   initCreateExerciseForm(): any {
     this.createExerciseForm = this.formBuilder.group({
       title: ['', Validators.required],
+      description: ['', Validators.required],
       category: ['', Validators.required],
     });
   }
@@ -43,6 +44,7 @@ export class CreateExercisePage implements OnInit {
   createExercise() {
     this.http.post('/exercises', {
       title: this.createExerciseForm.value['title'],
+      description: this.createExerciseForm.value['description'],
       categoryId: this.createExerciseForm.value['category'],
       doctorId: this.authService.getUserId()
     }).subscribe((res: any) => {
