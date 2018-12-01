@@ -88,7 +88,7 @@ export class AssignmentPage implements OnInit {
 
   loadExerciseVideo() {
     this.http.get('/exercises/' + this.assignment.exercise.id + '/videos').subscribe((res: any) => {
-      this.exerciseVideo = res;
+      this.exerciseVideo = res[0];
     },
       err => console.log(err)
     );
@@ -144,7 +144,7 @@ export class AssignmentPage implements OnInit {
   }
 
   showImage(image) {
-    this.photoViewer.show('http://i.imgur.com/I86rTVl.jpg');
+    this.photoViewer.show('http://i.imgur.com/I86rTVl.jpg', '', { share: false });
   }
 
   async presentToast() {
