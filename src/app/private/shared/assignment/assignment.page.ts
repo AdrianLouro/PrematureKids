@@ -6,6 +6,8 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { HttpService } from '../../../services/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateService } from '../../../services/date.service';
+import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @Component({
   selector: 'app-assignment',
@@ -18,8 +20,11 @@ export class AssignmentPage implements OnInit {
   iAmAuthor = false;
   segment = 'info';
   assignment: any;
+  exerciseVideo: any;
+  exerciseImages: any[];
   sessions: any[];
   editAssignmentForm: FormGroup;
+  sliderOptions: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -29,9 +34,12 @@ export class AssignmentPage implements OnInit {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private toastController: ToastController,
+    private streamingMedia: StreamingMedia,
+    private photoViewer: PhotoViewer,
     private authService: AuthenticationService) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
     this.initEditAssignmentForm();
+    this.initSliderOptions();
   }
 
   initEditAssignmentForm() {
@@ -44,6 +52,12 @@ export class AssignmentPage implements OnInit {
       feedbackFrequency: ['', Validators.required],
       state: ['', Validators.required],
     });
+  }
+
+  initSliderOptions() {
+    this.sliderOptions = {
+      effect: 'flip'
+    };
   }
 
   ngOnInit() {
@@ -61,6 +75,28 @@ export class AssignmentPage implements OnInit {
       this.assignment = res;
       this.iAmAuthor = !this.authenticatedAsParent && this.assignment.doctor.id === this.authService.getUserId();
       this.setAssignment();
+      this.loadExerciseMedia();
+    },
+      err => console.log(err)
+    );
+  }
+
+  loadExerciseMedia() {
+    this.loadExerciseVideo();
+    this.loadExerciseImages();
+  }
+
+  loadExerciseVideo() {
+    this.http.get('/exercises/' + this.assignment.exercise.id + '/videos').subscribe((res: any) => {
+      this.exerciseVideo = res;
+    },
+      err => console.log(err)
+    );
+  }
+
+  loadExerciseImages() {
+    this.http.get('/exercises/' + this.assignment.exercise.id + '/images').subscribe((res: any) => {
+      this.exerciseImages = res;
     },
       err => console.log(err)
     );
@@ -92,6 +128,23 @@ export class AssignmentPage implements OnInit {
     },
       err => console.log(err)
     );
+  }
+
+  playVideo() {
+    this.streamingMedia.playVideo(
+      'http://techslides.com/demos/sample-videos/small.mp4',
+      {
+        successCallback: () => { console.log('Playing video'); },
+        errorCallback: () => { console.log('Video could not be played'); },
+        // orientation: 'landscape',
+        shouldAutoClose: false,
+        controls: true
+      }
+    );
+  }
+
+  showImage(image) {
+    this.photoViewer.show('http://i.imgur.com/I86rTVl.jpg');
   }
 
   async presentToast() {
@@ -134,6 +187,7 @@ export class AssignmentPage implements OnInit {
 
     await alert.present();
   }
+
   navigateToSession(id: any) {
     this.router.navigate(['private', 'shared', 'session', id, { iAmAssignmentAuthor: this.iAmAuthor }]);
   }

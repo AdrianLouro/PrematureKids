@@ -77,14 +77,29 @@
 
     <div *ngSwitchCase="'exercise'">
       <ion-item>
-        <h4>{{ assignment.exercise.title }}</h4>
+        <h4>{{ assignment?.exercise.title }}</h4>
       </ion-item>
-      <ion-item text-justify>{{ assignment.exercise.description }}</ion-item>
+      <ion-item text-justify>{{ assignment?.exercise.description }}</ion-item>
 
       <ion-item-divider></ion-item-divider>
-      <ion-item margin-top>Video</ion-item>
+
+      <ion-item margin-top>
+        <div *ngIf="exerciseVideo?.length === 0">No videos found</div>
+        <div *ngIf="exerciseVideo?.length > 0"><a (click)="playVideo()">Play video</a></div>
+      </ion-item>
+
       <ion-item-divider></ion-item-divider>
-      <ion-item margin-top>Images</ion-item>
+
+      <ion-item margin-top *ngIf="exerciseImages?.length === 0">
+        No images found
+      </ion-item>
+      <ion-slides pager="true" margin-top *ngIf="exerciseImages?.length > 0">
+        <ion-slide *ngFor="let exerciseImage of exerciseImages">
+          <ion-card (click)="showImage(exerciseImage)">
+            <img src="http://i.imgur.com/I86rTVl.jpg" />
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
 
       <div *ngIf="authenticatedAsParent">
         <ion-item-divider></ion-item-divider>

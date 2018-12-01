@@ -9,7 +9,8 @@ export class HttpService {
 
   private httpOptions = { headers: null };
 
-  private apiUrl = 'https://localhost:5000'; // TODO: use environment variablse
+  // private apiUrl = 'https://localhost:5000'; // TODO: use environment variables
+  private apiUrl = 'http://192.168.1.10:5000'; // TODO: use environment variables
 
   constructor(private http: HttpClient,
     private storage: Storage) {
