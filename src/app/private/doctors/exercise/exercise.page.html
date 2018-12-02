@@ -54,7 +54,23 @@
     </div>
 
     <div *ngSwitchCase="'multimedia'">
+      <ion-item margin-top>
+        <div *ngIf="exerciseVideo == null">No videos found</div>
+        <div *ngIf="exerciseVideo != null"><a (click)="playVideo()">Play video</a></div>
+      </ion-item>
 
+      <ion-item-divider></ion-item-divider>
+
+      <ion-item margin-top *ngIf="exerciseImages?.length === 0">
+        No images found
+      </ion-item>
+      <ion-slides pager="true" margin-top *ngIf="exerciseImages?.length > 0">
+        <ion-slide *ngFor="let exerciseImage of exerciseImages">
+          <ion-card (click)="showImage(exerciseImage)">
+            <img src="http://i.imgur.com/I86rTVl.jpg" />
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
     </div>
 
     <div *ngSwitchCase="'opinions'">

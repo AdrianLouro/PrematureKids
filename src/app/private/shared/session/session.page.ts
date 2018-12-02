@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../../../services/http.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateService } from '../../../services/date.service';
+import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @Component({
   selector: 'app-session',
@@ -15,6 +17,8 @@ import { DateService } from '../../../services/date.service';
 export class SessionPage implements OnInit {
 
   session: any;
+  sessionVideo: any;
+  sessionImages: any[];
   segment = 'info';
   iAmAuthor = false;
   iAmAssignmentAuthor = false;
@@ -24,6 +28,8 @@ export class SessionPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
+    private streamingMedia: StreamingMedia,
+    private photoViewer: PhotoViewer,
     private route: ActivatedRoute,
     private http: HttpService,
     private location: Location,
@@ -48,6 +54,7 @@ export class SessionPage implements OnInit {
   ionViewWillEnter() {
     this.route.params.subscribe(params => {
       this.loadSession(params['id']);
+      this.loadSessionMedia(params['id']);
       this.iAmAssignmentAuthor = JSON.parse(params['iAmAssignmentAuthor']);
     });
   }
@@ -70,6 +77,27 @@ export class SessionPage implements OnInit {
     });
   }
 
+  loadSessionMedia(sessionId: any) {
+    this.loadSessionVideo(sessionId);
+    this.loadSessionImages(sessionId);
+  }
+
+  loadSessionVideo(sessionId: any) {
+    this.http.get('/sessions/' + sessionId + '/videos').subscribe((res: any) => {
+      this.sessionVideo = res[0];
+    },
+      err => console.log(err)
+    );
+  }
+
+  loadSessionImages(sessionId: any) {
+    this.http.get('/sessions/' + sessionId + '/images').subscribe((res: any) => {
+      this.sessionImages = res;
+    },
+      err => console.log(err)
+    );
+  }
+
   editSession() {
     this.http.put('/sessions/' + this.session.id, {
       date: this.dateService.ionDateTimeDateToUTC(this.editSessionForm.value['date']),
@@ -90,6 +118,23 @@ export class SessionPage implements OnInit {
       closeButtonText: 'OK'
     });
     toast.present();
+  }
+
+  playVideo() {
+    this.streamingMedia.playVideo(
+      'http://techslides.com/demos/sample-videos/small.mp4',
+      {
+        successCallback: () => { console.log('Playing video'); },
+        errorCallback: () => { console.log('Video could not be played'); },
+        // orientation: 'landscape',
+        shouldAutoClose: false,
+        controls: true
+      }
+    );
+  }
+
+  showImage(image) {
+    this.photoViewer.show('http://i.imgur.com/I86rTVl.jpg', '', { share: false });
   }
 
   removeSession() {

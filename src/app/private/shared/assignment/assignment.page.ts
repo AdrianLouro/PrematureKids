@@ -24,7 +24,6 @@ export class AssignmentPage implements OnInit {
   exerciseImages: any[];
   sessions: any[];
   editAssignmentForm: FormGroup;
-  sliderOptions: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -39,7 +38,6 @@ export class AssignmentPage implements OnInit {
     private authService: AuthenticationService) {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
     this.initEditAssignmentForm();
-    this.initSliderOptions();
   }
 
   initEditAssignmentForm() {
@@ -52,12 +50,6 @@ export class AssignmentPage implements OnInit {
       feedbackFrequency: ['', Validators.required],
       state: ['', Validators.required],
     });
-  }
-
-  initSliderOptions() {
-    this.sliderOptions = {
-      effect: 'flip'
-    };
   }
 
   ngOnInit() {

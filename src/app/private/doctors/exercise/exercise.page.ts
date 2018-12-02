@@ -5,6 +5,8 @@ import { AuthenticationService } from '../../../services/authentication/authenti
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, ToastController } from '@ionic/angular';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 
 @Component({
   selector: 'app-exercise',
@@ -17,6 +19,8 @@ export class ExercisePage implements OnInit {
   segment = 'info';
   opinions: any[];
   exercise: any;
+  exerciseVideo: any;
+  exerciseImages: any[];
   editExerciseForm: FormGroup;
   categories: any[];
 
@@ -24,6 +28,8 @@ export class ExercisePage implements OnInit {
     private http: HttpService,
     private location: Location,
     private formBuilder: FormBuilder,
+    private streamingMedia: StreamingMedia,
+    private photoViewer: PhotoViewer,
     private alertController: AlertController,
     private toastController: ToastController,
     private authService: AuthenticationService) {
@@ -54,6 +60,7 @@ export class ExercisePage implements OnInit {
   loadExerciseWithOpinions() {
     this.route.params.subscribe(params => {
       this.loadExercise(params['id']);
+      this.loadExerciseMedia(params['id']);
       this.loadOpinionsOfExercise(params['id']);
     });
   }
@@ -76,6 +83,27 @@ export class ExercisePage implements OnInit {
     });
   }
 
+  loadExerciseMedia(exerciseId: any) {
+    this.loadExerciseVideo(exerciseId);
+    this.loadExerciseImages(exerciseId);
+  }
+
+  loadExerciseVideo(exerciseId: any) {
+    this.http.get('/exercises/' + exerciseId + '/videos').subscribe((res: any) => {
+      this.exerciseVideo = res[0];
+    },
+      err => console.log(err)
+    );
+  }
+
+  loadExerciseImages(exerciseId: any) {
+    this.http.get('/exercises/' + exerciseId + '/images').subscribe((res: any) => {
+      this.exerciseImages = res;
+    },
+      err => console.log(err)
+    );
+  }
+
   loadOpinionsOfExercise(id: any) {
     this.http.get('/exercises/' + id + '/opinions').subscribe((res: any) => {
       this.opinions = res;
@@ -95,6 +123,23 @@ export class ExercisePage implements OnInit {
     },
       err => console.log(err)
     );
+  }
+
+  playVideo() {
+    this.streamingMedia.playVideo(
+      'http://techslides.com/demos/sample-videos/small.mp4',
+      {
+        successCallback: () => { console.log('Playing video'); },
+        errorCallback: () => { console.log('Video could not be played'); },
+        // orientation: 'landscape',
+        shouldAutoClose: false,
+        controls: true
+      }
+    );
+  }
+
+  showImage(image) {
+    this.photoViewer.show('http://i.imgur.com/I86rTVl.jpg', '', { share: false });
   }
 
   async presentToast() {
