@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, ToastController } from '@ionic/angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-exercise',
@@ -30,6 +31,7 @@ export class ExercisePage implements OnInit {
     private formBuilder: FormBuilder,
     private streamingMedia: StreamingMedia,
     private photoViewer: PhotoViewer,
+    private camera: Camera,
     private alertController: AlertController,
     private toastController: ToastController,
     private authService: AuthenticationService) {
@@ -123,6 +125,110 @@ export class ExercisePage implements OnInit {
     },
       err => console.log(err)
     );
+  }
+
+  getAndUploadVideo() {
+    this.camera.getPicture(
+      {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      }
+    ).then(
+      (videoURI) => this.uploadVideo(videoURI),
+      err => { console.log(err); this.uploadVideo(''); } // TODO: borrar uploadVideo('')
+    );
+  }
+
+  uploadVideo(videoURI) {
+    this.http.post('/exercisesAttachments', {
+      'name': Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
+      'type': 'video',
+      'exerciseId': this.exercise.id
+    }).subscribe((res: any) => {
+      this.exerciseVideo = res;
+    },
+      err => console.log(err)
+    );
+  }
+
+  async deleteVideo() {
+    const alert = await this.alertController.create({
+      header: 'Are you sure you want to delete the video?',
+      message: 'It will be permanently deleted!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+          }
+        }, {
+          text: 'Delete video',
+          handler: () => {
+            this.http.delete('/exercisesAttachments/' + this.exerciseVideo.id).subscribe((res: any) => {
+              this.exerciseVideo = undefined;
+            },
+              err => console.log(err)
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  getAndUploadImage() {
+    this.camera.getPicture(
+      {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      }
+    ).then(
+      (imageURI) => this.uploadImage(imageURI),
+      err => { console.log(err); this.uploadImage(''); } // TODO: borrar uploadImage('')
+    );
+  }
+
+  uploadImage(imageURI) {
+    this.http.post('/exercisesAttachments', {
+      'name': Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
+      'type': 'image',
+      'exerciseId': this.exercise.id
+    }).subscribe((res: any) => {
+      this.exerciseImages.push(res);
+    },
+      err => console.log(err)
+    );
+  }
+
+  async deleteImage(image) {
+    const alert = await this.alertController.create({
+      header: 'Are you sure you want to delete the image?',
+      message: 'It will be permanently deleted!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+          }
+        }, {
+          text: 'Delete image',
+          handler: () => {
+            this.http.delete('/exercisesAttachments/' + image.id).subscribe((res: any) => {
+              this.exerciseImages = this.exerciseImages.filter(exerciseImage => exerciseImage.id !== image.id);
+            },
+              err => console.log(err)
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   playVideo() {

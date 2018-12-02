@@ -52,22 +52,40 @@
 
     <div *ngSwitchCase="'multimedia'">
       <ion-item margin-top>
-        <div *ngIf="sessionVideo == null">No videos found</div>
+        <div *ngIf="sessionVideo == null && !iAmAuthor">No videos found</div>
+        <div *ngIf="sessionVideo == null && iAmAuthor">
+          <ion-button (click)="getAndUploadVideo()">
+            Upload video
+            <ion-icon slot="start" name="cloud-upload"></ion-icon>
+          </ion-button>
+        </div>
         <div *ngIf="sessionVideo != null"><a (click)="playVideo()">Play video</a></div>
+        <ion-item *ngIf="sessionVideo != null && iAmAuthor" item-end>
+          <ion-icon name="remove-circle" (click)="deleteVideo()"></ion-icon>
+        </ion-item>
       </ion-item>
 
       <ion-item-divider></ion-item-divider>
 
-      <ion-item margin-top *ngIf="sessionImages?.length === 0">
+      <ion-item margin-top *ngIf="sessionImages?.length === 0 && !iAmAuthor">
         No images found
       </ion-item>
       <ion-slides pager="true" margin-top *ngIf="sessionImages?.length > 0">
         <ion-slide *ngFor="let sessionImage of sessionImages">
-          <ion-card (click)="showImage(sessionImage)">
-            <img src="http://i.imgur.com/I86rTVl.jpg" />
+          <ion-card>
+            <ion-icon *ngIf="iAmAuthor" name="close" float-right margin (click)="deleteImage(sessionImage)"></ion-icon>
+            <img src="http://i.imgur.com/I86rTVl.jpg" (click)="showImage(sessionImage)" />
           </ion-card>
         </ion-slide>
       </ion-slides>
+      <ion-item>
+        <div *ngIf="iAmAuthor">
+          <ion-button (click)="getAndUploadImage()">
+            Upload image
+            <ion-icon slot="start" name="cloud-upload"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
     </div>
 
   </div>

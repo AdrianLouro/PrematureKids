@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateService } from '../../../services/date.service';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-session',
@@ -30,6 +31,7 @@ export class SessionPage implements OnInit {
     private toastController: ToastController,
     private streamingMedia: StreamingMedia,
     private photoViewer: PhotoViewer,
+    private camera: Camera,
     private route: ActivatedRoute,
     private http: HttpService,
     private location: Location,
@@ -108,6 +110,110 @@ export class SessionPage implements OnInit {
     },
       err => console.log(err)
     );
+  }
+
+  getAndUploadVideo() {
+    this.camera.getPicture(
+      {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      }
+    ).then(
+      (videoURI) => this.uploadVideo(videoURI),
+      err => { console.log(err); this.uploadVideo(''); } // TODO: borrar uploadVideo('')
+    );
+  }
+
+  uploadVideo(videoURI) {
+    this.http.post('/sessionsAttachments', {
+      'name': Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
+      'type': 'video',
+      'sessionId': this.session.id
+    }).subscribe((res: any) => {
+      this.sessionVideo = res;
+    },
+      err => console.log(err)
+    );
+  }
+
+  async deleteVideo() {
+    const alert = await this.alertController.create({
+      header: 'Are you sure you want to delete the video?',
+      message: 'It will be permanently deleted!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+          }
+        }, {
+          text: 'Delete video',
+          handler: () => {
+            this.http.delete('/sessionsAttachments/' + this.sessionVideo.id).subscribe((res: any) => {
+              this.sessionVideo = undefined;
+            },
+              err => console.log(err)
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  getAndUploadImage() {
+    this.camera.getPicture(
+      {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      }
+    ).then(
+      (imageURI) => this.uploadImage(imageURI),
+      err => { console.log(err); this.uploadImage(''); } // TODO: borrar uploadImage('')
+    );
+  }
+
+  uploadImage(imageURI) {
+    this.http.post('/sessionsAttachments', {
+      'name': Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
+      'type': 'image',
+      'sessionId': this.session.id
+    }).subscribe((res: any) => {
+      this.sessionImages.push(res);
+    },
+      err => console.log(err)
+    );
+  }
+
+  async deleteImage(image) {
+    const alert = await this.alertController.create({
+      header: 'Are you sure you want to delete the image?',
+      message: 'It will be permanently deleted!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+          }
+        }, {
+          text: 'Delete image',
+          handler: () => {
+            this.http.delete('/sessionsAttachments/' + image.id).subscribe((res: any) => {
+              this.sessionImages = this.sessionImages.filter(sessionImage => sessionImage.id !== image.id);
+            },
+              err => console.log(err)
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async presentToast() {
