@@ -77,7 +77,7 @@
         <ion-slide *ngFor="let exerciseImage of exerciseImages">
           <ion-card>
             <ion-icon *ngIf="iAmAuthor" name="close" float-right margin (click)="deleteImage(exerciseImage)"></ion-icon>
-            <img src="http://i.imgur.com/I86rTVl.jpg" (click)="showImage(exerciseImage)" />
+            <img src="{{ exerciseImage.fullPath }}" (click)="showImage(exerciseImage)" />
           </ion-card>
         </ion-slide>
       </ion-slides>

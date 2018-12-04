@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 @Component({
   selector: 'app-exercise',
@@ -32,8 +33,10 @@ export class ExercisePage implements OnInit {
     private streamingMedia: StreamingMedia,
     private photoViewer: PhotoViewer,
     private camera: Camera,
+    private fileTransfer: FileTransfer,
     private alertController: AlertController,
     private toastController: ToastController,
+    private loadingController: LoadingController,
     private authService: AuthenticationService) {
     this.initEditExerciseForm();
   }
@@ -135,20 +138,8 @@ export class ExercisePage implements OnInit {
         sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
       }
     ).then(
-      (videoURI) => this.uploadVideo(videoURI),
-      err => { console.log(err); this.uploadVideo(''); } // TODO: borrar uploadVideo('')
-    );
-  }
-
-  uploadVideo(videoURI) {
-    this.http.post('/exercisesAttachments', {
-      'name': Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
-      'type': 'video',
-      'exerciseId': this.exercise.id
-    }).subscribe((res: any) => {
-      this.exerciseVideo = res;
-    },
-      err => console.log(err)
+      (videoURI) => this.uploadFile(videoURI, 'video'),
+      err => { console.log(err); this.uploadFile('', ''); } // TODO: borrar uploadFile('')
     );
   }
 
@@ -167,6 +158,7 @@ export class ExercisePage implements OnInit {
           text: 'Delete video',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + this.exerciseVideo.id).subscribe((res: any) => {
+              this.presentToast();
               this.exerciseVideo = undefined;
             },
               err => console.log(err)
@@ -187,20 +179,8 @@ export class ExercisePage implements OnInit {
         sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
       }
     ).then(
-      (imageURI) => this.uploadImage(imageURI),
-      err => { console.log(err); this.uploadImage(''); } // TODO: borrar uploadImage('')
-    );
-  }
-
-  uploadImage(imageURI) {
-    this.http.post('/exercisesAttachments', {
-      'name': Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
-      'type': 'image',
-      'exerciseId': this.exercise.id
-    }).subscribe((res: any) => {
-      this.exerciseImages.push(res);
-    },
-      err => console.log(err)
+      (imageURI) => this.uploadFile(imageURI, 'image'),
+      err => { console.log(err); this.uploadFile('', ''); } // TODO: borrar uploadFile('')
     );
   }
 
@@ -219,6 +199,7 @@ export class ExercisePage implements OnInit {
           text: 'Delete image',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + image.id).subscribe((res: any) => {
+              this.presentToast();
               this.exerciseImages = this.exerciseImages.filter(exerciseImage => exerciseImage.id !== image.id);
             },
               err => console.log(err)
@@ -229,6 +210,34 @@ export class ExercisePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async uploadFile(fileURI, type) {
+    const loadingController = await this.loadingController.create({
+      message: 'Uploading...'
+    });
+
+    await loadingController.present();
+
+    this.fileTransfer.create().upload(fileURI, 'http://192.168.1.10:5000/exercisesAttachments',
+      {
+        fileKey: 'file',
+        fileName: fileURI.split('/').pop(),
+        chunkedMode: false,
+        mimeType: type + '/*',
+        params: {
+          'name': fileURI.split('/').pop(),
+          'type': type,
+          'exerciseId': this.exercise.id,
+        }
+      }).then(res => {
+        loadingController.dismiss();
+        type === 'video' ? this.exerciseVideo = JSON.parse(res.response) : this.exerciseImages.push(JSON.parse(res.response));
+        this.presentToast();
+      }).catch(err => {
+        console.log(err);
+        loadingController.dismiss();
+      });
   }
 
   playVideo() {

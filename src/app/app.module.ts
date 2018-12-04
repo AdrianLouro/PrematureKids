@@ -12,6 +12,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     StreamingMedia,
     PhotoViewer,
-    Camera
+    Camera,
+    FileTransfer
   ],
   bootstrap: [AppComponent]
 })

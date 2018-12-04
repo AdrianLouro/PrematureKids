@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../../../services/http.service';
@@ -9,6 +9,7 @@ import { DateService } from '../../../services/date.service';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 @Component({
   selector: 'app-session',
@@ -29,9 +30,11 @@ export class SessionPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
+    private loadingController: LoadingController,
     private streamingMedia: StreamingMedia,
     private photoViewer: PhotoViewer,
     private camera: Camera,
+    private fileTransfer: FileTransfer,
     private route: ActivatedRoute,
     private http: HttpService,
     private location: Location,
@@ -120,20 +123,8 @@ export class SessionPage implements OnInit {
         sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
       }
     ).then(
-      (videoURI) => this.uploadVideo(videoURI),
-      err => { console.log(err); this.uploadVideo(''); } // TODO: borrar uploadVideo('')
-    );
-  }
-
-  uploadVideo(videoURI) {
-    this.http.post('/sessionsAttachments', {
-      'name': Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
-      'type': 'video',
-      'sessionId': this.session.id
-    }).subscribe((res: any) => {
-      this.sessionVideo = res;
-    },
-      err => console.log(err)
+      (videoURI) => this.uploadFile(videoURI, 'video'),
+      err => { console.log(err); this.uploadFile('', ''); } // TODO: borrar uploadFile('')
     );
   }
 
@@ -152,6 +143,7 @@ export class SessionPage implements OnInit {
           text: 'Delete video',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + this.sessionVideo.id).subscribe((res: any) => {
+              this.presentToast();
               this.sessionVideo = undefined;
             },
               err => console.log(err)
@@ -172,20 +164,8 @@ export class SessionPage implements OnInit {
         sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
       }
     ).then(
-      (imageURI) => this.uploadImage(imageURI),
-      err => { console.log(err); this.uploadImage(''); } // TODO: borrar uploadImage('')
-    );
-  }
-
-  uploadImage(imageURI) {
-    this.http.post('/sessionsAttachments', {
-      'name': Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8),
-      'type': 'image',
-      'sessionId': this.session.id
-    }).subscribe((res: any) => {
-      this.sessionImages.push(res);
-    },
-      err => console.log(err)
+      (imageURI) => this.uploadFile(imageURI, 'image'),
+      err => { console.log(err); this.uploadFile('', ''); } // TODO: borrar uploadFile('')
     );
   }
 
@@ -204,6 +184,7 @@ export class SessionPage implements OnInit {
           text: 'Delete image',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + image.id).subscribe((res: any) => {
+              this.presentToast();
               this.sessionImages = this.sessionImages.filter(sessionImage => sessionImage.id !== image.id);
             },
               err => console.log(err)
@@ -214,6 +195,34 @@ export class SessionPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async uploadFile(fileURI, type) {
+    const loadingController = await this.loadingController.create({
+      message: 'Uploading...'
+    });
+
+    await loadingController.present();
+
+    this.fileTransfer.create().upload(fileURI, 'http://192.168.1.10:5000/sessionsAttachments',
+      {
+        fileKey: 'file',
+        fileName: fileURI.split('/').pop(),
+        chunkedMode: false,
+        mimeType: type + '/*',
+        params: {
+          'name': fileURI.split('/').pop(),
+          'type': type,
+          'sessionId': this.session.id,
+        }
+      }).then(res => {
+        loadingController.dismiss();
+        type === 'video' ? this.sessionVideo = JSON.parse(res.response) : this.sessionImages.push(JSON.parse(res.response));
+        this.presentToast();
+      }).catch(err => {
+        console.log(err);
+        loadingController.dismiss();
+      });
   }
 
   async presentToast() {
@@ -228,7 +237,7 @@ export class SessionPage implements OnInit {
 
   playVideo() {
     this.streamingMedia.playVideo(
-      'http://techslides.com/demos/sample-videos/small.mp4',
+      this.sessionVideo.fullPath,
       {
         successCallback: () => { console.log('Playing video'); },
         errorCallback: () => { console.log('Video could not be played'); },
@@ -240,7 +249,7 @@ export class SessionPage implements OnInit {
   }
 
   showImage(image) {
-    this.photoViewer.show('http://i.imgur.com/I86rTVl.jpg', '', { share: false });
+    this.photoViewer.show(image.fullPath, '', { share: false });
   }
 
   removeSession() {
