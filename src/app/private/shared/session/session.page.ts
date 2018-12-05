@@ -119,8 +119,9 @@ export class SessionPage implements OnInit {
     this.camera.getPicture(
       {
         quality: 100,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        destinationType: this.camera.DestinationType.NATIVE_URI,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        mediaType: this.camera.MediaType.VIDEO
       }
     ).then(
       (videoURI) => this.uploadFile(videoURI, 'video'),
@@ -160,8 +161,9 @@ export class SessionPage implements OnInit {
     this.camera.getPicture(
       {
         quality: 100,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        destinationType: this.camera.DestinationType.NATIVE_URI,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        mediaType: this.camera.MediaType.PICTURE
       }
     ).then(
       (imageURI) => this.uploadFile(imageURI, 'image'),

@@ -124,7 +124,7 @@ export class AssignmentPage implements OnInit {
 
   playVideo() {
     this.streamingMedia.playVideo(
-      'http://techslides.com/demos/sample-videos/small.mp4',
+      this.exerciseVideo.fullPath,
       {
         successCallback: () => { console.log('Playing video'); },
         errorCallback: () => { console.log('Video could not be played'); },
@@ -136,7 +136,7 @@ export class AssignmentPage implements OnInit {
   }
 
   showImage(image) {
-    this.photoViewer.show('http://i.imgur.com/I86rTVl.jpg', '', { share: false });
+    this.photoViewer.show(image.fullPath, '', { share: false });
   }
 
   async presentToast() {

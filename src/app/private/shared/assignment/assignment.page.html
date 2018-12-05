@@ -96,7 +96,7 @@
       <ion-slides pager="true" margin-top *ngIf="exerciseImages?.length > 0">
         <ion-slide *ngFor="let exerciseImage of exerciseImages">
           <ion-card (click)="showImage(exerciseImage)">
-            <img src="http://i.imgur.com/I86rTVl.jpg" />
+            <img src="{{ exerciseImage.fullPath }}" />
           </ion-card>
         </ion-slide>
       </ion-slides>

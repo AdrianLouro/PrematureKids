@@ -134,8 +134,9 @@ export class ExercisePage implements OnInit {
     this.camera.getPicture(
       {
         quality: 100,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        destinationType: this.camera.DestinationType.NATIVE_URI,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        mediaType: this.camera.MediaType.VIDEO
       }
     ).then(
       (videoURI) => this.uploadFile(videoURI, 'video'),
@@ -175,8 +176,9 @@ export class ExercisePage implements OnInit {
     this.camera.getPicture(
       {
         quality: 100,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        destinationType: this.camera.DestinationType.NATIVE_URI,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        mediaType: this.camera.MediaType.PICTURE
       }
     ).then(
       (imageURI) => this.uploadFile(imageURI, 'image'),
@@ -242,7 +244,7 @@ export class ExercisePage implements OnInit {
 
   playVideo() {
     this.streamingMedia.playVideo(
-      'http://techslides.com/demos/sample-videos/small.mp4',
+      this.exerciseVideo.fullPath,
       {
         successCallback: () => { console.log('Playing video'); },
         errorCallback: () => { console.log('Video could not be played'); },
@@ -254,7 +256,7 @@ export class ExercisePage implements OnInit {
   }
 
   showImage(image) {
-    this.photoViewer.show('http://i.imgur.com/I86rTVl.jpg', '', { share: false });
+    this.photoViewer.show(image.fullPath, '', { share: false });
   }
 
   async presentToast() {
