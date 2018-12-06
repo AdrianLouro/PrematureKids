@@ -19,6 +19,9 @@
     <p ion-text color="danger" *ngIf="!editAccountForm.controls.email.pristine && !editAccountForm.controls.email.valid">
       The given email is not valid
     </p>
+    <p ion-text color="danger" *ngIf="emailAlreadyRegistered">
+      The email is already in use
+    </p>
     <ion-item>
       <ion-label position="floating">Current password*</ion-label>
       <ion-input type="password" formControlName="currentPassword"></ion-input>

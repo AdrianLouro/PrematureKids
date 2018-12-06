@@ -16,6 +16,7 @@ export class DoctorProfilePage implements OnInit {
   editDoctorForm: FormGroup;
   authenticatedUserRole: string;
   doctorId: string;
+  boardNumberAlreadyRegistered = false;
 
   constructor(private toastController: ToastController,
     private authService: AuthenticationService,
@@ -60,9 +61,12 @@ export class DoctorProfilePage implements OnInit {
 
   editProfile() {
     this.http.put('/doctors/' + this.doctorId, this.editDoctorForm.value).subscribe((res: any) => {
+      this.boardNumberAlreadyRegistered = false;
       this.presentToast();
     },
-      err => console.log(err)
+      err => {
+        if (err.status === 409) { this.boardNumberAlreadyRegistered = true; }
+      }
     );
   }
 

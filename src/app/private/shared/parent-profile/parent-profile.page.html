@@ -24,6 +24,9 @@
       <ion-label position="floating">ID*</ion-label>
       <ion-input type="text" formControlName="idNumber"></ion-input>
     </ion-item>
+    <p ion-text color="danger" *ngIf="idNumberAlreadyRegistered">
+      The ID is already in use
+    </p>
     <p ion-text color="danger" *ngIf="!editParentForm.controls.idNumber.pristine && !editParentForm.controls.idNumber.valid">
       The ID should not be blank
     </p>

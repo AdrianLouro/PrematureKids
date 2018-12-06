@@ -20,6 +20,9 @@
       <ion-label position="floating">ID*</ion-label>
       <ion-input type="text" formControlName="idNumber"></ion-input>
     </ion-item>
+    <p ion-text color="danger" *ngIf="idNumberAlreadyRegistered">
+      The ID is already in use
+    </p>
     <p ion-text color="danger" *ngIf="!registerParentForm.controls.idNumber.pristine && !registerParentForm.controls.idNumber.valid">
       The ID should not be blank
     </p>
@@ -34,6 +37,9 @@
       <ion-label position="floating">Email*</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
+    <p ion-text color="danger" *ngIf="emailAlreadyRegistered">
+      The email is already in use
+    </p>
     <p ion-text color="danger" *ngIf="!registerParentForm.controls.email.pristine && !registerParentForm.controls.email.valid">
       The given email is not valid
     </p>

@@ -59,8 +59,28 @@ export class AddParentPage implements OnInit {
             this.http.post('/children/' + this.childId + '/parents/' + this.parent.id, {}).subscribe((res: any) => {
               this.location.back();
             },
-              err => console.log(err)
+              err => {
+                console.log(err);
+                if (err.status === 409) { this.presentParentAlreadyAssociatedAlert(err.error); }
+              }
             );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentParentAlreadyAssociatedAlert(error) {
+    const alert = await this.alertController.create({
+      message: error,
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
           }
         }
       ]

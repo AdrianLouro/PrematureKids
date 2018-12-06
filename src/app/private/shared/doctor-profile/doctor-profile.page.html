@@ -28,6 +28,9 @@
       <ion-label position="floating">Board number*</ion-label>
       <ion-input type="text" formControlName="boardNumber" [readonly]="authenticatedUserRole === 'parent'"></ion-input>
     </ion-item>
+    <p ion-text color="danger" *ngIf="boardNumberAlreadyRegistered">
+      The board number is already in use
+    </p>
     <p ion-text color="danger" *ngIf="!editDoctorForm.controls.boardNumber.pristine && !editDoctorForm.controls.boardNumber.valid">
       The board number should not be blank
     </p>

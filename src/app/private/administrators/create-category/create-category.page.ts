@@ -12,6 +12,7 @@ export class CreateCategoryPage implements OnInit {
 
   createCategoryForm: FormGroup;
   categoryId: any;
+  nameAlreadyRegistered = false;
 
   constructor(private http: HttpService,
     private formBuilder: FormBuilder,
@@ -32,7 +33,9 @@ export class CreateCategoryPage implements OnInit {
     this.http.post('/categories', this.createCategoryForm.value).subscribe((res: any) => {
       this.location.back();
     },
-      err => console.log(err)
+      err => {
+        if (err.status === 409) { this.nameAlreadyRegistered = true; }
+      }
     );
   }
 

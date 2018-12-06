@@ -115,8 +115,28 @@ export class AddPatientPage implements OnInit {
             this.http.post('/doctors/' + this.authService.getUserId() + '/patients/' + this.patient.id, {}).subscribe((res: any) => {
               this.location.back();
             },
-              err => console.log(err)
+              err => {
+                console.log(err);
+                if (err.status === 409) { this.presentPatientAlreadyAssociatedAlert(err.error); }
+              }
             );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentPatientAlreadyAssociatedAlert(error) {
+    const alert = await this.alertController.create({
+      message: error,
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
           }
         }
       ]

@@ -11,6 +11,8 @@ import { Location } from '@angular/common';
 export class CreateDoctorPage implements OnInit {
 
   createDoctorForm: FormGroup;
+  emailAlreadyRegistered = false;
+  boardNumberAlreadyRegistered = false;
 
   constructor(private formBuilder: FormBuilder,
     private http: HttpService,
@@ -34,7 +36,12 @@ export class CreateDoctorPage implements OnInit {
     this.http.post('/doctors', this.createDoctorForm.value).subscribe((res: any) => {
       this.location.back();
     },
-      err => console.log(err)
+      err => {
+        if (err.status === 409) {
+          this.emailAlreadyRegistered = err.error === 'email';
+          this.boardNumberAlreadyRegistered = err.error === 'boardNumber';
+        }
+      }
     );
   }
 

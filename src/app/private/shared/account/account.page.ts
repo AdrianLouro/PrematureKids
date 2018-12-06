@@ -13,6 +13,7 @@ export class AccountPage implements OnInit {
 
   editAccountForm: FormGroup;
   invalidPassword = false;
+  emailAlreadyRegistered = false;
 
   constructor(private http: HttpService,
     private authService: AuthenticationService,
@@ -45,8 +46,12 @@ export class AccountPage implements OnInit {
       this.editAccountForm.controls['newPassword'].reset();
       this.presentToast();
       this.invalidPassword = false;
+      this.emailAlreadyRegistered = false;
     },
-      err => this.invalidPassword = true
+      err => {
+        if (err.status === 403) { this.invalidPassword = true; }
+        if (err.status === 409) { this.emailAlreadyRegistered = true; }
+      }
     );
   }
 

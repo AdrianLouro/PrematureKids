@@ -25,6 +25,9 @@
       <ion-label position="floating">Board number*</ion-label>
       <ion-input type="text" formControlName="boardNumber"></ion-input>
     </ion-item>
+    <p ion-text color="danger" *ngIf="boardNumberAlreadyRegistered">
+      The board number is already in use
+    </p>
     <p ion-text color="danger" *ngIf="!createDoctorForm.controls.boardNumber.pristine && !createDoctorForm.controls.boardNumber.valid">
       The board number should not be blank
     </p>
@@ -39,6 +42,9 @@
       <ion-label position="floating">Email*</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
+    <p ion-text color="danger" *ngIf="emailAlreadyRegistered">
+      The email is already in use
+    </p>
     <p ion-text color="danger" *ngIf="!createDoctorForm.controls.email.pristine && !createDoctorForm.controls.email.valid">
       The given email is not valid
     </p>

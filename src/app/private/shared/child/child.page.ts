@@ -20,6 +20,7 @@ export class ChildPage implements OnInit {
   parents: any[];
   editChildForm: FormGroup;
   childId: string;
+  medicalHistoryIdAlreadyRegistered = false;
 
   constructor(/*private popoverController: PopoverController*/
     private alertController: AlertController,
@@ -108,9 +109,12 @@ export class ChildPage implements OnInit {
       weeksOfPregnancy: this.editChildForm.value['weeksOfPregnancy'],
       medicalHistory: this.editChildForm.value['medicalHistory'],
     }).subscribe((res: any) => {
+      this.medicalHistoryIdAlreadyRegistered = false;
       this.presentToast();
     },
-      err => console.log(err)
+      err => {
+        if (err.status === 409) { this.medicalHistoryIdAlreadyRegistered = true; }
+      }
     );
   }
 

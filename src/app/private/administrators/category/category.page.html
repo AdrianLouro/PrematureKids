@@ -21,6 +21,9 @@
       <ion-label position="floating">Name*</ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
+    <p ion-text color="danger" *ngIf="nameAlreadyRegistered">
+      The name is already in use
+    </p>
     <p ion-text color="danger" *ngIf="!editCategoryForm.controls.name.pristine && !editCategoryForm.controls.name.valid">
       The name should not be blank
     </p>

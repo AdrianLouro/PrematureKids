@@ -15,6 +15,7 @@ export class ParentProfilePage implements OnInit {
   editParentForm: FormGroup;
   authenticatedAsParent = false;
   parentId: string;
+  idNumberAlreadyRegistered = false;
 
   constructor(private toastController: ToastController,
     private router: Router,
@@ -57,9 +58,12 @@ export class ParentProfilePage implements OnInit {
 
   editProfile() {
     this.http.put('/parents/' + this.authService.getUserId(), this.editParentForm.value).subscribe((res: any) => {
+      this.idNumberAlreadyRegistered = false;
       this.presentToast();
     },
-      err => console.log(err)
+      err => {
+        if (err.status === 409) { this.idNumberAlreadyRegistered = true; }
+      }
     );
   }
 

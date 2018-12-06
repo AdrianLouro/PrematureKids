@@ -14,6 +14,7 @@ export class CategoryPage implements OnInit {
 
   editCategoryForm: FormGroup;
   categoryId: any;
+  nameAlreadyRegistered = false;
 
   constructor(private http: HttpService,
     private formBuilder: FormBuilder,
@@ -48,9 +49,12 @@ export class CategoryPage implements OnInit {
 
   editCategory() {
     this.http.put('/categories/' + this.categoryId, this.editCategoryForm.value).subscribe((res: any) => {
+      this.nameAlreadyRegistered = false;
       this.presentToast();
     },
-      err => console.log(err)
+      err => {
+        if (err.status === 409) { this.nameAlreadyRegistered = true; }
+      }
     );
   }
 

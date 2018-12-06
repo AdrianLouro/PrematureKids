@@ -14,6 +14,8 @@ export class RegisterParentPage implements OnInit {
 
   private registerParentForm: FormGroup;
   private passwordsFormGroup: FormGroup;
+  emailAlreadyRegistered = false;
+  idNumberAlreadyRegistered = false;
 
   constructor(private authService: AuthenticationService,
     private http: HttpService,
@@ -57,7 +59,12 @@ export class RegisterParentPage implements OnInit {
       this.presentToast();
       this.location.back();
     },
-      err => console.log('ERROR: ' + err)
+      err => {
+        if (err.status === 409) {
+          this.emailAlreadyRegistered = err.error === 'email';
+          this.idNumberAlreadyRegistered = err.error === 'idNumber';
+        }
+      }
     );
   }
 
