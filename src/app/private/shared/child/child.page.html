@@ -45,12 +45,6 @@
           <ion-text>State: {{ assignment.state }}</ion-text>
         </ion-card-content>
       </ion-card>
-
-      <ion-fab *ngIf="!authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToCreateAssignment()">
-        <ion-fab-button>
-          <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
     </div>
 
     <div *ngSwitchCase="'profile'">
@@ -96,10 +90,8 @@
         <p ion-text color="danger" *ngIf="!editChildForm.controls.weeksOfPregnancy.pristine && !editChildForm.controls.weeksOfPregnancy.valid">
           The weeks of pregnancy should not be blank
         </p>
-        <ion-item margin-top>
-          <ion-textarea formControlName="medicalHistory" *ngIf="!authenticatedAsParent" style="background-color:gainsboro"
-            rows="10" placeholder="Enter relevant information about the patient"></ion-textarea>
-        </ion-item>
+        <ion-textarea margin-top formControlName="medicalHistory" *ngIf="!authenticatedAsParent" style="background-color:ghostwhite"
+          rows="10" placeholder="Enter relevant information about the patient"></ion-textarea>
         <p ion-text color="danger" *ngIf="!editChildForm.controls.medicalHistory.pristine && !editChildForm.controls.medicalHistory.valid">
           The medical history should not be blank
         </p>
@@ -119,13 +111,21 @@
           <ion-icon name="remove-circle" item-end (click)="deleteParent(parent.id)"></ion-icon>
         </ion-item>
       </ion-list>
-
-      <ion-fab *ngIf="!authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToAddParent()">
-        <ion-fab-button>
-          <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
     </div>
 
   </div>
+
+  <ion-fab *ngIf="segment === 'assignments' && !authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed"
+    (click)="navigateToCreateAssignment()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab *ngIf="segment === 'parents' && !authenticatedAsParent" vertical="bottom" horizontal="end" slot="fixed"
+    (click)="navigateToAddParent()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

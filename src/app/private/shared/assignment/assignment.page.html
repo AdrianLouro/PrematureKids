@@ -65,10 +65,8 @@
         <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.feedbackFrequency.pristine && !editAssignmentForm.controls.feedbackFrequency.valid">
           The feedback frequency should not be blank
         </p>
-        <ion-item margin-top>
-          <ion-textarea formControlName="notes" [readonly]="!iAmAuthor" style="background-color:gainsboro" rows="10"
-            placeholder="Enter relevant info for the assignment"></ion-textarea>
-        </ion-item>
+        <ion-textarea margin-top formControlName="notes" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
+          rows="10" placeholder="Enter relevant info for the assignment"></ion-textarea>
         <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.notes.pristine && !editAssignmentForm.controls.notes.valid">
           The notes should not be blank
         </p>
@@ -81,14 +79,10 @@
       </ion-item>
       <ion-item text-justify>{{ assignment?.exercise.description }}</ion-item>
 
-      <ion-item-divider></ion-item-divider>
-
       <ion-item margin-top>
         <div *ngIf="exerciseVideo == null">No videos found</div>
         <div *ngIf="exerciseVideo != null"><a (click)="playVideo()">Play video</a></div>
       </ion-item>
-
-      <ion-item-divider></ion-item-divider>
 
       <ion-item margin-top *ngIf="exerciseImages?.length === 0">
         No images found
@@ -102,8 +96,6 @@
       </ion-slides>
 
       <div *ngIf="authenticatedAsParent">
-        <ion-item-divider></ion-item-divider>
-
         <ion-item (click)="navigateToOpinion()">
           <ion-text>Write an opinion</ion-text>
           <ion-icon name="arrow-forward" slot="end"></ion-icon>

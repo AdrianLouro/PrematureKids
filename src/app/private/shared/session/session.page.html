@@ -33,20 +33,16 @@
           <ion-label>Date</ion-label>
           <ion-datetime display-format="DD/MM/YYYY" formControlName="date" [disabled]="!iAmAuthor"></ion-datetime>
         </ion-item>
-        <ion-item margin-top>
-          <ion-textarea formControlName="parentNotes" style="background-color:gainsboro" rows="10" placeholder="Enter relevant info about the session"
-            [readonly]="!iAmAuthor"></ion-textarea>
-        </ion-item>
+        <ion-textarea margin-top formControlName="parentNotes" style="background-color:ghostwhite" rows="10" placeholder="Enter relevant info about the session"
+          [readonly]="!iAmAuthor"></ion-textarea>
         <p ion-text color="danger" *ngIf="!editSessionForm.controls.parentNotes.pristine && !editSessionForm.controls.parentNotes.valid">
           The notes should not be blank
         </p>
-        <ion-item margin-top>
-          <ion-textarea formControlName="doctorNotes" *ngIf="!authenticatedAsParent && iAmAssignmentAuthor" style="background-color:gainsboro"
-            rows="10" placeholder="Enter any notes about the session"></ion-textarea>
-          <ion-text *ngIf="!iAmAssignmentAuthor && session?.doctorNotes" text-justify>
-            {{ session.assignment.doctor.name }} says: {{ session.doctorNotes }}
-          </ion-text>
-        </ion-item>
+        <ion-textarea margin-top formControlName="doctorNotes" *ngIf="!authenticatedAsParent && iAmAssignmentAuthor"
+          style="background-color:ghostwhite" rows="10" placeholder="Enter any notes about the session"></ion-textarea>
+        <ion-text margin-top *ngIf="!iAmAssignmentAuthor && session?.doctorNotes" text-justify>
+          {{ session.assignment.doctor.name }} says: {{ session.doctorNotes }}
+        </ion-text>
       </form>
     </div>
 
@@ -65,8 +61,6 @@
         </ion-item>
       </ion-item>
 
-      <ion-item-divider></ion-item-divider>
-
       <ion-item margin-top *ngIf="sessionImages?.length === 0 && !iAmAuthor">
         No images found
       </ion-item>
@@ -78,13 +72,11 @@
           </ion-card>
         </ion-slide>
       </ion-slides>
-      <ion-item>
-        <div *ngIf="iAmAuthor">
-          <ion-button (click)="getAndUploadImage()">
-            Upload image
-            <ion-icon slot="start" name="cloud-upload"></ion-icon>
-          </ion-button>
-        </div>
+      <ion-item *ngIf="iAmAuthor">
+        <ion-button (click)="getAndUploadImage()">
+          Upload image
+          <ion-icon slot="start" name="cloud-upload"></ion-icon>
+        </ion-button>
       </ion-item>
     </div>
 

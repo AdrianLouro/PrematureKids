@@ -23,7 +23,7 @@
           <div padding> No exercises found. </div>
         </ng-template>
         <ng-template ionicSelectableTitleTemplate>
-            <ion-title>Exercises</ion-title>
+          <ion-title>Exercises</ion-title>
         </ng-template>
       </ionic-selectable>
     </ion-item>
@@ -48,9 +48,7 @@
     <p ion-text color="danger" *ngIf="!createAssignmentForm.controls.feedbackFrequency.pristine && !createAssignmentForm.controls.feedbackFrequency.valid">
       The feedback frequency should not be blank
     </p>
-    <ion-item margin-top>
-      <ion-textarea formControlName="notes" style="background-color:gainsboro" rows="10" placeholder="Enter relevant info for the assignment"></ion-textarea>
-    </ion-item>
+    <ion-textarea margin-top formControlName="notes" style="background-color:ghostwhite" rows="10" placeholder="Enter relevant info for the assignment"></ion-textarea>
     <p ion-text color="danger" *ngIf="!createAssignmentForm.controls.notes.pristine && !createAssignmentForm.controls.notes.valid">
       The notes should not be blank
     </p>

@@ -27,8 +27,9 @@
         <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item margin-top>
-      <ion-textarea formControlName="description" style="background-color:gainsboro" rows="10" placeholder="Enter the description of the exercise"></ion-textarea>
-    </ion-item>
+    <ion-textarea margin-top formControlName="description" style="background-color:ghostwhite" rows="10" placeholder="Enter the description of the exercise"></ion-textarea>
+    <p ion-text color="danger" *ngIf="!createExerciseForm.controls.description.pristine && !createExerciseForm.controls.description.valid">
+      The description should not be blank
+    </p>
   </form>
 </ion-content>

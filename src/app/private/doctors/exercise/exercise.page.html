@@ -46,10 +46,11 @@
             <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item margin-top>
-          <ion-textarea formControlName="description" [readonly]="!iAmAuthor" style="background-color:gainsboro" rows="10"
-            placeholder="Enter the description of the exercise"></ion-textarea>
-        </ion-item>
+        <ion-textarea margin-top formControlName="description" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
+          rows="10" placeholder="Enter the description of the exercise"></ion-textarea>
+        <p ion-text color="danger" *ngIf="!editExerciseForm.controls.description.pristine && !editExerciseForm.controls.description.valid">
+          The description should not be blank
+        </p>
       </form>
     </div>
 
@@ -67,8 +68,6 @@
           <ion-icon name="remove-circle" (click)="deleteVideo()"></ion-icon>
         </ion-item>
       </ion-item>
-
-      <ion-item-divider></ion-item-divider>
 
       <ion-item margin-top *ngIf="exerciseImages?.length === 0 && !iAmAuthor">
         No images found

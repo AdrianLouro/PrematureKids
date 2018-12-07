@@ -18,9 +18,7 @@
       <ion-label>Date</ion-label>
       <ion-datetime display-format="DD/MM/YYYY" formControlName="date"></ion-datetime>
     </ion-item>
-    <ion-item margin-top>
-      <ion-textarea formControlName="parentNotes" style="background-color:gainsboro" rows="10" placeholder="Enter relevant info about the session"></ion-textarea>
-    </ion-item>
+    <ion-textarea margin-top formControlName="parentNotes" style="background-color:ghostwhite" rows="10" placeholder="Enter relevant info about the session"></ion-textarea>
     <p ion-text color="danger" *ngIf="!createSessionForm.controls.parentNotes.pristine && !createSessionForm.controls.parentNotes.valid">
       The notes should not be blank
     </p>
