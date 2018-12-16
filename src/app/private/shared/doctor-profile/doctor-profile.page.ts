@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
 import { Location } from '@angular/common';
+import { FirebaseChatService } from '../../../services/firebase-chat.service';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -22,6 +23,7 @@ export class DoctorProfilePage implements OnInit {
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private http: HttpService,
+    private firebaseChatService: FirebaseChatService,
     private router: Router,
     private location: Location,
     private alertController: AlertController,
@@ -62,6 +64,7 @@ export class DoctorProfilePage implements OnInit {
   editProfile() {
     this.http.put('/doctors/' + this.doctorId, this.editDoctorForm.value).subscribe((res: any) => {
       this.boardNumberAlreadyRegistered = false;
+      this.firebaseChatService.editUser(this.doctorId, this.editDoctorForm.value['name']);
       this.presentToast();
     },
       err => {

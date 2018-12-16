@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
 import { Location } from '@angular/common';
+import { FirebaseChatService } from '../../../services/firebase-chat.service';
 
 @Component({
   selector: 'app-create-doctor',
@@ -16,6 +17,7 @@ export class CreateDoctorPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private http: HttpService,
+    private firebaseChatService: FirebaseChatService,
     private location: Location) {
     this.initCreateDoctorForm();
   }
@@ -34,6 +36,7 @@ export class CreateDoctorPage implements OnInit {
 
   createDoctor() {
     this.http.post('/doctors', this.createDoctorForm.value).subscribe((res: any) => {
+      this.firebaseChatService.createUser(res.id, res.name, 'doctor');
       this.location.back();
     },
       err => {

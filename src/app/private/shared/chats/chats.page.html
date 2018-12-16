@@ -3,22 +3,19 @@
     <ion-menu-button slot="start"></ion-menu-button>
     <ion-title>Chats</ion-title>
   </ion-toolbar>
-  <ion-searchbar slot="end" placeholder="{{ authenticatedAsParent ? 'Doctor name' : 'Parent name' }}" (ionInput)="filterChats($event)"></ion-searchbar>
+  <ion-searchbar slot="end" [(ngModel)]="nameFilter" placeholder="{{ authenticatedAsParent ? 'Doctor name' : 'Parent name' }}"></ion-searchbar>
 </ion-header>
 
 <ion-content padding-vertical>
   <ion-list>
-    <ion-item *ngFor="let chat of chats" (click)="openChat()">
-      <ion-avatar slot="start">
-        <img src="/resources/icon.png">
-      </ion-avatar>
+    <ion-item *ngFor="let chat of chats | search : nameFilter : ['name']" (click)="openChat(chat.key)">
       <ion-label>
-        <h2>John Doe</h2>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <h2>{{ chat.name }}</h2>
+        <!-- <p>Lorem ipsum dolor sit amet.</p> -->
       </ion-label>
     </ion-item>
   </ion-list>
-  
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToContacts()">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>

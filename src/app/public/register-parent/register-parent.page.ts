@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { HttpService } from '../../services/http.service';
 import { ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { FirebaseChatService } from '../../services/firebase-chat.service';
 
 @Component({
   selector: 'app-register-parent',
@@ -19,6 +20,7 @@ export class RegisterParentPage implements OnInit {
 
   constructor(private authService: AuthenticationService,
     private http: HttpService,
+    private firebaseChatService: FirebaseChatService,
     private toastController: ToastController,
     private location: Location,
     private formBuilder: FormBuilder) {
@@ -56,6 +58,7 @@ export class RegisterParentPage implements OnInit {
       'password': this.passwordsFormGroup.value['password']
 
     }).subscribe((res: any) => {
+      this.firebaseChatService.createUser(res.id, res.name, 'parent');
       this.presentToast();
       this.location.back();
     },

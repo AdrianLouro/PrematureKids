@@ -36,7 +36,8 @@ export class AdministratorProfilePage implements OnInit {
         name: res.name
       });
     },
-      err => console.log(err));
+      err => console.log(err)
+    );
   }
 
   editProfile() {

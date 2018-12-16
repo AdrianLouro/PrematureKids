@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../services/authentication/authenti
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
+import { FirebaseChatService } from '../../../services/firebase-chat.service';
 
 @Component({
   selector: 'app-parent-profile',
@@ -20,6 +21,7 @@ export class ParentProfilePage implements OnInit {
   constructor(private toastController: ToastController,
     private router: Router,
     private http: HttpService,
+    private firebaseChatService: FirebaseChatService,
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private route: ActivatedRoute) {
@@ -59,6 +61,7 @@ export class ParentProfilePage implements OnInit {
   editProfile() {
     this.http.put('/parents/' + this.authService.getUserId(), this.editParentForm.value).subscribe((res: any) => {
       this.idNumberAlreadyRegistered = false;
+      this.firebaseChatService.editUser(this.authService.getUserId(), this.editParentForm.value['name']);
       this.presentToast();
     },
       err => {

@@ -6,6 +6,16 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { HttpService } from './services/http.service';
+import * as firebase from 'firebase';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyDEG7YIeXszr8gntI4zNs-qk_U7te4P9b0',
+  authDomain: 'prematurekidschat.firebaseapp.com',
+  databaseURL: 'https://prematurekidschat.firebaseio.com',
+  projectId: 'prematurekidschat',
+  storageBucket: '',
+  messagingSenderId: '674825846654'
+};
 
 @Component({
   selector: 'app-root',
@@ -26,9 +36,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthenticationService,
-    private router: Router,
-    private http: HttpService
-  ) {
+    private router: Router) {
     this.initializeApp();
   }
 
@@ -38,6 +46,7 @@ export class AppComponent {
       this.splashScreen.hide();
       this.checkAuthenticationState(); // TODO: do not show split pane when not authenticated
     });
+    firebase.initializeApp(firebaseConfig);
   }
 
   checkAuthenticationState() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
+import { FirebaseChatService } from '../../../services/firebase-chat.service';
 
 @Component({
   selector: 'app-chats',
@@ -13,27 +14,24 @@ export class ChatsPage implements OnInit {
   authenticatedAsParent: boolean;
 
   constructor(private router: Router,
-    private authService: AuthenticationService) {
-    this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
+    private authService: AuthenticationService,
+    private firebaseChatService: FirebaseChatService) {
   }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
+    this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
     this.loadChats();
   }
 
   loadChats() {
-    this.chats = [1, 2, 3, 4, 5];
+    this.firebaseChatService.loadChats(this);
   }
 
-  filterChats(event: any) {
-    this.chats = Array.from(Array(Math.max(0, 5 - event.target.value.length)).keys());
-  }
-
-  openChat() {
-    this.router.navigate(['private', 'shared', 'chat']);
+  openChat(id: any) {
+    this.router.navigate(['private', 'shared', 'chat', id]);
   }
 
   navigateToContacts() {

@@ -3,8 +3,8 @@
     <ion-menu-button slot="start" *ngIf="authenticatedUserRole === 'doctor'"></ion-menu-button>
     <ion-back-button slot="start" *ngIf="authenticatedUserRole !== 'doctor'"></ion-back-button>
     <ion-buttons slot="end">
-      <ion-button *ngIf="authenticatedUserRole !== 'parent'" style="margin-right: 16px" (click)="editProfile()"
-        [disabled]="!editDoctorForm.valid">
+      <ion-button *ngIf="authenticatedUserRole !== 'parent'" [disabled]="!editDoctorForm.valid" style="margin-right: 16px"
+        (click)="editProfile()">
         <ion-icon name="save"></ion-icon>
       </ion-button>
       <ion-button *ngIf="authenticatedUserRole === 'administrator'" style="margin-right: 16px" (click)="removeDoctor()">

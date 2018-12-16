@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: 'chats', loadChildren: './chats/chats.module#ChatsPageModule' },
-  { path: 'chat', loadChildren: './chat/chat.module#ChatPageModule' },
+  { path: 'chat/:id', loadChildren: './chat/chat.module#ChatPageModule' },
   { path: 'contacts', loadChildren: './contacts/contacts.module#ContactsPageModule' },
   { path: 'children', loadChildren: './children/children.module#ChildrenPageModule' },
   { path: 'child/:id', loadChildren: './child/child.module#ChildPageModule' },

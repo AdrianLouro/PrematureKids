@@ -48,12 +48,12 @@
         </p> -->
       <ion-item [disabled]="patient != null">
         <ion-label position="floating">Weeks of pregnancy*</ion-label>
-        <ion-input type="number" formControlName="weeksOfPregnancy" [readonly]="authenticatedAsParent"></ion-input>
+        <ion-input type="number" formControlName="weeksOfPregnancy"></ion-input>
       </ion-item>
       <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.weeksOfPregnancy.pristine && !patientDataFormGroup.controls.weeksOfPregnancy.valid">
         The weeks of pregnancy should not be blank
       </p>
-      <ion-textarea margin-top [disabled]="patient != null" formControlName="medicalHistory" *ngIf="!authenticatedAsParent"
+      <ion-textarea margin-top [disabled]="patient != null" formControlName="medicalHistory"
         style="background-color:ghostwhite" rows="10" placeholder="Enter relevant information about the patient"></ion-textarea>
       <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.medicalHistory.pristine && !patientDataFormGroup.controls.medicalHistory.valid">
         The medical history should not be blank
