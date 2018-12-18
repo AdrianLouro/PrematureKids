@@ -49,7 +49,7 @@
         <ion-input clearOnEdit="false" type="password" formControlName="password"></ion-input>
       </ion-item>
       <p ion-text color="danger" *ngIf="!passwordsFormGroup.controls.password.pristine && !passwordsFormGroup.controls.password.valid">
-        The password should not be blank
+        The password must have at least 8 characters
       </p>
       <ion-item>
         <ion-label position="floating">Password confirmation*</ion-label>
@@ -59,7 +59,7 @@
         The password does not match
       </p>
     </div>
-    <ion-item>
+    <ion-item no-lines margin-top>
       <ion-checkbox no-margin formControlName="acceptTerms"></ion-checkbox>
       <ion-item href="/terms" routerDirection="forward">I do accept Terms & Conditions</ion-item>
     </ion-item>

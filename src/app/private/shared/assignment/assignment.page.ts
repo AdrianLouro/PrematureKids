@@ -143,8 +143,7 @@ export class AssignmentPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'The assignment has been edited.',
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

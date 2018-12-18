@@ -52,8 +52,7 @@ export class AdministratorProfilePage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Your profile has been edited.',
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

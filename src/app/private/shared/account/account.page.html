@@ -36,5 +36,8 @@
       <ion-label position="floating">New password*</ion-label>
       <ion-input type="password" formControlName="newPassword"></ion-input>
     </ion-item>
+    <p ion-text color="danger" *ngIf="!editAccountForm.controls.newPassword.pristine && !editAccountForm.controls.newPassword.valid">
+      The new pasword must have at least 8 characters
+    </p>
   </form>
 </ion-content>

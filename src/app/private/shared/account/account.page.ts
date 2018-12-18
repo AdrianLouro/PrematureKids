@@ -26,7 +26,7 @@ export class AccountPage implements OnInit {
     this.editAccountForm = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]],
       currentPassword: ['', Validators.required],
-      newPassword: [''],
+      newPassword: ['', Validators.minLength(8)],
     });
   }
 
@@ -49,7 +49,7 @@ export class AccountPage implements OnInit {
       this.emailAlreadyRegistered = false;
     },
       err => {
-        if (err.status === 403) { this.invalidPassword = true; }
+        if (err.status === 401) { this.invalidPassword = true; }
         if (err.status === 409) { this.emailAlreadyRegistered = true; }
       }
     );
@@ -59,8 +59,7 @@ export class AccountPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Your account has been edited.',
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

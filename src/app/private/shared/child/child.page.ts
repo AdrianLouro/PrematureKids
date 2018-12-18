@@ -122,8 +122,7 @@ export class ChildPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'The patient has been edited.',
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

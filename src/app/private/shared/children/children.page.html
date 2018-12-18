@@ -6,13 +6,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let child of children" (click)="navigateToChild(child.id)">
-    <ion-card-header>
-      <ion-card-title>{{ child.name }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Pending exercises: 1</p>
-      <p>Finished exercises: 2</p>
-    </ion-card-content>
-  </ion-card>
+  <ion-list *ngFor="let child of children" (click)="navigateToChild(child.id)">
+    <ion-item>
+      {{ child.name }}
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -22,7 +22,7 @@
   <ion-toolbar>
     <ion-item>
       <ion-input style="margin-right:16px" type="text" placeholder="Message" [(ngModel)]="newMessage"></ion-input>
-      <ion-button color="primary" (click)="sendMessage()" [disabled]="!newMessage">Send</ion-button>
+      <ion-button item-end color="primary" (click)="sendMessage()" [disabled]="!newMessage">Send</ion-button>
     </ion-item>
   </ion-toolbar>
 </ion-footer>

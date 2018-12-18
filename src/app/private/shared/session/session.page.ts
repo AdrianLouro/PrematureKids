@@ -109,7 +109,7 @@ export class SessionPage implements OnInit {
       parentNotes: this.editSessionForm.value['parentNotes'],
       doctorNotes: this.editSessionForm.value['doctorNotes']
     }).subscribe((res: any) => {
-      this.presentToast();
+      this.presentToast('The session has been edited.');
     },
       err => console.log(err)
     );
@@ -144,7 +144,7 @@ export class SessionPage implements OnInit {
           text: 'Delete video',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + this.sessionVideo.id).subscribe((res: any) => {
-              this.presentToast();
+              this.presentToast('The video has been deleted.');
               this.sessionVideo = undefined;
             },
               err => console.log(err)
@@ -186,7 +186,7 @@ export class SessionPage implements OnInit {
           text: 'Delete image',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + image.id).subscribe((res: any) => {
-              this.presentToast();
+              this.presentToast('The image has been deleted.');
               this.sessionImages = this.sessionImages.filter(sessionImage => sessionImage.id !== image.id);
             },
               err => console.log(err)
@@ -220,19 +220,18 @@ export class SessionPage implements OnInit {
       }).then(res => {
         loadingController.dismiss();
         type === 'video' ? this.sessionVideo = JSON.parse(res.response) : this.sessionImages.push(JSON.parse(res.response));
-        this.presentToast();
+        this.presentToast('The ' + type + ' has been uploaded.');
       }).catch(err => {
         console.log(err);
         loadingController.dismiss();
       });
   }
 
-  async presentToast() {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
-      message: 'The session has been edited.',
+      message: message,
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

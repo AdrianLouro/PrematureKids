@@ -108,7 +108,7 @@
             <h2>{{ parent.name }}</h2>
             <p>Telephone: {{ parent.telephone }}</p>
           </ion-label>
-          <ion-icon name="remove-circle" item-end (click)="deleteParent(parent.id)"></ion-icon>
+          <ion-icon name="remove-circle" item-end *ngIf="!authenticatedAsParent" (click)="deleteParent(parent.id)"></ion-icon>
         </ion-item>
       </ion-list>
     </div>

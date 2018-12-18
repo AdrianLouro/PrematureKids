@@ -124,7 +124,7 @@ export class ExercisePage implements OnInit {
       categoryId: this.editExerciseForm.value['category'],
       doctorId: this.authService.getUserId()
     }).subscribe((res: any) => {
-      this.presentToast();
+      this.presentToast('The exercise has been edited.');
     },
       err => console.log(err)
     );
@@ -159,7 +159,7 @@ export class ExercisePage implements OnInit {
           text: 'Delete video',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + this.exerciseVideo.id).subscribe((res: any) => {
-              this.presentToast();
+              this.presentToast('The video has been deleted.');
               this.exerciseVideo = undefined;
             },
               err => console.log(err)
@@ -201,7 +201,7 @@ export class ExercisePage implements OnInit {
           text: 'Delete image',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + image.id).subscribe((res: any) => {
-              this.presentToast();
+              this.presentToast('The image has been deleted.');
               this.exerciseImages = this.exerciseImages.filter(exerciseImage => exerciseImage.id !== image.id);
             },
               err => console.log(err)
@@ -235,7 +235,7 @@ export class ExercisePage implements OnInit {
       }).then(res => {
         loadingController.dismiss();
         type === 'video' ? this.exerciseVideo = JSON.parse(res.response) : this.exerciseImages.push(JSON.parse(res.response));
-        this.presentToast();
+        this.presentToast('The ' + type + ' has been uploaded.');
       }).catch(err => {
         console.log(err);
         loadingController.dismiss();
@@ -259,12 +259,11 @@ export class ExercisePage implements OnInit {
     this.photoViewer.show(image.fullPath, '', { share: false });
   }
 
-  async presentToast() {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
-      message: 'The exercise has been edited.',
+      message: message,
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

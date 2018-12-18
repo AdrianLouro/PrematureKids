@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { Router, NavigationEnd } from '@angular/router';
-import { HttpService } from './services/http.service';
 import * as firebase from 'firebase';
 
 const firebaseConfig = {

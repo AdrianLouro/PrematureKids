@@ -92,8 +92,7 @@ export class OpinionPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Your opinion has been ' + (this.opinion !== undefined ? 'sent' : 'deleted') + '.',
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

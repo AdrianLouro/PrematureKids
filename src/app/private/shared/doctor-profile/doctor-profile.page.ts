@@ -77,8 +77,7 @@ export class DoctorProfilePage implements OnInit {
     const toast = await this.toastController.create({
       message: this.authenticatedUserRole === 'doctor' ? 'Your profile has been edited.' : 'The doctor profile has been edited.',
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

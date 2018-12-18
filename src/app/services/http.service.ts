@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,40 +15,49 @@ export class HttpService {
 
   constructor(private http: HttpClient,
     private storage: Storage) {
-    this.refreshHeaders();
   }
 
-  refreshHeaders() {
-    this.storage.get('jwt').then(token => {
-      this.httpOptions.headers = new HttpHeaders(
-        token == null ?
-          { 'Content-Type': 'application/json' } :
-          {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-          }
-      );
-    });
+  refreshHeadersWithToken(token: any) {
+    this.httpOptions.headers = new HttpHeaders(
+      token == null ?
+        { 'Content-Type': 'application/json' } :
+        {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+    );
+  }
+
+  getApiToken(): Observable<Headers> {
+    return Observable.fromPromise(this.storage.get('jwt'));
   }
 
   get(endpoint) {
-    this.refreshHeaders();
-    return this.http.get(this.apiUrl + endpoint, this.httpOptions);
+    return this.getApiToken().flatMap(token => {
+      this.refreshHeadersWithToken(token);
+      return this.http.get(this.apiUrl + endpoint, this.httpOptions);
+    });
   }
 
   post(endpoint, data) {
-    this.refreshHeaders();
-    return this.http.post(this.apiUrl + endpoint, data, this.httpOptions);
+    return this.getApiToken().flatMap(token => {
+      this.refreshHeadersWithToken(token);
+      return this.http.post(this.apiUrl + endpoint, data, this.httpOptions);
+    });
   }
 
   put(endpoint, data) {
-    this.refreshHeaders();
-    return this.http.put(this.apiUrl + endpoint, data, this.httpOptions);
+    return this.getApiToken().flatMap(token => {
+      this.refreshHeadersWithToken(token);
+      return this.http.put(this.apiUrl + endpoint, data, this.httpOptions);
+    });
   }
 
   delete(endpoint) {
-    this.refreshHeaders();
-    return this.http.delete(this.apiUrl + endpoint, this.httpOptions);
+    return this.getApiToken().flatMap(token => {
+      this.refreshHeadersWithToken(token);
+      return this.http.delete(this.apiUrl + endpoint, this.httpOptions);
+    });
   }
 
 }

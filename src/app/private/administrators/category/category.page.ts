@@ -62,8 +62,7 @@ export class CategoryPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'The category has been edited.',
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }

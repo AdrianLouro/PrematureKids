@@ -32,8 +32,8 @@ export class RegisterParentPage implements OnInit {
 
   initRegisterParentForm() {
     this.passwordsFormGroup = this.formBuilder.group({
-      password: ['', Validators.required],
-      passwordConfirmation: ['', Validators.required]
+      password: ['', Validators.minLength(8)],
+      passwordConfirmation: ['', Validators.minLength(8)]
     },
       { validator: PasswordsValidator.validate.bind(this) }
     );
@@ -75,8 +75,7 @@ export class RegisterParentPage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Your account has been created.',
       cssClass: 'primary',
-      showCloseButton: true,
-      closeButtonText: 'OK'
+      duration: 3000
     });
     toast.present();
   }
