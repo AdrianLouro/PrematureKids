@@ -31,6 +31,7 @@ const routes: Routes = [
     canActivate: [ParentAuthGuardService],
     loadChildren: './private/parents/parent-routing.module#ParentRoutingModule'
   },
+  { path: 'privacy-policy', loadChildren: './public/privacy-policy/privacy-policy.module#PrivacyPolicyPageModule' },
 ];
 
 @NgModule({

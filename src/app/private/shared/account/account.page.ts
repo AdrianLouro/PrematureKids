@@ -42,7 +42,11 @@ export class AccountPage implements OnInit {
   }
 
   editAccount() {
-    this.http.put('/users/' + this.authService.getUserId(), this.editAccountForm.value).subscribe((res: any) => {
+    this.http.put('/users/' + this.authService.getUserId(), {
+      email: this.editAccountForm.value['email'],
+      currentPassword: this.editAccountForm.value['currentPassword'],
+      newPassword: this.editAccountForm.value['newPassword'] ? this.editAccountForm.value['newPassword'] : null
+    }).subscribe((res: any) => {
       this.editAccountForm.controls['newPassword'].reset();
       this.presentToast();
       this.invalidPassword = false;
@@ -57,7 +61,7 @@ export class AccountPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your account has been edited.',
+      message: 'La cuenta ha sido editada.',
       cssClass: 'primary',
       duration: 3000
     });

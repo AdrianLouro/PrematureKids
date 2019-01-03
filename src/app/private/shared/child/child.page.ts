@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ToastController, Datetime } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -120,7 +120,7 @@ export class ChildPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'The patient has been edited.',
+      message: 'El paciente ha sido editado',
       cssClass: 'primary',
       duration: 3000
     });
@@ -133,17 +133,17 @@ export class ChildPage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete the patient?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar el paciente?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete patient',
+          text: 'Eliminar paciente',
           handler: () => {
             this.http.delete('/children/' + this.childId).subscribe((res: any) => {
               this.location.back();
@@ -160,17 +160,17 @@ export class ChildPage implements OnInit {
 
   async deleteParent(parentId: any) {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to dissociate the parent from the patient?',
-      message: 'The parent will not be able to see the child!',
+      header: '¿Está seguro de que quiere desasociar el padre del paciente?',
+      message: '¡El padre no podrá ver al paciente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Dissociate',
+          text: 'Desasociar',
           handler: () => {
             this.http.delete('/children/' + this.childId + '/parents/' + parentId).subscribe((res: any) => {
               this.parents = this.parents.filter(parent => parent.id !== parentId);

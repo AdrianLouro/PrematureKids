@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Associate new parent</ion-title>
+    <ion-title>Asociar padre</ion-title>
   </ion-toolbar>
-  <ion-searchbar placeholder="Parent ID" (ionInput)="searchParent($event)"></ion-searchbar>
+  <ion-searchbar placeholder="DNI/NIF/NIE" (ionInput)="searchParent($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
@@ -14,7 +14,7 @@
       <ion-card-title>{{ parent.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Telephone: {{ parent.telephone }}</p>
+      <p>Teléfono: {{ parent.telephone }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

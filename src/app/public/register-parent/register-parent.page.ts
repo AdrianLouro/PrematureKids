@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { HttpService } from '../../services/http.service';
 import { ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { FirebaseChatService } from '../../services/firebase-chat.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class RegisterParentPage implements OnInit {
     private firebaseChatService: FirebaseChatService,
     private toastController: ToastController,
     private location: Location,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private router: Router) {
     this.initRegisterParentForm();
   }
 
@@ -73,11 +75,19 @@ export class RegisterParentPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your account has been created.',
+      message: 'La cuenta ha sido creada.',
       cssClass: 'primary',
       duration: 3000
     });
     toast.present();
+  }
+
+  navigateToTerms() {
+    this.router.navigate(['terms']);
+  }
+
+  navigateToPrivacyPolicy() {
+    this.router.navigate(['privacy-policy']);
   }
 
 }

@@ -141,7 +141,7 @@ export class AssignmentPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'The assignment has been edited.',
+      message: 'La tarea ha sido editada.',
       cssClass: 'primary',
       duration: 3000
     });
@@ -154,17 +154,17 @@ export class AssignmentPage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete this assignment?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar la tarea?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete assignment',
+          text: 'Eliminar tarea',
           handler: () => {
             this.http.delete('/assignments/' + this.assignment.id).subscribe((res: any) => {
               this.location.back();

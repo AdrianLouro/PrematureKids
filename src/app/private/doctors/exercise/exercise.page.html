@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Exercise</ion-title>
+    <ion-title>Ejercicio</ion-title>
 
     <ion-buttons *ngIf="iAmAuthor && segment === 'info'" slot="end">
       <ion-button style="margin-right: 16px" (click)="editExercise()" [disabled]="!editExerciseForm.valid">
@@ -19,13 +19,13 @@
 <ion-content padding>
   <ion-segment [(ngModel)]="segment">
     <ion-segment-button value="info">
-      Info
+      Información
     </ion-segment-button>
     <ion-segment-button value="multimedia">
       Multimedia
     </ion-segment-button>
     <ion-segment-button value="opinions">
-      Opinions
+      Opiniones
     </ion-segment-button>
   </ion-segment>
 
@@ -34,43 +34,43 @@
     <div *ngSwitchCase="'info'">
       <form [formGroup]="editExerciseForm">
         <ion-item>
-          <ion-label position="floating">Title*</ion-label>
+          <ion-label position="floating">Título*</ion-label>
           <ion-input type="text" formControlName="title" [readonly]="!iAmAuthor"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="!editExerciseForm.controls.title.pristine && !editExerciseForm.controls.title.valid">
-          The title should not be blank
+          El título no puede estar vacío
         </p>
         <ion-item margin-top>
-          <ion-label>Category*</ion-label>
-          <ion-select placeholder="Select one" formControlName="category" [disabled]="!iAmAuthor">
+          <ion-label>Categoría*</ion-label>
+          <ion-select placeholder="Seleccionar" formControlName="category" [disabled]="!iAmAuthor">
             <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-textarea margin-top formControlName="description" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
-          rows="10" placeholder="Enter the description of the exercise"></ion-textarea>
+          rows="10" placeholder="Introduzca la descripción del ejercicio"></ion-textarea>
         <p ion-text color="danger" *ngIf="!editExerciseForm.controls.description.pristine && !editExerciseForm.controls.description.valid">
-          The description should not be blank
+          La descripción no puede estar vacía
         </p>
       </form>
     </div>
 
     <div *ngSwitchCase="'multimedia'">
       <ion-item margin-top>
-        <div *ngIf="exerciseVideo == null && !iAmAuthor">No videos found</div>
+        <div *ngIf="exerciseVideo == null && !iAmAuthor">No se encontraron vídeos</div>
         <div *ngIf="exerciseVideo == null && iAmAuthor">
           <ion-button (click)="getAndUploadVideo()">
-            Upload video
+            Subir vídeo
             <ion-icon slot="start" name="cloud-upload"></ion-icon>
           </ion-button>
         </div>
-        <div *ngIf="exerciseVideo != null"><a (click)="playVideo()">Play video</a></div>
+        <div *ngIf="exerciseVideo != null"><a (click)="playVideo()">Reproducir vídeo</a></div>
         <ion-item *ngIf="exerciseVideo != null && iAmAuthor" item-end>
           <ion-icon name="remove-circle" (click)="deleteVideo()"></ion-icon>
         </ion-item>
       </ion-item>
 
       <ion-item margin-top *ngIf="exerciseImages?.length === 0 && !iAmAuthor">
-        No images found
+        No se encontraron imágenes
       </ion-item>
       <ion-slides pager="true" margin-top *ngIf="exerciseImages?.length > 0">
         <ion-slide *ngFor="let exerciseImage of exerciseImages">
@@ -83,7 +83,7 @@
       <ion-item>
         <div *ngIf="iAmAuthor">
           <ion-button (click)="getAndUploadImage()">
-            Upload image
+            Subir imagen
             <ion-icon slot="start" name="cloud-upload"></ion-icon>
           </ion-button>
         </div>

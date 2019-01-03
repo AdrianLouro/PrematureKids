@@ -60,7 +60,7 @@ export class CategoryPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'The category has been edited.',
+      message: 'La categoría ha sido editada.',
       cssClass: 'primary',
       duration: 3000
     });
@@ -73,17 +73,17 @@ export class CategoryPage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete the category?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar la categoría?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete category',
+          text: 'Eliminar categoría',
           handler: () => {
             this.http.delete('/categories/' + this.categoryId).subscribe((res: any) => {
               this.location.back();

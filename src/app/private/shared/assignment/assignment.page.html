@@ -11,20 +11,20 @@
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Assignment</ion-title>
+    <ion-title>Tarea</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-segment [(ngModel)]="segment">
     <ion-segment-button value="info">
-      Info
+      Información
     </ion-segment-button>
     <ion-segment-button value="exercise">
-      Exercise
+      Ejercicio
     </ion-segment-button>
     <ion-segment-button value="sessions">
-      Sessions
+      Sesiones
     </ion-segment-button>
   </ion-segment>
 
@@ -33,59 +33,59 @@
     <div *ngSwitchCase="'info'">
       <form [formGroup]="editAssignmentForm">
         <ion-item>
-          <ion-label>Date</ion-label>
+          <ion-label>Fecha</ion-label>
           <ion-datetime display-format="DD/MM/YYYY" formControlName="date" [disabled]="true"></ion-datetime>
         </ion-item>
         <ion-item margin-top>
-          <ion-label>State*</ion-label>
-          <ion-select placeholder="Select one" formControlName="state" [disabled]="!iAmAuthor">
-            <ion-select-option value="in progress">In progress</ion-select-option>
-            <ion-select-option value="disrupted">Disrupted</ion-select-option>
-            <ion-select-option value="achieved">Achieved</ion-select-option>
+          <ion-label>Estado*</ion-label>
+          <ion-select placeholder="Seleccionar" formControlName="state" [disabled]="!iAmAuthor">
+            <ion-select-option value="in progress">En curso</ion-select-option>
+            <ion-select-option value="disrupted">Interrumpida</ion-select-option>
+            <ion-select-option value="achieved">Superada</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Exercise frequency*</ion-label>
+          <ion-label position="floating">Frecuencia del ejercicio*</ion-label>
           <ion-input type="text" formControlName="exerciseFrequency" [readonly]="!iAmAuthor"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.exerciseFrequency.pristine && !editAssignmentForm.controls.exerciseFrequency.valid">
-          The exercise frequency should not be blank
+          La frecuencia del ejercicio no puede estar vacía
         </p>
         <ion-item>
-          <ion-label position="floating">Exercise duration*</ion-label>
+          <ion-label position="floating">Duración del ejercicio*</ion-label>
           <ion-input type="text" formControlName="exerciseDuration" [readonly]="!iAmAuthor"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.exerciseDuration.pristine && !editAssignmentForm.controls.exerciseDuration.valid">
-          The exercise duration should not be blank
+          La duración del ejercicio no puede estar vacía
         </p>
         <ion-item>
-          <ion-label position="floating">Feedback frequency*</ion-label>
+          <ion-label position="floating">Frecuencia del feedback*</ion-label>
           <ion-input type="text" formControlName="feedbackFrequency" [readonly]="!iAmAuthor"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.feedbackFrequency.pristine && !editAssignmentForm.controls.feedbackFrequency.valid">
-          The feedback frequency should not be blank
+          La frecuencia del feedback no puede estar vacía
         </p>
         <ion-textarea margin-top formControlName="notes" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
-          rows="10" placeholder="Enter relevant info for the assignment"></ion-textarea>
+          rows="10" placeholder="Introduzca información relevante acerca de la tarea"></ion-textarea>
         <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.notes.pristine && !editAssignmentForm.controls.notes.valid">
-          The notes should not be blank
+          Las notas no pueden estar vacías
         </p>
       </form>
     </div>
 
     <div *ngSwitchCase="'exercise'">
-      <ion-item>
+      <ion-item lines="none">
         <h4>{{ assignment?.exercise.title }}</h4>
       </ion-item>
       <ion-item text-justify>{{ assignment?.exercise.description }}</ion-item>
 
       <ion-item margin-top>
-        <div *ngIf="exerciseVideo == null">No videos found</div>
-        <div *ngIf="exerciseVideo != null"><a (click)="playVideo()">Play video</a></div>
+        <div *ngIf="exerciseVideo == null">No se encontraron vídeos</div>
+        <div *ngIf="exerciseVideo != null"><a (click)="playVideo()">Reproducir vídeo</a></div>
       </ion-item>
 
       <ion-item margin-top *ngIf="exerciseImages?.length === 0">
-        No images found
+        No se encontraron imágenes
       </ion-item>
       <ion-slides pager="true" margin-top *ngIf="exerciseImages?.length > 0">
         <ion-slide *ngFor="let exerciseImage of exerciseImages">
@@ -96,8 +96,8 @@
       </ion-slides>
 
       <div *ngIf="authenticatedAsParent">
-        <ion-item (click)="navigateToOpinion()">
-          <ion-text>Write an opinion</ion-text>
+        <ion-item lines="none" (click)="navigateToOpinion()">
+          <ion-text>Escribir una opinión</ion-text>
           <ion-icon name="arrow-forward" slot="end"></ion-icon>
         </ion-item>
       </div>

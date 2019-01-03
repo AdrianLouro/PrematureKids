@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-menu-button slot="start"></ion-menu-button>
-    <ion-title>Doctors</ion-title>
+    <ion-title>Doctores</ion-title>
   </ion-toolbar>
-  <ion-searchbar [(ngModel)]="nameFilter" placeholder="Doctor name"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="nameFilter" placeholder="Nombre"></ion-searchbar>
 </ion-header>
 
 <ion-content padding>
@@ -12,7 +12,7 @@
       <ion-card-title>{{ doctor.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Board number: {{ doctor.boardNumber }}</p>
+      <p>Número de colegiado: {{ doctor.boardNumber }}</p>
     </ion-card-content>
   </ion-card>
 

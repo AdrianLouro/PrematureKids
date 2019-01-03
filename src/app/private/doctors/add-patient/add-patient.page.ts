@@ -100,24 +100,24 @@ export class AddPatientPage implements OnInit {
 
   async associatePatient() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to associate this existent patient?',
-      // message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que desea asociar este paciente?',
+      // message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Associate patient',
+          text: 'Asociar paciente',
           handler: () => {
             this.http.post('/doctors/' + this.authService.getUserId() + '/patients/' + this.patient.id, {}).subscribe((res: any) => {
               this.location.back();
             },
               err => {
                 console.log(err);
-                if (err.status === 409) { this.presentPatientAlreadyAssociatedAlert(err.error); }
+                if (err.status === 409) { this.presentPatientAlreadyAssociatedAlert(); }
               }
             );
           }
@@ -128,9 +128,9 @@ export class AddPatientPage implements OnInit {
     await alert.present();
   }
 
-  async presentPatientAlreadyAssociatedAlert(error) {
+  async presentPatientAlreadyAssociatedAlert() {
     const alert = await this.alertController.create({
-      message: error,
+      message: 'El paciente ya se encuentra asociado',
       buttons: [
         {
           text: 'OK',

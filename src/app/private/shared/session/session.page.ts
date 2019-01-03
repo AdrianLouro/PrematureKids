@@ -109,7 +109,7 @@ export class SessionPage implements OnInit {
       parentNotes: this.editSessionForm.value['parentNotes'],
       doctorNotes: this.editSessionForm.value['doctorNotes']
     }).subscribe((res: any) => {
-      this.presentToast('The session has been edited.');
+      this.presentToast('La sesión ha sido editada.');
     },
       err => console.log(err)
     );
@@ -131,20 +131,20 @@ export class SessionPage implements OnInit {
 
   async deleteVideo() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete the video?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar el video?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete video',
+          text: 'Eliminar vídeo',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + this.sessionVideo.id).subscribe((res: any) => {
-              this.presentToast('The video has been deleted.');
+              this.presentToast('El vídeo ha sido eliminado.');
               this.sessionVideo = undefined;
             },
               err => console.log(err)
@@ -173,20 +173,20 @@ export class SessionPage implements OnInit {
 
   async deleteImage(image) {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete the image?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar la imagen?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete image',
+          text: 'Eliminar imagen',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + image.id).subscribe((res: any) => {
-              this.presentToast('The image has been deleted.');
+              this.presentToast('La imagen ha sido eliminada.');
               this.sessionImages = this.sessionImages.filter(sessionImage => sessionImage.id !== image.id);
             },
               err => console.log(err)
@@ -201,7 +201,7 @@ export class SessionPage implements OnInit {
 
   async uploadFile(fileURI, type) {
     const loadingController = await this.loadingController.create({
-      message: 'Uploading...'
+      message: 'Subiendo archivo'
     });
 
     await loadingController.present();
@@ -220,7 +220,7 @@ export class SessionPage implements OnInit {
       }).then(res => {
         loadingController.dismiss();
         type === 'video' ? this.sessionVideo = JSON.parse(res.response) : this.sessionImages.push(JSON.parse(res.response));
-        this.presentToast('The ' + type + ' has been uploaded.');
+        this.presentToast('Se ha subido el archivo.');
       }).catch(err => {
         console.log(err);
         loadingController.dismiss();
@@ -259,17 +259,17 @@ export class SessionPage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete the session?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar la sesión?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete session',
+          text: 'Eliminar sesión',
           handler: () => {
             this.http.delete('/sessions/' + this.session.id).subscribe((res: any) => {
               this.location.back();

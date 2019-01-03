@@ -72,7 +72,7 @@ export class ParentProfilePage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your profile has been edited.',
+      message: 'El perfil ha sido editado.',
       cssClass: 'primary',
       duration: 3000
     });

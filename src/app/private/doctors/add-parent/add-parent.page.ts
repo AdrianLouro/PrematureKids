@@ -44,24 +44,24 @@ export class AddParentPage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to associate this parent?',
-      // message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que desea asociar este padre?',
+      // message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Associate parent',
+          text: 'Asociar padre',
           handler: () => {
             this.http.post('/children/' + this.childId + '/parents/' + this.parent.id, {}).subscribe((res: any) => {
               this.location.back();
             },
               err => {
                 console.log(err);
-                if (err.status === 409) { this.presentParentAlreadyAssociatedAlert(err.error); }
+                if (err.status === 409) { this.presentParentAlreadyAssociatedAlert(); }
               }
             );
           }
@@ -72,9 +72,9 @@ export class AddParentPage implements OnInit {
     await alert.present();
   }
 
-  async presentParentAlreadyAssociatedAlert(error) {
+  async presentParentAlreadyAssociatedAlert() {
     const alert = await this.alertController.create({
-      message: error,
+      message: 'El padre ya se encuentra asociado',
       buttons: [
         {
           text: 'OK',

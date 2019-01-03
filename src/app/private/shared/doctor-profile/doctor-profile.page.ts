@@ -75,7 +75,7 @@ export class DoctorProfilePage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: this.authenticatedUserRole === 'doctor' ? 'Your profile has been edited.' : 'The doctor profile has been edited.',
+      message: this.authenticatedUserRole === 'doctor' ? 'Su perfil ha sido editado.' : 'El perfil del doctor ha sido editado.',
       cssClass: 'primary',
       duration: 3000
     });
@@ -84,17 +84,17 @@ export class DoctorProfilePage implements OnInit {
 
   async removeDoctor() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete this doctor?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar a este doctor?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete doctor',
+          text: 'Eliminar doctor',
           handler: () => {
             this.http.delete('/doctors/' + this.doctorId).subscribe((res: any) => {
               this.location.back();

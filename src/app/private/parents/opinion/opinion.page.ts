@@ -90,7 +90,7 @@ export class OpinionPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your opinion has been ' + (this.opinion !== undefined ? 'sent' : 'deleted') + '.',
+      message: 'Su opinión ha sido ' + (this.opinion !== undefined ? 'enviada' : 'eliminada') + '.',
       cssClass: 'primary',
       duration: 3000
     });
@@ -99,17 +99,17 @@ export class OpinionPage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete your opinion?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar la opinión?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete opinion',
+          text: 'Eliminar opinión',
           handler: () => {
             this.http.delete('/opinions/' + this.opinion.id).subscribe((res: any) => {
               this.opinion = undefined;

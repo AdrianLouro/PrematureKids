@@ -31,6 +31,8 @@ export class LoginPage implements OnInit {
 
   login() {
     this.http.post('/login', this.loginForm.value).subscribe((res: any) => {
+      this.loginForm.reset();
+      this.invalidCredentials = false;
       this.authService.loginWithToken(res.token);
     },
       err => this.invalidCredentials = true

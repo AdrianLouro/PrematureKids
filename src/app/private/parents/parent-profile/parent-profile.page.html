@@ -7,35 +7,35 @@
         <ion-icon name="save"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ authenticatedAsParent ? 'My profile' : 'Parent profile' }}</ion-title>
+    <ion-title>Mi perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <form [formGroup]="editParentForm">
     <ion-item>
-      <ion-label position="floating">Full name*</ion-label>
+      <ion-label position="floating">Nombre y apellidos*</ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!editParentForm.controls.name.pristine && !editParentForm.controls.name.valid">
-      The name should not be blank
+      El nombre no puede estár vacío
     </p>
     <ion-item>
-      <ion-label position="floating">ID*</ion-label>
+      <ion-label position="floating">DNI/NIF/NIE*</ion-label>
       <ion-input type="text" formControlName="idNumber"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="idNumberAlreadyRegistered">
-      The ID is already in use
+      El DNI/NIF/NIE ya está siendo utilizado
     </p>
     <p ion-text color="danger" *ngIf="!editParentForm.controls.idNumber.pristine && !editParentForm.controls.idNumber.valid">
-      The ID should not be blank
+      El DNI/NIF/NIE no puede estar vacío
     </p>
     <ion-item>
-      <ion-label position="floating">Telephone*</ion-label>
+      <ion-label position="floating">Teléfono*</ion-label>
       <ion-input type="tel" formControlName="telephone"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!editParentForm.controls.telephone.pristine && !editParentForm.controls.telephone.valid">
-      The telephone should not be blank
+      El teléfono no puede estar vacío
     </p>
   </form>
 

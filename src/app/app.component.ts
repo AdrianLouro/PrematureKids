@@ -4,7 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
 const firebaseConfig = {
@@ -29,6 +29,8 @@ export class AppComponent {
     'administrator': ['private', 'administrators', 'doctors'],
     'parent': ['private', 'parents', 'parent-assignments']
   };
+
+  authenticated = false;
 
   constructor(
     private platform: Platform,
@@ -62,27 +64,33 @@ export class AppComponent {
   setMenuForRole(role: string) {
     if (role === 'doctor') {
       this.setMenuForDoctor();
+      this.authenticated = true;
     } else if (role === 'administrator') {
       this.setMenuForAdministrator();
-    } else {
+      this.authenticated = true;
+    } else if (role === 'parent') {
       this.setMenuForParent();
+      this.authenticated = true;
+    } else {
+      this.appPages = [];
+      this.authenticated = false;
     }
   }
 
   setMenuForAdministrator() {
     this.appPages = [
       {
-        title: 'Doctors',
+        title: 'Doctores',
         url: '/private/administrators/doctors',
         icon: 'contacts'
       },
       {
-        title: 'Categories',
+        title: 'Categorías',
         url: '/private/administrators/categories',
         icon: 'paper'
       },
       {
-        title: 'My profile',
+        title: 'Mi perfil',
         url: '/private/administrators/administrator-profile',
         icon: 'person'
       },
@@ -92,23 +100,23 @@ export class AppComponent {
   setMenuForParent() {
     this.appPages = [
       {
-        title: 'My assignments',
+        title: 'Mis tareas',
         url: '/private/parents/parent-assignments',
         icon: 'paper'
       },
       {
-        title: 'My children',
-        url: '/private/shared/children',
+        title: 'Mis hijos',
+        url: '/private/parents/children',
         icon: 'happy'
       },
+      // {
+      //   title: 'My doctors',
+      //   url: '/private/parents/parent-doctors',
+      //   icon: 'contacts'
+      // },
       {
-        title: 'My doctors',
-        url: '/private/parents/parent-doctors',
-        icon: 'contacts'
-      },
-      {
-        title: 'My profile',
-        url: '/private/shared/parent-profile/' + this.authService.getUserId(),
+        title: 'Mi perfil',
+        url: '/private/parents/parent-profile/' + this.authService.getUserId(),
         icon: 'person'
       },
       {
@@ -122,27 +130,27 @@ export class AppComponent {
   setMenuForDoctor() {
     this.appPages = [
       {
-        title: 'My patients',
+        title: 'Mis pacientes',
         url: '/private/doctors/patients',
         icon: 'happy'
       },
+      // {
+      //   title: 'My parents',
+      //   url: '/private/doctors/parents',
+      //   icon: 'contacts'
+      // },
       {
-        title: 'My parents',
-        url: '/private/doctors/parents',
-        icon: 'contacts'
-      },
-      {
-        title: 'My exercises',
+        title: 'Mis ejercicios',
         url: '/private/doctors/doctor-exercises',
         icon: 'paper'
       },
       {
-        title: 'My profile',
+        title: 'Mi perfil',
         url: '/private/shared/doctor-profile/' + this.authService.getUserId(),
         icon: 'person'
       },
       {
-        title: 'Exercises',
+        title: 'Ejercicios',
         url: '/private/doctors/exercises',
         icon: 'paper'
       },

@@ -3,66 +3,71 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Register parent</ion-title>
+    <ion-title>Registrarse como padre</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <form [formGroup]="registerParentForm" (ngSubmit)="registerParent()">
     <ion-item>
-      <ion-label position="floating">Full name*</ion-label>
+      <ion-label position="floating">Nombre y apellidos*</ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!registerParentForm.controls.name.pristine && !registerParentForm.controls.name.valid">
-      The name should not be blank
+      El nombre no puede estár vacío
     </p>
     <ion-item>
-      <ion-label position="floating">ID*</ion-label>
+      <ion-label position="floating">DNI/NIF/NIE*</ion-label>
       <ion-input type="text" formControlName="idNumber"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="idNumberAlreadyRegistered">
-      The ID is already in use
+      El DNI/NIF/NIE ya está siendo utilizado
     </p>
     <p ion-text color="danger" *ngIf="!registerParentForm.controls.idNumber.pristine && !registerParentForm.controls.idNumber.valid">
-      The ID should not be blank
+      El DNI/NIF/NIE no puede estar vacío
     </p>
     <ion-item>
-      <ion-label position="floating">Telephone*</ion-label>
+      <ion-label position="floating">Teléfono</ion-label>
       <ion-input type="tel" formControlName="telephone"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!registerParentForm.controls.telephone.pristine && !registerParentForm.controls.telephone.valid">
-      The telephone should not be blank
+      El teléfono no puede estar vacío
     </p>
     <ion-item>
       <ion-label position="floating">Email*</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="emailAlreadyRegistered">
-      The email is already in use
+      El email ya está siendo utilizado
     </p>
     <p ion-text color="danger" *ngIf="!registerParentForm.controls.email.pristine && !registerParentForm.controls.email.valid">
-      The given email is not valid
+      El email introducido no es válido
     </p>
     <div [formGroup]="passwordsFormGroup">
       <ion-item>
-        <ion-label position="floating">Password*</ion-label>
+        <ion-label position="floating">Contraseña*</ion-label>
         <ion-input clearOnEdit="false" type="password" formControlName="password"></ion-input>
       </ion-item>
       <p ion-text color="danger" *ngIf="!passwordsFormGroup.controls.password.pristine && !passwordsFormGroup.controls.password.valid">
-        The password must have at least 8 characters
+        La contraseña debe tener, al menos, 8 caracteres
       </p>
       <ion-item>
-        <ion-label position="floating">Password confirmation*</ion-label>
+        <ion-label position="floating">Confirmar contraseña*</ion-label>
         <ion-input clearOnEdit="false" type="password" formControlName="passwordConfirmation"></ion-input>
       </ion-item>
       <p ion-text color="danger" *ngIf="!passwordsFormGroup.controls.passwordConfirmation.pristine && passwordsFormGroup.errors?.doesNotMatchPassword">
-        The password does not match
+        Las contraseñas no coinciden
       </p>
     </div>
-    <ion-item no-lines margin-top>
-      <ion-checkbox no-margin formControlName="acceptTerms"></ion-checkbox>
-      <ion-item href="/terms" routerDirection="forward">I do accept Terms & Conditions</ion-item>
+    <ion-item lines="none" margin-top>
+      <ion-item lines="none" no-padding>
+        <ion-checkbox formControlName="acceptTerms"></ion-checkbox>
+      </ion-item>
+      <div>
+        Acepto los <a (click)="navigateToTerms()">Términos y Condiciones de Uso</a>, así como la <a (click)="navigateToPrivacyPolicy()">Política
+          de Privacidad.</a>
+      </div>
     </ion-item>
-    <ion-button margin-top expand="block" type="submit" [disabled]="!registerParentForm.valid">Register</ion-button>
+    <ion-button margin-top expand="block" type="submit" [disabled]="!registerParentForm.valid">Registrarse</ion-button>
   </form>
 </ion-content>

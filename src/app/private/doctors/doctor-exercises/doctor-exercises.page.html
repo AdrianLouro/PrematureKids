@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-menu-button slot="start"></ion-menu-button>
-    <ion-title>My exercises</ion-title>
+    <ion-title>Mis ejercicios</ion-title>
   </ion-toolbar>
 
-  <ion-searchbar [(ngModel)]="titleFilter" placeholder="Exercise title"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="titleFilter" placeholder="Título"></ion-searchbar>
 
   <ion-item>
-    <ion-select [(ngModel)]="categoryFilter" placeholder="Category">
-      <ion-select-option value="">Show all</ion-select-option>
+    <ion-select [(ngModel)]="categoryFilter" placeholder="Categoría">
+      <ion-select-option value="">Mostrar todos</ion-select-option>
       <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
     </ion-select>
   </ion-item>
@@ -21,7 +21,7 @@
       <ion-card-title>{{ exercise.title }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Category: {{ exercise.category.name }}</p>
+      <p>Categoría: {{ exercise.category.name }}</p>
     </ion-card-content>
   </ion-card>
 

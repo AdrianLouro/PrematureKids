@@ -17,20 +17,20 @@
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Child</ion-title>
+    <ion-title>{{ authenticatedAsParent ? 'Hijo' : 'Paciente' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <ion-segment [(ngModel)]="segment">
     <ion-segment-button value="assignments">
-      Assignments
+      Tareas
     </ion-segment-button>
     <ion-segment-button value="profile">
-      Profile
+      Perfil
     </ion-segment-button>
     <ion-segment-button value="parents">
-      Parents
+      Padres
     </ion-segment-button>
   </ion-segment>
 
@@ -42,7 +42,7 @@
           <ion-card-title>{{ assignment.exercise.title }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-text>State: {{ assignment.state }}</ion-text>
+          <ion-text>Estado: {{ assignment.state }}</ion-text>
         </ion-card-content>
       </ion-card>
     </div>
@@ -50,50 +50,50 @@
     <div *ngSwitchCase="'profile'">
       <form [formGroup]="editChildForm">
         <ion-item>
-          <ion-label position="floating">Full name*</ion-label>
+          <ion-label position="floating">Nombre y apellidos*</ion-label>
           <ion-input type="text" formControlName="name" [readonly]="authenticatedAsParent"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="!editChildForm.controls.name.pristine && !editChildForm.controls.name.valid">
-          The name should not be blank
+          El nombre no puede estár vacío
         </p>
         <ion-item>
-          <ion-label position="floating">Medical history ID*</ion-label>
+          <ion-label position="floating">Identificador de historial médico*</ion-label>
           <ion-input type="text" formControlName="medicalHistoryId" [readonly]="authenticatedAsParent"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="medicalHistoryIdAlreadyRegistered">
-          The medical history ID is already in use
+          El identificador del historial médico ya está siendo utilizado
         </p>
         <p ion-text color="danger" *ngIf="!editChildForm.controls.medicalHistoryId.pristine && !editChildForm.controls.medicalHistoryId.valid">
-          The medical history ID should not be blank
+          El identificador del historial médico no puede estar vacío
         </p>
         <ion-item margin-top>
-          <ion-label>Gender*</ion-label>
-          <ion-select placeholder="Select one" formControlName="gender" [disabled]="authenticatedAsParent">
-            <ion-select-option value="M">Male</ion-select-option>
-            <ion-select-option value="F">Female</ion-select-option>
+          <ion-label>Género*</ion-label>
+          <ion-select placeholder="Seleccionar" formControlName="gender" [disabled]="authenticatedAsParent">
+            <ion-select-option value="M">Masculino</ion-select-option>
+            <ion-select-option value="F">Femenino</ion-select-option>
           </ion-select>
         </ion-item>
         <!-- <p ion-text color="danger" *ngIf="!editChildForm.controls.gender.pristine && !editChildForm.controls.gender.valid">
           The gender should not be blank
         </p> -->
         <ion-item>
-          <ion-label position="floating">Date of birth*</ion-label>
+          <ion-label position="floating">Fecha de nacimiento*</ion-label>
           <ion-datetime display-format="DD/MM/YYYY" formControlName="dateOfBirth" [disabled]="authenticatedAsParent"></ion-datetime>
         </ion-item>
         <!-- <p ion-text color="danger" *ngIf="!editChildForm.controls.dateOfBirth.pristine && !editChildForm.controls.dateOfBirth.valid">
           The date of birth should not be blank
         </p> -->
         <ion-item>
-          <ion-label position="floating">Weeks of pregnancy*</ion-label>
+          <ion-label position="floating">Semanas de gestación*</ion-label>
           <ion-input type="number" formControlName="weeksOfPregnancy" [readonly]="authenticatedAsParent"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="!editChildForm.controls.weeksOfPregnancy.pristine && !editChildForm.controls.weeksOfPregnancy.valid">
-          The weeks of pregnancy should not be blank
+          Las semanas de gestación no pueden estar vacías
         </p>
         <ion-textarea margin-top formControlName="medicalHistory" *ngIf="!authenticatedAsParent" style="background-color:ghostwhite"
-          rows="10" placeholder="Enter relevant information about the patient"></ion-textarea>
+          rows="10" placeholder="Introduzca información relevante acerca del paciente"></ion-textarea>
         <p ion-text color="danger" *ngIf="!editChildForm.controls.medicalHistory.pristine && !editChildForm.controls.medicalHistory.valid">
-          The medical history should not be blank
+          El historial médico no puede estar vacío
         </p>
       </form>
     </div>
@@ -101,12 +101,10 @@
     <div *ngSwitchCase="'parents'">
       <ion-list>
         <ion-item *ngFor="let parent of parents">
-          <ion-avatar slot="start">
-            <img src="resources/icon.png">
-          </ion-avatar>
           <ion-label>
             <h2>{{ parent.name }}</h2>
-            <p>Telephone: {{ parent.telephone }}</p>
+            <p>DNI/NIF/NIE: {{ parent.idNumber }}</p>
+            <p>Teléfono: {{ parent.telephone }}</p>
           </ion-label>
           <ion-icon name="remove-circle" item-end *ngIf="!authenticatedAsParent" (click)="deleteParent(parent.id)"></ion-icon>
         </ion-item>

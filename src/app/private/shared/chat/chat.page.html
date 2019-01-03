@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Chat with {{ chat?.name }}</ion-title>
+    <ion-title>{{ chat?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,8 +21,8 @@
 <ion-footer>
   <ion-toolbar>
     <ion-item>
-      <ion-input style="margin-right:16px" type="text" placeholder="Message" [(ngModel)]="newMessage"></ion-input>
-      <ion-button item-end color="primary" (click)="sendMessage()" [disabled]="!newMessage">Send</ion-button>
+      <ion-input style="margin-right:16px" type="text" placeholder="Mensaje" [(ngModel)]="newMessage"></ion-input>
+      <ion-button item-end color="primary" (click)="sendMessage()" [disabled]="!newMessage">Enviar</ion-button>
     </ion-item>
   </ion-toolbar>
 </ion-footer>

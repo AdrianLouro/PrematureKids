@@ -11,35 +11,35 @@
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ authenticatedUserRole === 'doctor' ? 'My profile' : 'Doctor profile' }}</ion-title>
+    <ion-title>{{ authenticatedUserRole === 'doctor' ? 'Mi perfil' : 'Perfil del doctor' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <form [formGroup]="editDoctorForm">
     <ion-item>
-      <ion-label position="floating">Full name*</ion-label>
+      <ion-label position="floating">Nombre y apellidos*</ion-label>
       <ion-input type="text" formControlName="name" [readonly]="authenticatedUserRole === 'parent'"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!editDoctorForm.controls.name.pristine && !editDoctorForm.controls.name.valid">
-      The name should not be blank
+      El nombre no puede estár vacío
     </p>
     <ion-item>
-      <ion-label position="floating">Board number*</ion-label>
+      <ion-label position="floating">Número de colegiado*</ion-label>
       <ion-input type="text" formControlName="boardNumber" [readonly]="authenticatedUserRole === 'parent'"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="boardNumberAlreadyRegistered">
-      The board number is already in use
+      El número de colegiado ya está siendo utilizado
     </p>
     <p ion-text color="danger" *ngIf="!editDoctorForm.controls.boardNumber.pristine && !editDoctorForm.controls.boardNumber.valid">
-      The board number should not be blank
+      El número de colegiado no puede estar vacío
     </p>
     <ion-item>
-      <ion-label position="floating">Telephone*</ion-label>
+      <ion-label position="floating">Teléfono</ion-label>
       <ion-input type="tel" formControlName="telephone" [readonly]="authenticatedUserRole === 'parent'"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!editDoctorForm.controls.telephone.pristine && !editDoctorForm.controls.telephone.valid">
-      The telephone should not be blank
+      El teléfono no puede estar vacío
     </p>
   </form>
 

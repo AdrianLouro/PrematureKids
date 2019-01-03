@@ -124,7 +124,7 @@ export class ExercisePage implements OnInit {
       categoryId: this.editExerciseForm.value['category'],
       doctorId: this.authService.getUserId()
     }).subscribe((res: any) => {
-      this.presentToast('The exercise has been edited.');
+      this.presentToast('El ejercicio ha sido editado.');
     },
       err => console.log(err)
     );
@@ -146,20 +146,20 @@ export class ExercisePage implements OnInit {
 
   async deleteVideo() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete the video?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar el video?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete video',
+          text: 'Eliminar vídeo',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + this.exerciseVideo.id).subscribe((res: any) => {
-              this.presentToast('The video has been deleted.');
+              this.presentToast('El vídeo ha sido eliminado.');
               this.exerciseVideo = undefined;
             },
               err => console.log(err)
@@ -188,20 +188,20 @@ export class ExercisePage implements OnInit {
 
   async deleteImage(image) {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete the image?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar la imagen?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete image',
+          text: 'Eliminar imagen',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + image.id).subscribe((res: any) => {
-              this.presentToast('The image has been deleted.');
+              this.presentToast('La imagen ha sido eliminada.');
               this.exerciseImages = this.exerciseImages.filter(exerciseImage => exerciseImage.id !== image.id);
             },
               err => console.log(err)
@@ -216,7 +216,7 @@ export class ExercisePage implements OnInit {
 
   async uploadFile(fileURI, type) {
     const loadingController = await this.loadingController.create({
-      message: 'Uploading...'
+      message: 'Subiendo archivo'
     });
 
     await loadingController.present();
@@ -235,7 +235,7 @@ export class ExercisePage implements OnInit {
       }).then(res => {
         loadingController.dismiss();
         type === 'video' ? this.exerciseVideo = JSON.parse(res.response) : this.exerciseImages.push(JSON.parse(res.response));
-        this.presentToast('The ' + type + ' has been uploaded.');
+        this.presentToast('Se ha subido el archivo.');
       }).catch(err => {
         console.log(err);
         loadingController.dismiss();
@@ -274,17 +274,17 @@ export class ExercisePage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: 'Are you sure you want to delete the exercise?',
-      message: 'It will be permanently deleted!',
+      header: '¿Está seguro de que quiere eliminar el ejercicio?',
+      message: '¡Se borrará permanentemente!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'danger',
           handler: () => {
           }
         }, {
-          text: 'Delete exercise',
+          text: 'Eliminar ejercicio',
           handler: () => {
             this.http.delete('/exercises/' + this.exercise.id).subscribe((res: any) => {
               this.location.back();

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Login</ion-title>
+    <ion-title>Inicio de sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,18 +14,18 @@
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!loginForm.controls.email.pristine && !loginForm.controls.email.valid">
-      The given email is not valid
+      El email introducido no es válido
     </p>
     <ion-item>
-      <ion-label position="floating">Password*</ion-label>
+      <ion-label position="floating">Contraseña*</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!loginForm.controls.password.pristine && !loginForm.controls.password.valid">
-      The password should not be blank
+      La contraseña no puede estar vacía
     </p>
     <p ion-text color="danger" *ngIf="invalidCredentials">
-      The given credentials are not valid
+      Las credenciales introducidas no son válidas
     </p>
-    <ion-button margin-top expand="block" type="submit" [disabled]="!loginForm.valid">Login</ion-button>
+    <ion-button margin-top expand="block" type="submit" [disabled]="!loginForm.valid">Iniciar sesión</ion-button>
   </form>
 </ion-content>
