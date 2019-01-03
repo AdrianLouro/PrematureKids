@@ -212,6 +212,7 @@ export class SessionPage implements OnInit {
         fileName: fileURI.split('/').pop(),
         chunkedMode: false,
         mimeType: type + '/*',
+        headers: { Authorization: 'Bearer ' + this.authService.getToken() },
         params: {
           'name': fileURI.split('/').pop(),
           'type': type,

@@ -220,13 +220,13 @@ export class ExercisePage implements OnInit {
     });
 
     await loadingController.present();
-
     this.fileTransfer.create().upload(fileURI, 'http://192.168.1.10:5000/exercisesAttachments',
       {
         fileKey: 'file',
         fileName: fileURI.split('/').pop(),
         chunkedMode: false,
         mimeType: type + '/*',
+        headers: { Authorization: 'Bearer ' + this.authService.getToken() },
         params: {
           'name': fileURI.split('/').pop(),
           'type': type,
