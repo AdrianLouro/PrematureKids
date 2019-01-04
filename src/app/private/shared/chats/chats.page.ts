@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { FirebaseChatService } from '../../../services/firebase-chat.service';
+import * as firebase from 'Firebase';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
   selector: 'app-chats',
@@ -15,6 +17,7 @@ export class ChatsPage implements OnInit {
 
   constructor(private router: Router,
     private authService: AuthenticationService,
+    private http: HttpService,
     private firebaseChatService: FirebaseChatService) {
   }
 
@@ -23,7 +26,12 @@ export class ChatsPage implements OnInit {
 
   ionViewWillEnter() {
     this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
-    this.loadChats();
+    this.http.get('/users/' + this.authService.getUserId() + '/firebaseToken').subscribe((token: string) => {
+      firebase.auth().signInWithCustomToken(token).then(res => {
+        this.loadChats();
+      }).catch(err => console.log(err));
+    }, err => console.log(err)
+    );
   }
 
   loadChats() {
