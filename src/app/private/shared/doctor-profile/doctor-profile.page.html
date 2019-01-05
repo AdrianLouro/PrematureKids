@@ -35,7 +35,7 @@
       El número de colegiado no puede estar vacío
     </p>
     <ion-item>
-      <ion-label position="floating">Teléfono</ion-label>
+      <ion-label position="floating">Teléfono*</ion-label>
       <ion-input type="tel" formControlName="telephone" [readonly]="authenticatedUserRole === 'parent'"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!editDoctorForm.controls.telephone.pristine && !editDoctorForm.controls.telephone.valid">
@@ -43,9 +43,13 @@
     </p>
   </form>
 
-  <ion-fab *ngIf="authenticatedUserRole === 'parent'" vertical="bottom" horizontal="end" slot="fixed" (click)="openChat()">
+  <ion-button style="margin-top: 48px" expand="block" *ngIf="authenticatedUserRole === 'administrator'" (click)="editDoctorBlockStatus()">
+    {{ userIsBlocked ? 'Desbloquear' : 'Bloquear' }} usuario
+  </ion-button>
+
+  <!-- <ion-fab *ngIf="authenticatedUserRole === 'parent'" vertical="bottom" horizontal="end" slot="fixed" (click)="openChat()">
     <ion-fab-button>
       <ion-icon name="chatbubbles"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>

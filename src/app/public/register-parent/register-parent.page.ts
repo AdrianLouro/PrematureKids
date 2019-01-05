@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { HttpService } from '../../services/http.service';
 import { ToastController } from '@ionic/angular';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { FirebaseChatService } from '../../services/firebase-chat.service';
 
@@ -23,7 +22,6 @@ export class RegisterParentPage implements OnInit {
     private http: HttpService,
     private firebaseChatService: FirebaseChatService,
     private toastController: ToastController,
-    private location: Location,
     private formBuilder: FormBuilder,
     private router: Router) {
     this.initRegisterParentForm();
@@ -62,7 +60,8 @@ export class RegisterParentPage implements OnInit {
     }).subscribe((res: any) => {
       this.firebaseChatService.createUser(res.id, res.name, 'parent');
       this.presentToast();
-      this.location.back();
+      this.registerParentForm.reset();
+      this.router.navigate(['home']);
     },
       err => {
         if (err.status === 409) {

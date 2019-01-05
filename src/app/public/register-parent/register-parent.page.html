@@ -27,7 +27,7 @@
       El DNI/NIF/NIE no puede estar vacío
     </p>
     <ion-item>
-      <ion-label position="floating">Teléfono</ion-label>
+      <ion-label position="floating">Teléfono*</ion-label>
       <ion-input type="tel" formControlName="telephone"></ion-input>
     </ion-item>
     <p ion-text color="danger" *ngIf="!registerParentForm.controls.telephone.pristine && !registerParentForm.controls.telephone.valid">

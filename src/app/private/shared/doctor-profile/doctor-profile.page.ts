@@ -18,6 +18,7 @@ export class DoctorProfilePage implements OnInit {
   authenticatedUserRole: string;
   doctorId: string;
   boardNumberAlreadyRegistered = false;
+  userIsBlocked = false;
 
   constructor(private toastController: ToastController,
     private authService: AuthenticationService,
@@ -47,6 +48,9 @@ export class DoctorProfilePage implements OnInit {
     this.route.params.subscribe(params => {
       this.doctorId = params['id'];
       this.loadDoctorProfile();
+      if (this.authenticatedUserRole === 'administrator') {
+        this.loadDoctorAccountStatus();
+      }
     });
   }
 
@@ -58,14 +62,23 @@ export class DoctorProfilePage implements OnInit {
         telephone: res.telephone,
       });
     },
-      err => console.log(err));
+      err => console.log(err)
+    );
+  }
+
+  loadDoctorAccountStatus() {
+    this.http.get('/users/' + this.doctorId).subscribe((res: any) => {
+      this.userIsBlocked = res.blocked;
+    },
+      err => console.log(err)
+    );
   }
 
   editProfile() {
     this.http.put('/doctors/' + this.doctorId, this.editDoctorForm.value).subscribe((res: any) => {
       this.boardNumberAlreadyRegistered = false;
       this.firebaseChatService.editUser(this.doctorId, this.editDoctorForm.value['name']);
-      this.presentToast();
+      this.presentToast(this.authenticatedUserRole === 'doctor' ? 'Su perfil ha sido editado.' : 'El perfil del doctor ha sido editado.');
     },
       err => {
         if (err.status === 409) { this.boardNumberAlreadyRegistered = true; }
@@ -73,9 +86,37 @@ export class DoctorProfilePage implements OnInit {
     );
   }
 
-  async presentToast() {
+  async editDoctorBlockStatus() {
+    const alert = await this.alertController.create({
+      header: '¿Está seguro de que quiere ' + (this.userIsBlocked ? 'desbloquear' : 'bloquear') + ' la cuenta de usuario del doctor?',
+      message: '¡El doctor ' + (this.userIsBlocked ? 'ahora' : 'no') + ' podrá iniciar sesión en la aplicación!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+          }
+        }, {
+          text: this.userIsBlocked ? 'Desbloquear' : 'Bloquear',
+          handler: () => {
+            this.http.put('/users/' + this.doctorId + '/status', { blocked: !this.userIsBlocked }).subscribe((res: any) => {
+              this.presentToast('La cuenta del doctor ha sido ' + (this.userIsBlocked ? 'desbloqueada' : 'bloqueada') + '.');
+              this.userIsBlocked = !this.userIsBlocked;
+            },
+              err => console.log(err)
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
-      message: this.authenticatedUserRole === 'doctor' ? 'Su perfil ha sido editado.' : 'El perfil del doctor ha sido editado.',
+      message: message,
       cssClass: 'primary',
       duration: 3000
     });
