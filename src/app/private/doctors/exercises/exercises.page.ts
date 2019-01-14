@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../services/http.service';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-exercises',
@@ -11,9 +12,14 @@ export class ExercisesPage implements OnInit {
 
   exercises: any[];
   categories: any[];
+  segment = 'all';
+  userId: any;
 
   constructor(private router: Router,
-    private http: HttpService) { }
+    private authService: AuthenticationService,
+    private http: HttpService) {
+    this.userId = authService.getUserId();
+  }
 
   ngOnInit() {
   }
@@ -41,6 +47,10 @@ export class ExercisesPage implements OnInit {
 
   navigateToExercise(id: any) {
     this.router.navigate(['private', 'doctors', 'exercise', id]);
+  }
+
+  navigateToCreateExercise() {
+    this.router.navigate(['private', 'doctors', 'create-exercise']);
   }
 
 }

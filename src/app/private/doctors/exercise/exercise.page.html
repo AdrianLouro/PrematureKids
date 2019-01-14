@@ -84,8 +84,8 @@
           </ion-card>
         </ion-slide>
       </ion-slides>
-      <ion-item>
-        <div *ngIf="iAmAuthor">
+      <ion-item *ngIf="iAmAuthor">
+        <div>
           <ion-button (click)="getAndUploadImage()">
             Subir imagen
             <ion-icon slot="start" name="cloud-upload"></ion-icon>

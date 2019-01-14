@@ -139,20 +139,20 @@ export class AppComponent {
       //   url: '/private/doctors/parents',
       //   icon: 'contacts'
       // },
+      // {
+      //   title: 'Mis ejercicios',
+      //   url: '/private/doctors/doctor-exercises',
+      //   icon: 'paper'
+      // },
       {
-        title: 'Mis ejercicios',
-        url: '/private/doctors/doctor-exercises',
+        title: 'Ejercicios',
+        url: '/private/doctors/exercises',
         icon: 'paper'
       },
       {
         title: 'Mi perfil',
         url: '/private/shared/doctor-profile/' + this.authService.getUserId(),
         icon: 'person'
-      },
-      {
-        title: 'Ejercicios',
-        url: '/private/doctors/exercises',
-        icon: 'paper'
       },
       {
         title: 'Chat',

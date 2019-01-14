@@ -6,16 +6,26 @@
 
   <ion-searchbar [(ngModel)]="titleFilter" placeholder="Título"></ion-searchbar>
 
-  <ion-item>
-    <ion-select [(ngModel)]="categoryFilter" placeholder="Categoría">
-      <ion-select-option value="">Mostrar todos</ion-select-option>
-      <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-text style="padding: 12px 0">Mis ejercicios</ion-text>
+          <ion-toggle [(ngModel)]="mine"></ion-toggle>
+        </ion-item>
+      </ion-col>
+      <ion-col margin-right>
+        <ion-select [(ngModel)]="categoryFilter" placeholder="Categoría">
+          <ion-select-option value="">Cualquier categoría</ion-select-option>
+          <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let exercise of exercises | search : titleFilter : ['title'] | search : categoryFilter : ['category', 'id']"
+  <ion-card *ngFor="let exercise of exercises | search : titleFilter : ['title'] | search : categoryFilter : ['category', 'id'] | search : (mine ? authService.getUserId() : '') : ['doctor', 'id']"
     (click)="navigateToExercise(exercise.id)">
     <ion-card-header>
       <ion-card-title>{{ exercise.title }}</ion-card-title>
@@ -25,4 +35,10 @@
       <p>Categoría: {{ exercise.category.name }}</p>
     </ion-card-content>
   </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="navigateToCreateExercise()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
