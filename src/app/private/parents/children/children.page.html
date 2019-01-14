@@ -6,9 +6,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngFor="let child of children" (click)="navigateToChild(child.id)">
-    <ion-item>
-      {{ child.name }}
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let child of children" (click)="navigateToChild(child.id)">
+    <ion-card-header>
+      <ion-card-title>{{ child.name }}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
 </ion-content>
