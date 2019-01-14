@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="performExtraLocationBack()"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end" *ngIf="segment === 'info'">
       <ion-button style="margin-right: 16px" *ngIf="iAmAuthor || iAmAssignmentAuthor" (click)="editSession()">

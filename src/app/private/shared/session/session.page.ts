@@ -26,6 +26,7 @@ export class SessionPage implements OnInit {
   iAmAssignmentAuthor = false;
   authenticatedAsParent = false;
   editSessionForm: FormGroup;
+  shouldPerformExtraLocationBack = false;
 
   constructor(
     private alertController: AlertController,
@@ -60,8 +61,16 @@ export class SessionPage implements OnInit {
     this.route.params.subscribe(params => {
       this.loadSession(params['id']);
       this.loadSessionMedia(params['id']);
-      this.iAmAssignmentAuthor = JSON.parse(params['iAmAssignmentAuthor']);
+      this.iAmAssignmentAuthor = params['iAmAssignmentAuthor'] && JSON.parse(params['iAmAssignmentAuthor']);
+      this.segment = params['segment'] ? params['segment'] : this.segment;
+      this.shouldPerformExtraLocationBack = params['shouldPerformExtraLocationBack'];
     });
+  }
+
+  performExtraLocationBack() { // TODO: delete when Angular router is fixed
+    if (this.shouldPerformExtraLocationBack) {
+      this.location.back();
+    }
   }
 
   loadSession(id: any) {
@@ -125,7 +134,7 @@ export class SessionPage implements OnInit {
       }
     ).then(
       (videoURI) => this.uploadFile(videoURI, 'video'),
-      err => { console.log(err); this.uploadFile('', ''); } // TODO: borrar uploadFile('')
+      err => console.log(err)
     );
   }
 
@@ -167,7 +176,7 @@ export class SessionPage implements OnInit {
       }
     ).then(
       (imageURI) => this.uploadFile(imageURI, 'image'),
-      err => { console.log(err); this.uploadFile('', ''); } // TODO: borrar uploadFile('')
+      err => console.log(err)
     );
   }
 

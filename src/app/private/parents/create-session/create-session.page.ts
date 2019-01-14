@@ -3,8 +3,9 @@ import { Location } from '@angular/common';
 import { HttpService } from '../../../services/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DateService } from '../../../services/date.service';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-session',
@@ -19,8 +20,11 @@ export class CreateSessionPage implements OnInit {
   constructor(private location: Location,
     private http: HttpService,
     private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     private dateService: DateService,
+    private alertController: AlertController,
+    private toastController: ToastController,
     private authService: AuthenticationService) {
     this.initCreateSessionForm();
   }
@@ -45,10 +49,45 @@ export class CreateSessionPage implements OnInit {
       parentId: this.authService.getUserId(),
       assignmentId: this.assignmentId
     }).subscribe((res: any) => {
-      this.location.back();
+      this.presentToast();
+      this.navigateAfterSessionCreated(res.id);
     },
       err => console.log(err)
     );
+  }
+
+  async navigateAfterSessionCreated(sessionId: any) {
+    const alert = await this.alertController.create({
+      header: '¿Desea añadir alguna imagen o vídeo a la sesión?',
+      buttons: [
+        {
+          text: 'Más tarde',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+            this.location.back();
+          }
+        }, {
+          text: 'Sí',
+          handler: () => {
+            this.router.navigate(['private', 'shared', 'session', sessionId,
+              { segment: 'multimedia', shouldPerformExtraLocationBack: true }
+            ], { replaceUrl: true });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'La sesión ha sido creada.',
+      cssClass: 'primary',
+      duration: 3000
+    });
+    toast.present();
   }
 
 }

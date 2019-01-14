@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseChatService } from '../../../services/firebase-chat.service';
-import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -15,10 +15,9 @@ export class ChatPage implements OnInit {
   messages: any[];
   newMessage: string;
 
-  constructor(private authService: AuthenticationService,
-    private firebaseChatService: FirebaseChatService,
+  constructor(private firebaseChatService: FirebaseChatService,
+    private location: Location,
     private route: ActivatedRoute) {
-
   }
 
   ngOnInit() {
@@ -29,6 +28,10 @@ export class ChatPage implements OnInit {
       this.loadChat(params['id']);
       this.loadMessages(params['id']);
     });
+  }
+
+  performExtraLocationBack() { // TODO: delete when Angular router is fixed
+    this.location.back();
   }
 
   loadChat(id: any) {

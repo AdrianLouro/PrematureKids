@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { HttpService } from '../../../services/http.service';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AlertController, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-exercise',
@@ -17,6 +19,9 @@ export class CreateExercisePage implements OnInit {
   constructor(private location: Location,
     private http: HttpService,
     private formBuilder: FormBuilder,
+    private router: Router,
+    private alertController: AlertController,
+    private toastController: ToastController,
     private authService: AuthenticationService) {
     this.initCreateExerciseForm();
   }
@@ -48,9 +53,45 @@ export class CreateExercisePage implements OnInit {
       categoryId: this.createExerciseForm.value['category'],
       doctorId: this.authService.getUserId()
     }).subscribe((res: any) => {
-      this.location.back();
+      this.presentToast();
+      this.navigateAfterExerciseCreated(res.id);
     },
       err => console.log(err)
     );
   }
+
+  async navigateAfterExerciseCreated(exerciseId: any) {
+    const alert = await this.alertController.create({
+      header: '¿Desea añadir alguna imagen o vídeo al ejercicio?',
+      buttons: [
+        {
+          text: 'Más tarde',
+          role: 'cancel',
+          cssClass: 'danger',
+          handler: () => {
+            this.location.back();
+          }
+        }, {
+          text: 'Sí',
+          handler: () => {
+            this.router.navigate(['private', 'doctors', 'exercise', exerciseId,
+              { segment: 'multimedia', shouldPerformExtraLocationBack: true }
+            ], { replaceUrl: true });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'El ejercicio ha sido creado.',
+      cssClass: 'primary',
+      duration: 3000
+    });
+    toast.present();
+  }
+
 }

@@ -13,7 +13,6 @@ import { HttpService } from '../../../services/http.service';
 export class ChatsPage implements OnInit {
 
   chats: any[];
-  authenticatedAsParent: boolean;
 
   constructor(private router: Router,
     private authService: AuthenticationService,
@@ -22,10 +21,6 @@ export class ChatsPage implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  ionViewWillEnter() {
-    this.authenticatedAsParent = this.authService.isAuthenticatedAs('parent');
     this.http.get('/users/' + this.authService.getUserId() + '/firebaseToken').subscribe((token: string) => {
       firebase.auth().signInWithCustomToken(token).then(res => {
         this.loadChats();

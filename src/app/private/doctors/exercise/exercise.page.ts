@@ -25,6 +25,7 @@ export class ExercisePage implements OnInit {
   exerciseImages: any[];
   editExerciseForm: FormGroup;
   categories: any[];
+  shouldPerformExtraLocationBack = false;
 
   constructor(private route: ActivatedRoute,
     private http: HttpService,
@@ -51,6 +52,19 @@ export class ExercisePage implements OnInit {
 
   ngOnInit() {
     this.loadCategories();
+  }
+
+  ionViewWillEnter() {
+    this.route.params.subscribe(params => {
+      this.segment = params['segment'] ? params['segment'] : this.segment;
+      this.shouldPerformExtraLocationBack = params['shouldPerformExtraLocationBack'];
+    });
+  }
+
+  performExtraLocationBack() { // TODO: delete when Angular router is fixed
+    if (this.shouldPerformExtraLocationBack) {
+      this.location.back();
+    }
   }
 
   loadCategories() {
@@ -140,7 +154,7 @@ export class ExercisePage implements OnInit {
       }
     ).then(
       (videoURI) => this.uploadFile(videoURI, 'video'),
-      err => { console.log(err); this.uploadFile('', ''); } // TODO: borrar uploadFile('')
+      err => console.log(err)
     );
   }
 
@@ -182,7 +196,7 @@ export class ExercisePage implements OnInit {
       }
     ).then(
       (imageURI) => this.uploadFile(imageURI, 'image'),
-      err => { console.log(err); this.uploadFile('', ''); } // TODO: borrar uploadFile('')
+      err => console.log(err)
     );
   }
 
