@@ -56,9 +56,9 @@
         <p ion-text color="danger" *ngIf="!editChildForm.controls.name.pristine && !editChildForm.controls.name.valid">
           El nombre no puede estár vacío
         </p>
-        <ion-item>
+        <ion-item *ngIf="!authenticatedAsParent">
           <ion-label position="floating">Identificador de historial médico*</ion-label>
-          <ion-input type="text" formControlName="medicalHistoryId" [readonly]="authenticatedAsParent"></ion-input>
+          <ion-input type="text" formControlName="medicalHistoryId"></ion-input>
         </ion-item>
         <p ion-text color="danger" *ngIf="medicalHistoryIdAlreadyRegistered">
           El identificador del historial médico ya está siendo utilizado

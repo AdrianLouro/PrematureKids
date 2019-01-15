@@ -10,5 +10,9 @@
     <ion-card-header>
       <ion-card-title>{{ child.name }}</ion-card-title>
     </ion-card-header>
+    <ion-card-content>
+      <p>Fecha de nacimiento: {{ child.dateOfBirth | date : 'dd/MM/yyyy' }}</p>
+      <p>Sexo: {{ child.gender === 'M' ? 'Masculino' : 'Femenino' }}</p>
+    </ion-card-content>
   </ion-card>
 </ion-content>
