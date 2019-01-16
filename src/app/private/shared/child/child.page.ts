@@ -160,8 +160,8 @@ export class ChildPage implements OnInit {
 
   async deleteParent(parentId: any) {
     const alert = await this.alertController.create({
-      header: '¿Está seguro de que quiere desasociar el padre del paciente?',
-      message: '¡El padre no podrá ver al paciente!',
+      header: '¿Está seguro de que quiere desasociar el tutor del paciente?',
+      message: '¡El tutor no podrá ver al paciente!',
       buttons: [
         {
           text: 'Cancelar',

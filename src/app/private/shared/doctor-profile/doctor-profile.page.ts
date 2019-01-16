@@ -135,7 +135,7 @@ export class DoctorProfilePage implements OnInit {
           handler: () => {
           }
         }, {
-          text: 'Eliminar doctor',
+          text: 'Eliminar fisioterapeuta',
           handler: () => {
             this.http.delete('/doctors/' + this.doctorId).subscribe((res: any) => {
               this.location.back();

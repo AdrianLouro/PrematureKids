@@ -105,7 +105,7 @@ export class AppComponent {
         icon: 'paper'
       },
       {
-        title: 'Mis hijos',
+        title: 'Mis bebés',
         url: '/private/parents/children',
         icon: 'happy'
       },

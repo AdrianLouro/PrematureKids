@@ -44,7 +44,7 @@ export class AddParentPage implements OnInit {
 
   async presentConfirmationAlert() {
     const alert = await this.alertController.create({
-      header: '¿Está seguro de que desea asociar este padre?',
+      header: '¿Está seguro de que desea asociar este tutor?',
       // message: '¡Se borrará permanentemente!',
       buttons: [
         {
@@ -54,7 +54,7 @@ export class AddParentPage implements OnInit {
           handler: () => {
           }
         }, {
-          text: 'Asociar padre',
+          text: 'Asociar tutor',
           handler: () => {
             this.http.post('/children/' + this.childId + '/parents/' + this.parent.id, {}).subscribe((res: any) => {
               this.location.back();
@@ -74,7 +74,7 @@ export class AddParentPage implements OnInit {
 
   async presentParentAlreadyAssociatedAlert() {
     const alert = await this.alertController.create({
-      message: 'El padre ya se encuentra asociado',
+      message: 'El tutor ya se encuentra asociado',
       buttons: [
         {
           text: 'OK',
