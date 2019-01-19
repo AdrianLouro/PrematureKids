@@ -1,0 +1,75 @@
+ion-content .scroll-content {
+    background-color: #f5f5f5;
+}
+
+ion-footer {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.11);
+    background-color: #ffffff;
+}
+
+.line-breaker {
+    white-space: pre-line;
+}
+  
+.input-wrap {
+    padding: 5px;
+    margin: 0 8px;
+    display: flex;
+    textarea {
+        flex: 1;
+        border: 0 solid;
+        border-bottom-width: 1px;
+        resize: none;
+    }
+}
+  
+.message-wrap {
+    padding: 0 10px;
+    .message {
+        position: relative;
+        padding: 7px 0;
+        .msg-detail {
+            width: 100%;
+            display: inline-block;
+            p {
+                margin: 0;
+            }
+            .msg-info {
+                p {
+                    font-size: .8em;
+                    color: #888888;
+                }
+            }
+
+            .msg-content {
+                position: relative;
+                margin-top: 5px;
+                border-radius: 5px;
+                padding: 8px;
+                border: 1px solid #dddddd;
+                width: auto;
+                max-width: 80%;
+            }
+        }
+    }
+    
+    .message.left {
+        .msg-content {
+            background-color: #ffffff;
+            color: #343434;
+            float: left;
+        }
+    }
+    
+    .message.right {
+        .msg-info {
+            text-align: right;
+        }
+        .msg-content {
+            background-color: #387ef5;
+            color: #ffffff;
+            float: right;
+        }
+    }
+
+}

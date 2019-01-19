@@ -70,6 +70,7 @@ export class FirebaseChatService {
   loadMessagesForChat(chatId, messageLoader) {
     this.messages.orderByChild('chat').equalTo(chatId).on('value', messages => {
       messageLoader.messages = snapshotToArray(messages);
+      messageLoader.scrollToBottom();
     });
   }
 
@@ -80,13 +81,13 @@ export class FirebaseChatService {
     }).then(chat => chatCreator.chatCreated(chat.key));
   }
 
-  sendMessage(message: any, chatId) {
+  sendMessage(message: any, chatId, messageLoader) {
     this.messages.push({
       chat: chatId,
       sender: this.authService.getUserId(),
       text: message,
       timestamp: new Date().getTime()
-    });
+    }).then(() => messageLoader.scrollToBottom());
   }
 
 }

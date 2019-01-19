@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FirebaseChatService } from '../../../services/firebase-chat.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
+import { Content } from '@ionic/angular';
 
 @Component({
   selector: 'app-chat',
@@ -10,6 +12,7 @@ import { Location } from '@angular/common';
 })
 export class ChatPage implements OnInit {
 
+  @ViewChild('content') content: Content;
   authenticatedAsParent: boolean;
   chat: any;
   messages: any[];
@@ -17,6 +20,7 @@ export class ChatPage implements OnInit {
 
   constructor(private firebaseChatService: FirebaseChatService,
     private location: Location,
+    private authService: AuthenticationService,
     private route: ActivatedRoute) {
   }
 
@@ -43,8 +47,20 @@ export class ChatPage implements OnInit {
   }
 
   sendMessage() {
-    this.firebaseChatService.sendMessage(this.newMessage, this.chat.key);
+    this.firebaseChatService.sendMessage(this.newMessage, this.chat.key, this);
     this.newMessage = undefined;
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      if (this.content.scrollToBottom) {
+        this.content.scrollToBottom();
+      }
+    }, 50);
+  }
+
+  imSenderOf(message: any) {
+    return message.sender === this.authService.getUserId();
   }
 
 }

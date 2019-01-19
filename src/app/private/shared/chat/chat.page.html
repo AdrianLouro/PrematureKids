@@ -7,22 +7,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let message of messages | sort : 'timestamp'">
-      <ion-label>
-        <h4>{{ message.text }}</h4>
-        <h6 style="color:grey" text-end>{{ message.timestamp | date:'dd/MM/yyyy HH:mm' }}</h6>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+<ion-content padding #content>
+  <div class="message-wrap">
+    <div *ngFor="let message of messages" class="message" [class.left]="!imSenderOf(message)" [class.right]="imSenderOf(message)">
+      <div class="msg-detail">
+        <div class="msg-info">
+          <p>{{ message.timestamp | date:'dd/MM/yyyy HH:mm' }}</p>
+        </div>
+        <div class="msg-content">
+          <p class="line-breaker ">{{ message.text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-item>
-      <ion-input style="margin-right:16px" type="text" placeholder="Mensaje" [(ngModel)]="newMessage"></ion-input>
-      <ion-button item-end color="primary" (click)="sendMessage()" [disabled]="!newMessage">Enviar</ion-button>
-    </ion-item>
-  </ion-toolbar>
+<ion-footer no-border>
+  <div class="input-wrap">
+    <textarea placeholder="Mensaje" [(ngModel)]="newMessage"></textarea>
+    <ion-button style="margin-left: 8px" [disabled]="!newMessage" (click)="sendMessage(newMessage)">
+      <ion-icon name="send"></ion-icon>
+    </ion-button>
+  </div>
 </ion-footer>
