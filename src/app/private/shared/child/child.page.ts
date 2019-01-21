@@ -121,7 +121,7 @@ export class ChildPage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'El paciente ha sido editado',
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();
@@ -139,11 +139,12 @@ export class ChildPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar paciente',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/children/' + this.childId).subscribe((res: any) => {
               this.location.back();
@@ -166,11 +167,12 @@ export class ChildPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Desasociar',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/children/' + this.childId + '/parents/' + parentId).subscribe((res: any) => {
               this.parents = this.parents.filter(parent => parent.id !== parentId);

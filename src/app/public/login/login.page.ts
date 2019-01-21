@@ -51,7 +51,6 @@ export class LoginPage implements OnInit {
         {
           text: 'OK',
           role: 'cancel',
-          cssClass: 'danger',
           handler: () => {
           }
         }

@@ -146,11 +146,12 @@ export class SessionPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar vídeo',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + this.sessionVideo.id).subscribe((res: any) => {
               this.presentToast('El vídeo ha sido eliminado.');
@@ -188,11 +189,12 @@ export class SessionPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar imagen',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + image.id).subscribe((res: any) => {
               this.presentToast('La imagen ha sido eliminada.');
@@ -240,7 +242,7 @@ export class SessionPage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();
@@ -275,11 +277,12 @@ export class SessionPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar sesión',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/sessions/' + this.session.id).subscribe((res: any) => {
               this.location.back();

@@ -18,7 +18,7 @@
       <ion-label position="floating">Identificador de historial médico*</ion-label>
       <ion-input type="text" formControlName="medicalHistoryId" (ionInput)="searchPatient($event)"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!addPatientForm.controls.medicalHistoryId.pristine && !addPatientForm.controls.medicalHistoryId.valid">
+    <p class="danger" *ngIf="!addPatientForm.controls.medicalHistoryId.pristine && !addPatientForm.controls.medicalHistoryId.valid">
       El identificador del historial médico no puede estar vacío
     </p>
     <div [formGroup]="patientDataFormGroup">
@@ -26,7 +26,7 @@
         <ion-label position="floating">Nombre y apellidos*</ion-label>
         <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
-      <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.name.pristine && !patientDataFormGroup.controls.name.valid">
+      <p class="danger" *ngIf="!patientDataFormGroup.controls.name.pristine && !patientDataFormGroup.controls.name.valid">
         El nombre no puede estár vacío
       </p>
       <ion-item margin-top [disabled]="patient != null">
@@ -36,26 +36,26 @@
           <ion-select-option value="F">Femenino</ion-select-option>
         </ion-select>
       </ion-item>
-      <!-- <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.gender.pristine && !patientDataFormGroup.controls.gender.valid">
+      <!-- <p class="danger" *ngIf="!patientDataFormGroup.controls.gender.pristine && !patientDataFormGroup.controls.gender.valid">
           The gender should not be blank
         </p> -->
       <ion-item [disabled]="patient != null">
         <ion-label position="floating">Fecha de nacimiento*</ion-label>
         <ion-datetime display-format="DD/MM/YYYY" formControlName="dateOfBirth"></ion-datetime>
       </ion-item>
-      <!-- <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.dateOfBirth.pristine && !patientDataFormGroup.controls.dateOfBirth.valid">
+      <!-- <p class="danger" *ngIf="!patientDataFormGroup.controls.dateOfBirth.pristine && !patientDataFormGroup.controls.dateOfBirth.valid">
           The date of birth should not be blank
         </p> -->
       <ion-item [disabled]="patient != null">
         <ion-label position="floating">Semanas de gestación*</ion-label>
         <ion-input type="number" formControlName="weeksOfPregnancy"></ion-input>
       </ion-item>
-      <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.weeksOfPregnancy.pristine && !patientDataFormGroup.controls.weeksOfPregnancy.valid">
+      <p class="danger" *ngIf="!patientDataFormGroup.controls.weeksOfPregnancy.pristine && !patientDataFormGroup.controls.weeksOfPregnancy.valid">
         Las semanas de gestación no pueden estar vacías
       </p>
       <ion-textarea margin-top [disabled]="patient != null" formControlName="medicalHistory"
         style="background-color:ghostwhite" rows="10" placeholder="Introduzca información relevante acerca del paciente"></ion-textarea>
-      <p ion-text color="danger" *ngIf="!patientDataFormGroup.controls.medicalHistory.pristine && !patientDataFormGroup.controls.medicalHistory.valid">
+      <p class="danger" *ngIf="!patientDataFormGroup.controls.medicalHistory.pristine && !patientDataFormGroup.controls.medicalHistory.valid">
         El historial médico no puede estar vacío
       </p>
     </div>

@@ -50,7 +50,7 @@ export class AddParentPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
@@ -79,7 +79,6 @@ export class AddParentPage implements OnInit {
         {
           text: 'OK',
           role: 'cancel',
-          cssClass: 'danger',
           handler: () => {
           }
         }

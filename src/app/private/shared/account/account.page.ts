@@ -62,7 +62,7 @@ export class AccountPage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'La cuenta ha sido editada.',
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();

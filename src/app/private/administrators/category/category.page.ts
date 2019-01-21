@@ -61,7 +61,7 @@ export class CategoryPage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'La categoría ha sido editada.',
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();
@@ -79,11 +79,12 @@ export class CategoryPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar categoría',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/categories/' + this.categoryId).subscribe((res: any) => {
               this.location.back();

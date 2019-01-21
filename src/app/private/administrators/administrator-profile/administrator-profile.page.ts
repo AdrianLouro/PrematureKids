@@ -51,7 +51,7 @@ export class AdministratorProfilePage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'El perfil ha sido editado.',
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();

@@ -13,17 +13,17 @@
       <ion-label position="floating">Email*</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!loginForm.controls.email.pristine && !loginForm.controls.email.valid">
+    <p class="danger" *ngIf="!loginForm.controls.email.pristine && !loginForm.controls.email.valid">
       El email introducido no es válido
     </p>
     <ion-item>
       <ion-label position="floating">Contraseña*</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!loginForm.controls.password.pristine && !loginForm.controls.password.valid">
+    <p class="danger" *ngIf="!loginForm.controls.password.pristine && !loginForm.controls.password.valid">
       La contraseña no puede estar vacía
     </p>
-    <p ion-text color="danger" *ngIf="invalidCredentials">
+    <p class="danger" *ngIf="invalidCredentials">
       Las credenciales introducidas no son válidas
     </p>
     <ion-button margin-top expand="block" type="submit" [disabled]="!loginForm.valid">Iniciar sesión</ion-button>

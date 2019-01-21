@@ -63,7 +63,7 @@ export class CreateSessionPage implements OnInit {
         {
           text: 'Más tarde',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
             this.location.back();
           }
@@ -84,7 +84,7 @@ export class CreateSessionPage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'La sesión ha sido creada.',
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();

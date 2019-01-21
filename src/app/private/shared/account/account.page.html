@@ -16,27 +16,27 @@
       <ion-label position="floating">Email*</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!editAccountForm.controls.email.pristine && !editAccountForm.controls.email.valid">
+    <p class="danger" *ngIf="!editAccountForm.controls.email.pristine && !editAccountForm.controls.email.valid">
       El email introducido no es válido
     </p>
-    <p ion-text color="danger" *ngIf="emailAlreadyRegistered">
+    <p class="danger" *ngIf="emailAlreadyRegistered">
       El email ya está siendo utilizado
     </p>
     <ion-item>
       <ion-label position="floating">Contraseña actual*</ion-label>
       <ion-input type="password" formControlName="currentPassword"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!editAccountForm.controls.currentPassword.pristine && !editAccountForm.controls.currentPassword.valid">
+    <p class="danger" *ngIf="!editAccountForm.controls.currentPassword.pristine && !editAccountForm.controls.currentPassword.valid">
       La contraseña no puede estar vacía
     </p>
-    <p ion-text color="danger" *ngIf="invalidPassword">
+    <p class="danger" *ngIf="invalidPassword">
       La contraseña introducida no es válida
     </p>
     <ion-item>
       <ion-label position="floating">Contraseña nueva</ion-label>
       <ion-input type="password" formControlName="newPassword"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!editAccountForm.controls.newPassword.pristine && !editAccountForm.controls.newPassword.valid">
+    <p class="danger" *ngIf="!editAccountForm.controls.newPassword.pristine && !editAccountForm.controls.newPassword.valid">
       La contraseña debe tener, al menos, 8 caracteres
     </p>
   </form>

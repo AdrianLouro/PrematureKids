@@ -3,7 +3,8 @@ import { FirebaseChatService } from '../../../services/firebase-chat.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthenticationService } from '../../../services/authentication/authentication.service';
-import { Content } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-chat',
@@ -12,7 +13,7 @@ import { Content } from '@ionic/angular';
 })
 export class ChatPage implements OnInit {
 
-  @ViewChild('content') content: Content;
+  @ViewChild('content') content: IonContent;
   authenticatedAsParent: boolean;
   chat: any;
   messages: any[];

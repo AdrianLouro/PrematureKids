@@ -21,10 +21,10 @@
       <ion-label position="floating">Nombre*</ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="nameAlreadyRegistered">
+    <p class="danger" *ngIf="nameAlreadyRegistered">
       El nombre ya está siendo utilizado
     </p>
-    <p ion-text color="danger" *ngIf="!editCategoryForm.controls.name.pristine && !editCategoryForm.controls.name.valid">
+    <p class="danger" *ngIf="!editCategoryForm.controls.name.pristine && !editCategoryForm.controls.name.valid">
       El nombre no puede estár vacío
     </p>
   </form>

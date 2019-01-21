@@ -18,7 +18,7 @@
       <ion-label position="floating">Título*</ion-label>
       <ion-input type="text" formControlName="title"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!createExerciseForm.controls.title.pristine && !createExerciseForm.controls.title.valid">
+    <p class="danger" *ngIf="!createExerciseForm.controls.title.pristine && !createExerciseForm.controls.title.valid">
       El título no puede estar vacío
     </p>
     <ion-item margin-top>
@@ -28,7 +28,7 @@
       </ion-select>
     </ion-item>
     <ion-textarea margin-top formControlName="description" style="background-color:ghostwhite" rows="10" placeholder="Introduzca la descripción del ejercicio"></ion-textarea>
-    <p ion-text color="danger" *ngIf="!createExerciseForm.controls.description.pristine && !createExerciseForm.controls.description.valid">
+    <p class="danger" *ngIf="!createExerciseForm.controls.description.pristine && !createExerciseForm.controls.description.valid">
       La descripción no puede estar vacía
     </p>
   </form>

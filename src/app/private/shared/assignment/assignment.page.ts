@@ -142,7 +142,7 @@ export class AssignmentPage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'La tarea ha sido editada.',
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();
@@ -160,11 +160,12 @@ export class AssignmentPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar tarea',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/assignments/' + this.assignment.id).subscribe((res: any) => {
               this.location.back();

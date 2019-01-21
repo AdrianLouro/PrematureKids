@@ -9,20 +9,20 @@
       <ion-content>
         <ion-list margin-top>
           <ion-menu-toggle auto-hide="false" *ngFor="let page of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[page.url]">
+            <ion-item lines="none" [routerDirection]="'root'" [routerLink]="[page.url]">
               <ion-icon slot="start" [name]="page.icon"></ion-icon>
               <ion-label>{{page.title}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
           <div *ngIf="authenticated">
             <ion-menu-toggle auto-hide="false">
-              <ion-item [routerDirection]="'root'" [routerLink]="['/private/shared/account']">
+              <ion-item lines="none" [routerDirection]="'root'" [routerLink]="['/private/shared/account']">
                 <ion-icon slot="start" name="settings"></ion-icon>
                 <ion-label>Mi cuenta</ion-label>
               </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle auto-hide="false">
-              <ion-item margin-top (click)="logout()">
+              <ion-item lines="none" style="margin-top: 32px" (click)="logout()">
                 <ion-icon slot="start" name="log-out"></ion-icon>
                 <ion-label>Cerrar sesión</ion-label>
               </ion-item>

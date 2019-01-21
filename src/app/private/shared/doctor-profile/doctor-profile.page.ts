@@ -94,11 +94,12 @@ export class DoctorProfilePage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: this.userIsBlocked ? 'Desbloquear' : 'Bloquear',
+          cssClass: 'danger',
           handler: () => {
             this.http.put('/users/' + this.doctorId + '/status', { blocked: !this.userIsBlocked }).subscribe((res: any) => {
               this.presentToast('La cuenta del doctor ha sido ' + (this.userIsBlocked ? 'desbloqueada' : 'bloqueada') + '.');
@@ -117,7 +118,7 @@ export class DoctorProfilePage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();
@@ -131,11 +132,12 @@ export class DoctorProfilePage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar fisioterapeuta',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/doctors/' + this.doctorId).subscribe((res: any) => {
               this.location.back();

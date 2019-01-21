@@ -91,7 +91,7 @@ export class OpinionPage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Su opinión ha sido ' + (this.opinion !== undefined ? 'enviada' : 'eliminada') + '.',
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();
@@ -105,11 +105,12 @@ export class OpinionPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar opinión',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/opinions/' + this.opinion.id).subscribe((res: any) => {
               this.opinion = undefined;

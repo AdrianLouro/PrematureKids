@@ -67,7 +67,7 @@ export class CreateExercisePage implements OnInit {
         {
           text: 'Más tarde',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
             this.location.back();
           }
@@ -88,7 +88,7 @@ export class CreateExercisePage implements OnInit {
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'El ejercicio ha sido creado.',
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();

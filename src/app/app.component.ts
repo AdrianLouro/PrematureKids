@@ -115,14 +115,14 @@ export class AppComponent {
       //   icon: 'contacts'
       // },
       {
-        title: 'Mi perfil',
-        url: '/private/parents/parent-profile/' + this.authService.getUserId(),
-        icon: 'person'
-      },
-      {
         title: 'Chat',
         url: '/private/shared/chats',
         icon: 'chatbubbles'
+      },
+      {
+        title: 'Mi perfil',
+        url: '/private/parents/parent-profile/' + this.authService.getUserId(),
+        icon: 'person'
       },
     ];
   }
@@ -150,14 +150,14 @@ export class AppComponent {
         icon: 'paper'
       },
       {
-        title: 'Mi perfil',
-        url: '/private/shared/doctor-profile/' + this.authService.getUserId(),
-        icon: 'person'
-      },
-      {
         title: 'Chat',
         url: '/private/shared/chats',
         icon: 'chatbubbles'
+      },
+      {
+        title: 'Mi perfil',
+        url: '/private/shared/doctor-profile/' + this.authService.getUserId(),
+        icon: 'person'
       },
     ];
   }

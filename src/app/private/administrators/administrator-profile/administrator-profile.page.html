@@ -16,7 +16,7 @@
       <ion-label position="floating">Nombre y apellidos*</ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!editAdministratorForm.controls.name.pristine && !editAdministratorForm.controls.name.valid">
+    <p class="danger" *ngIf="!editAdministratorForm.controls.name.pristine && !editAdministratorForm.controls.name.valid">
       El nombre no puede estár vacío
     </p>
   </form>

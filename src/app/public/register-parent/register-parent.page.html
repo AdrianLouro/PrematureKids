@@ -13,34 +13,34 @@
       <ion-label position="floating">Nombre y apellidos*</ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!registerParentForm.controls.name.pristine && !registerParentForm.controls.name.valid">
+    <p class="danger" *ngIf="!registerParentForm.controls.name.pristine && !registerParentForm.controls.name.valid">
       El nombre no puede estár vacío
     </p>
     <ion-item>
       <ion-label position="floating">DNI/NIF/NIE*</ion-label>
       <ion-input type="text" formControlName="idNumber"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="idNumberAlreadyRegistered">
+    <p class="danger" *ngIf="idNumberAlreadyRegistered">
       El DNI/NIF/NIE ya está siendo utilizado
     </p>
-    <p ion-text color="danger" *ngIf="!registerParentForm.controls.idNumber.pristine && !registerParentForm.controls.idNumber.valid">
+    <p class="danger" *ngIf="!registerParentForm.controls.idNumber.pristine && !registerParentForm.controls.idNumber.valid">
       El DNI/NIF/NIE no puede estar vacío
     </p>
     <ion-item>
       <ion-label position="floating">Teléfono*</ion-label>
       <ion-input type="tel" formControlName="telephone"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!registerParentForm.controls.telephone.pristine && !registerParentForm.controls.telephone.valid">
+    <p class="danger" *ngIf="!registerParentForm.controls.telephone.pristine && !registerParentForm.controls.telephone.valid">
       El teléfono no puede estar vacío
     </p>
     <ion-item>
       <ion-label position="floating">Email*</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="emailAlreadyRegistered">
+    <p class="danger" *ngIf="emailAlreadyRegistered">
       El email ya está siendo utilizado
     </p>
-    <p ion-text color="danger" *ngIf="!registerParentForm.controls.email.pristine && !registerParentForm.controls.email.valid">
+    <p class="danger" *ngIf="!registerParentForm.controls.email.pristine && !registerParentForm.controls.email.valid">
       El email introducido no es válido
     </p>
     <div [formGroup]="passwordsFormGroup">
@@ -48,14 +48,14 @@
         <ion-label position="floating">Contraseña*</ion-label>
         <ion-input clearOnEdit="false" type="password" formControlName="password"></ion-input>
       </ion-item>
-      <p ion-text color="danger" *ngIf="!passwordsFormGroup.controls.password.pristine && !passwordsFormGroup.controls.password.valid">
+      <p class="danger" *ngIf="!passwordsFormGroup.controls.password.pristine && !passwordsFormGroup.controls.password.valid">
         La contraseña debe tener, al menos, 8 caracteres
       </p>
       <ion-item>
         <ion-label position="floating">Confirmar contraseña*</ion-label>
         <ion-input clearOnEdit="false" type="password" formControlName="passwordConfirmation"></ion-input>
       </ion-item>
-      <p ion-text color="danger" *ngIf="!passwordsFormGroup.controls.passwordConfirmation.pristine && passwordsFormGroup.errors?.doesNotMatchPassword">
+      <p class="danger" *ngIf="!passwordsFormGroup.controls.passwordConfirmation.pristine && passwordsFormGroup.errors?.doesNotMatchPassword">
         Las contraseñas no coinciden
       </p>
     </div>

@@ -31,25 +31,25 @@
       <ion-label position="floating">Frecuencia del ejercicio*</ion-label>
       <ion-input type="text" formControlName="exerciseFrequency"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!createAssignmentForm.controls.exerciseFrequency.pristine && !createAssignmentForm.controls.exerciseFrequency.valid">
+    <p class="danger" *ngIf="!createAssignmentForm.controls.exerciseFrequency.pristine && !createAssignmentForm.controls.exerciseFrequency.valid">
       La frecuencia del ejercicio no puede estar vacía
     </p>
     <ion-item>
       <ion-label position="floating">Duración del ejercicio*</ion-label>
       <ion-input type="text" formControlName="exerciseDuration"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!createAssignmentForm.controls.exerciseDuration.pristine && !createAssignmentForm.controls.exerciseDuration.valid">
+    <p class="danger" *ngIf="!createAssignmentForm.controls.exerciseDuration.pristine && !createAssignmentForm.controls.exerciseDuration.valid">
       La duración del ejercicio no puede estar vacía
     </p>
     <ion-item>
       <ion-label position="floating">Frecuencia del feedback*</ion-label>
       <ion-input type="text" formControlName="feedbackFrequency"></ion-input>
     </ion-item>
-    <p ion-text color="danger" *ngIf="!createAssignmentForm.controls.feedbackFrequency.pristine && !createAssignmentForm.controls.feedbackFrequency.valid">
+    <p class="danger" *ngIf="!createAssignmentForm.controls.feedbackFrequency.pristine && !createAssignmentForm.controls.feedbackFrequency.valid">
       La frecuencia del feedback no puede estar vacía
     </p>
     <ion-textarea margin-top formControlName="notes" style="background-color:ghostwhite" rows="10" placeholder="Introduzca información relevante acerca de la tarea"></ion-textarea>
-    <p ion-text color="danger" *ngIf="!createAssignmentForm.controls.notes.pristine && !createAssignmentForm.controls.notes.valid">
+    <p class="danger" *ngIf="!createAssignmentForm.controls.notes.pristine && !createAssignmentForm.controls.notes.valid">
       Las notas no pueden estar vacías
     </p>
   </form>

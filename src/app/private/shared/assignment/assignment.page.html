@@ -32,11 +32,11 @@
 
     <div *ngSwitchCase="'info'">
       <form [formGroup]="editAssignmentForm">
-        <ion-item>
+        <ion-item class="opaque">
           <ion-label>Fecha</ion-label>
-          <ion-datetime display-format="DD/MM/YYYY" formControlName="date" [disabled]="true"></ion-datetime>
+          <ion-datetime display-format="DD/MM/YYYY" formControlName="date" [disabled]="true" class="opaque"></ion-datetime>
         </ion-item>
-        <ion-item margin-top>
+        <ion-item margin-top class="opaque">
           <ion-label>Estado*</ion-label>
           <ion-select placeholder="Seleccionar" formControlName="state" [disabled]="!iAmAuthor">
             <ion-select-option value="in progress">En curso</ion-select-option>
@@ -48,26 +48,26 @@
           <ion-label position="floating">Frecuencia del ejercicio*</ion-label>
           <ion-input type="text" formControlName="exerciseFrequency" [readonly]="!iAmAuthor"></ion-input>
         </ion-item>
-        <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.exerciseFrequency.pristine && !editAssignmentForm.controls.exerciseFrequency.valid">
+        <p class="danger" *ngIf="!editAssignmentForm.controls.exerciseFrequency.pristine && !editAssignmentForm.controls.exerciseFrequency.valid">
           La frecuencia del ejercicio no puede estar vacía
         </p>
         <ion-item>
           <ion-label position="floating">Duración del ejercicio*</ion-label>
           <ion-input type="text" formControlName="exerciseDuration" [readonly]="!iAmAuthor"></ion-input>
         </ion-item>
-        <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.exerciseDuration.pristine && !editAssignmentForm.controls.exerciseDuration.valid">
+        <p class="danger" *ngIf="!editAssignmentForm.controls.exerciseDuration.pristine && !editAssignmentForm.controls.exerciseDuration.valid">
           La duración del ejercicio no puede estar vacía
         </p>
         <ion-item>
           <ion-label position="floating">Frecuencia del feedback*</ion-label>
           <ion-input type="text" formControlName="feedbackFrequency" [readonly]="!iAmAuthor"></ion-input>
         </ion-item>
-        <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.feedbackFrequency.pristine && !editAssignmentForm.controls.feedbackFrequency.valid">
+        <p class="danger" *ngIf="!editAssignmentForm.controls.feedbackFrequency.pristine && !editAssignmentForm.controls.feedbackFrequency.valid">
           La frecuencia del feedback no puede estar vacía
         </p>
         <ion-textarea margin-top formControlName="notes" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
           rows="10" placeholder="Introduzca información relevante acerca de la tarea"></ion-textarea>
-        <p ion-text color="danger" *ngIf="!editAssignmentForm.controls.notes.pristine && !editAssignmentForm.controls.notes.valid">
+        <p class="danger" *ngIf="!editAssignmentForm.controls.notes.pristine && !editAssignmentForm.controls.notes.valid">
           Las notas no pueden estar vacías
         </p>
       </form>

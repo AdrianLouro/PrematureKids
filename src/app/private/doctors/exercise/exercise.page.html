@@ -41,10 +41,10 @@
           <ion-label position="floating">Título*</ion-label>
           <ion-input type="text" formControlName="title" [readonly]="!iAmAuthor"></ion-input>
         </ion-item>
-        <p ion-text color="danger" *ngIf="!editExerciseForm.controls.title.pristine && !editExerciseForm.controls.title.valid">
+        <p class="danger" *ngIf="!editExerciseForm.controls.title.pristine && !editExerciseForm.controls.title.valid">
           El título no puede estar vacío
         </p>
-        <ion-item margin-top>
+        <ion-item margin-top class="opaque">
           <ion-label>Categoría*</ion-label>
           <ion-select placeholder="Seleccionar" formControlName="category" [disabled]="!iAmAuthor">
             <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
@@ -52,7 +52,7 @@
         </ion-item>
         <ion-textarea margin-top formControlName="description" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
           rows="10" placeholder="Introduzca la descripción del ejercicio"></ion-textarea>
-        <p ion-text color="danger" *ngIf="!editExerciseForm.controls.description.pristine && !editExerciseForm.controls.description.valid">
+        <p class="danger" *ngIf="!editExerciseForm.controls.description.pristine && !editExerciseForm.controls.description.valid">
           La descripción no puede estar vacía
         </p>
       </form>

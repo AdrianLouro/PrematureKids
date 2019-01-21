@@ -1,5 +1,9 @@
-ion-content .scroll-content {
-    background-color: #f5f5f5;
+ion-toolbar {
+    --background: #ffffff;
+}
+
+ion-content {
+    --background: #f5f5f5;
 }
 
 ion-footer {
@@ -25,23 +29,23 @@ ion-footer {
   
 .message-wrap {
     padding: 0 10px;
+    
     .message {
         position: relative;
         padding: 7px 0;
-        .msg-detail {
+        .message-detail {
             width: 100%;
             display: inline-block;
             p {
                 margin: 0;
             }
-            .msg-info {
+            .message-info {
                 p {
                     font-size: .8em;
                     color: #888888;
                 }
             }
-
-            .msg-content {
+            .message-content {
                 position: relative;
                 margin-top: 5px;
                 border-radius: 5px;
@@ -54,7 +58,7 @@ ion-footer {
     }
     
     .message.left {
-        .msg-content {
+        .message-content {
             background-color: #ffffff;
             color: #343434;
             float: left;
@@ -62,10 +66,10 @@ ion-footer {
     }
     
     .message.right {
-        .msg-info {
+        .message-info {
             text-align: right;
         }
-        .msg-content {
+        .message-content {
             background-color: #387ef5;
             color: #ffffff;
             float: right;

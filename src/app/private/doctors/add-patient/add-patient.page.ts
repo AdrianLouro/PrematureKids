@@ -106,7 +106,7 @@ export class AddPatientPage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
@@ -135,7 +135,6 @@ export class AddPatientPage implements OnInit {
         {
           text: 'OK',
           role: 'cancel',
-          cssClass: 'danger',
           handler: () => {
           }
         }

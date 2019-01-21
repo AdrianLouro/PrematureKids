@@ -166,11 +166,12 @@ export class ExercisePage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar vídeo',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + this.exerciseVideo.id).subscribe((res: any) => {
               this.presentToast('El vídeo ha sido eliminado.');
@@ -208,11 +209,12 @@ export class ExercisePage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar imagen',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + image.id).subscribe((res: any) => {
               this.presentToast('La imagen ha sido eliminada.');
@@ -276,7 +278,7 @@ export class ExercisePage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      cssClass: 'primary',
+      cssClass: 'success',
       duration: 3000
     });
     toast.present();
@@ -294,11 +296,12 @@ export class ExercisePage implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'danger',
+          cssClass: 'cancel',
           handler: () => {
           }
         }, {
           text: 'Eliminar ejercicio',
+          cssClass: 'danger',
           handler: () => {
             this.http.delete('/exercises/' + this.exercise.id).subscribe((res: any) => {
               this.location.back();
