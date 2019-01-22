@@ -50,7 +50,7 @@
             <ion-select-option *ngFor="let category of categories" value="{{ category.id  }}">{{ category.name }}</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-textarea margin-top formControlName="description" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
+        <ion-textarea margin-top text-justify formControlName="description" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
           rows="10" placeholder="Introduzca la descripción del ejercicio"></ion-textarea>
         <p class="danger" *ngIf="!editExerciseForm.controls.description.pristine && !editExerciseForm.controls.description.valid">
           La descripción no puede estar vacía

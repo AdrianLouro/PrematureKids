@@ -9,7 +9,10 @@
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let patient of patients | search : nameFilter : ['name']" (click)="navigateToPatient(patient.id)">
-      {{ patient.name }}
+      <ion-label>
+        <h1>{{ patient.name }}</h1>
+        <p>Identificador de historial médico: {{ patient.medicalHistoryId }}</p>
+      </ion-label>
     </ion-item>
   </ion-list>
 

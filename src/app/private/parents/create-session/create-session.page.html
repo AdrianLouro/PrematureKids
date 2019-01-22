@@ -18,7 +18,8 @@
       <ion-label>Fecha*</ion-label>
       <ion-datetime display-format="DD/MM/YYYY" formControlName="date"></ion-datetime>
     </ion-item>
-    <ion-textarea margin-top formControlName="parentNotes" style="background-color:ghostwhite" rows="10" placeholder="Introduzca información relevante acerca de la sesión"></ion-textarea>
+    <ion-textarea margin-top text-justify formControlName="parentNotes" style="background-color:ghostwhite" rows="10"
+      placeholder="Introduzca información relevante acerca de la sesión"></ion-textarea>
     <p class="danger" *ngIf="!createSessionForm.controls.parentNotes.pristine && !createSessionForm.controls.parentNotes.valid">
       Las notas no pueden estar vacías
     </p>

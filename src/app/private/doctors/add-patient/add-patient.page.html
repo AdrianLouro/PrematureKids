@@ -53,7 +53,7 @@
       <p class="danger" *ngIf="!patientDataFormGroup.controls.weeksOfPregnancy.pristine && !patientDataFormGroup.controls.weeksOfPregnancy.valid">
         Las semanas de gestación no pueden estar vacías
       </p>
-      <ion-textarea margin-top [disabled]="patient != null" formControlName="medicalHistory"
+      <ion-textarea margin-top text-justify [disabled]="patient != null" formControlName="medicalHistory"
         style="background-color:ghostwhite" rows="10" placeholder="Introduzca información relevante acerca del paciente"></ion-textarea>
       <p class="danger" *ngIf="!patientDataFormGroup.controls.medicalHistory.pristine && !patientDataFormGroup.controls.medicalHistory.valid">
         El historial médico no puede estar vacío

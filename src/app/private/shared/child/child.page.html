@@ -90,7 +90,7 @@
         <p class="danger" *ngIf="!editChildForm.controls.weeksOfPregnancy.pristine && !editChildForm.controls.weeksOfPregnancy.valid">
           Las semanas de gestación no pueden estar vacías
         </p>
-        <ion-textarea margin-top formControlName="medicalHistory" *ngIf="!authenticatedAsParent" style="background-color:ghostwhite"
+        <ion-textarea margin-top text-justify formControlName="medicalHistory" *ngIf="!authenticatedAsParent" style="background-color:ghostwhite"
           rows="10" placeholder="Introduzca información relevante acerca del paciente"></ion-textarea>
         <p class="danger" *ngIf="!editChildForm.controls.medicalHistory.pristine && !editChildForm.controls.medicalHistory.valid">
           El historial médico no puede estar vacío
@@ -102,7 +102,7 @@
       <ion-list>
         <ion-item *ngFor="let parent of parents">
           <ion-label>
-            <h2>{{ parent.name }}</h2>
+            <h1>{{ parent.name }}</h1>
             <p>DNI/NIF/NIE: {{ parent.idNumber }}</p>
             <p>Teléfono: {{ parent.telephone }}</p>
           </ion-label>

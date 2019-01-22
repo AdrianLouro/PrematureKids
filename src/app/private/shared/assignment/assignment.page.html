@@ -65,7 +65,7 @@
         <p class="danger" *ngIf="!editAssignmentForm.controls.feedbackFrequency.pristine && !editAssignmentForm.controls.feedbackFrequency.valid">
           La frecuencia del feedback no puede estar vacía
         </p>
-        <ion-textarea margin-top formControlName="notes" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
+        <ion-textarea text-justify margin-top formControlName="notes" [readonly]="!iAmAuthor" style="background-color:ghostwhite"
           rows="10" placeholder="Introduzca información relevante acerca de la tarea"></ion-textarea>
         <p class="danger" *ngIf="!editAssignmentForm.controls.notes.pristine && !editAssignmentForm.controls.notes.valid">
           Las notas no pueden estar vacías
@@ -77,9 +77,11 @@
       <ion-item lines="none">
         <h4>{{ assignment?.exercise.title }}</h4>
       </ion-item>
-      <ion-item text-justify>{{ assignment?.exercise.description }}</ion-item>
+      <ion-item text-justify>
+        <div style="margin-bottom: 16px">{{ assignment?.exercise.description }}</div>
+      </ion-item>
 
-      <ion-item margin-top>
+      <ion-item>
         <div *ngIf="exerciseVideo == null">No se encontraron vídeos</div>
         <div *ngIf="exerciseVideo != null"><a (click)="playVideo()">Reproducir vídeo</a></div>
       </ion-item>
@@ -87,13 +89,15 @@
       <ion-item margin-top *ngIf="exerciseImages?.length === 0">
         No se encontraron imágenes
       </ion-item>
-      <ion-slides pager="true" margin-top *ngIf="exerciseImages?.length > 0">
-        <ion-slide *ngFor="let exerciseImage of exerciseImages">
-          <ion-card (click)="showImage(exerciseImage)">
-            <img src="{{ exerciseImage.fullPath }}" />
-          </ion-card>
-        </ion-slide>
-      </ion-slides>
+      <ion-item>
+        <ion-slides pager="true" margin-top margin-bottom *ngIf="exerciseImages?.length > 0">
+          <ion-slide *ngFor="let exerciseImage of exerciseImages">
+            <ion-card (click)="showImage(exerciseImage)">
+              <img src="{{ exerciseImage.fullPath }}" />
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-item>
 
       <div *ngIf="authenticatedAsParent">
         <ion-item lines="none" (click)="navigateToOpinion()">

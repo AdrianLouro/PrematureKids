@@ -48,7 +48,8 @@
     <p class="danger" *ngIf="!createAssignmentForm.controls.feedbackFrequency.pristine && !createAssignmentForm.controls.feedbackFrequency.valid">
       La frecuencia del feedback no puede estar vacía
     </p>
-    <ion-textarea margin-top formControlName="notes" style="background-color:ghostwhite" rows="10" placeholder="Introduzca información relevante acerca de la tarea"></ion-textarea>
+    <ion-textarea margin-top text-justify formControlName="notes" style="background-color:ghostwhite" rows="10"
+      placeholder="Introduzca información relevante acerca de la tarea"></ion-textarea>
     <p class="danger" *ngIf="!createAssignmentForm.controls.notes.pristine && !createAssignmentForm.controls.notes.valid">
       Las notas no pueden estar vacías
     </p>

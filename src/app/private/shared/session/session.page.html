@@ -4,7 +4,8 @@
       <ion-back-button (click)="performExtraLocationBack()"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end" *ngIf="segment === 'info'">
-      <ion-button style="margin-right: 16px" *ngIf="iAmAuthor || iAmAssignmentAuthor" (click)="editSession()">
+      <ion-button style="margin-right: 16px" *ngIf="iAmAuthor || iAmAssignmentAuthor" [disabled]="!editSessionForm.valid"
+        (click)="editSession()">
         <ion-icon name="save"></ion-icon>
       </ion-button>
       <ion-button style="margin-right: 16px" *ngIf="iAmAuthor" (click)="removeSession()">
@@ -33,15 +34,22 @@
           <ion-label>Fecha*</ion-label>
           <ion-datetime display-format="DD/MM/YYYY" formControlName="date" [disabled]="!iAmAuthor"></ion-datetime>
         </ion-item>
-        <ion-textarea margin-top formControlName="parentNotes" style="background-color:ghostwhite" rows="10"
-          placeholder="Introduzca alguna nota acerca de la sesión" [readonly]="!iAmAuthor"></ion-textarea>
+        <ion-textarea margin-top text-justify formControlName="parentNotes" style="background-color:ghostwhite" rows="10"
+          placeholder="Introduzca alguna nota acerca de la sesión" [readonly]="!iAmAuthor" [hidden]="!iAmAuthor"></ion-textarea>
         <p class="danger" *ngIf="!editSessionForm.controls.parentNotes.pristine && !editSessionForm.controls.parentNotes.valid">
           Las notas no pueden estar vacías
         </p>
-        <ion-textarea margin-top formControlName="doctorNotes" *ngIf="!authenticatedAsParent && iAmAssignmentAuthor"
+        <ion-item no-padding margin-top *ngIf="!iAmAuthor" text-justify>
+          <div style="margin-bottom: 16px">{{ session?.parentNotes }}</div>
+        </ion-item>
+        <ion-textarea margin-top text-justify formControlName="doctorNotes" *ngIf="!authenticatedAsParent && iAmAssignmentAuthor"
           style="background-color:ghostwhite" rows="10" placeholder="Introduzca alguna nota acerca de la sesión"></ion-textarea>
         <ion-item no-padding margin-top *ngIf="!iAmAssignmentAuthor && session?.doctorNotes" lines="none" text-justify>
-          Dr/a. {{ session.assignment.doctor.name }} dice: <br /> {{ session.doctorNotes }}
+          <div>
+            <b>Dr/a. {{ session.assignment.doctor.name }} dice:</b>
+            <br />
+            <div style="margin-top: 8px">{{ session.doctorNotes }}</div>
+          </div>
         </ion-item>
       </form>
     </div>
