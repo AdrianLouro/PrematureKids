@@ -138,7 +138,7 @@ export class ExercisePage implements OnInit {
       categoryId: this.editExerciseForm.value['category'],
       doctorId: this.authService.getUserId()
     }).subscribe((res: any) => {
-      this.presentToast('El ejercicio ha sido editado.');
+      this.presentToast('El ejercicio ha sido editado correctamente.');
     },
       err => console.log(err)
     );
@@ -174,7 +174,7 @@ export class ExercisePage implements OnInit {
           cssClass: 'danger',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + this.exerciseVideo.id).subscribe((res: any) => {
-              this.presentToast('El vídeo ha sido eliminado.');
+              this.presentToast('El vídeo ha sido eliminado correctamente.');
               this.exerciseVideo = undefined;
             },
               err => console.log(err)
@@ -217,7 +217,7 @@ export class ExercisePage implements OnInit {
           cssClass: 'danger',
           handler: () => {
             this.http.delete('/exercisesAttachments/' + image.id).subscribe((res: any) => {
-              this.presentToast('La imagen ha sido eliminada.');
+              this.presentToast('La imagen ha sido eliminada correctamente.');
               this.exerciseImages = this.exerciseImages.filter(exerciseImage => exerciseImage.id !== image.id);
             },
               err => console.log(err)
@@ -251,7 +251,7 @@ export class ExercisePage implements OnInit {
       }).then(res => {
         loadingController.dismiss();
         type === 'video' ? this.exerciseVideo = JSON.parse(res.response) : this.exerciseImages.push(JSON.parse(res.response));
-        this.presentToast('Se ha subido el archivo.');
+        this.presentToast('El archivo se ha subido correctamente.');
       }).catch(err => {
         console.log(err);
         loadingController.dismiss();

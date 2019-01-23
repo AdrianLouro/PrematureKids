@@ -27,10 +27,10 @@
         <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
       <p class="danger" *ngIf="!patientDataFormGroup.controls.name.pristine && !patientDataFormGroup.controls.name.valid">
-        El nombre no puede estár vacío
+        El nombre no puede estar vacío
       </p>
       <ion-item margin-top [disabled]="patient != null">
-        <ion-label>Género*</ion-label>
+        <ion-label>Sexo*</ion-label>
         <ion-select placeholder="Seleccionar" formControlName="gender">
           <ion-select-option value="M">Masculino</ion-select-option>
           <ion-select-option value="F">Femenino</ion-select-option>

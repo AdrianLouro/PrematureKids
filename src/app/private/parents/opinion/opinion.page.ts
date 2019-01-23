@@ -90,7 +90,7 @@ export class OpinionPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Su opinión ha sido ' + (this.opinion !== undefined ? 'enviada' : 'eliminada') + '.',
+      message: 'Su opinión ha sido ' + (this.opinion !== undefined ? 'enviada' : 'eliminada') + ' correctamente.',
       cssClass: 'success',
       duration: 3000
     });

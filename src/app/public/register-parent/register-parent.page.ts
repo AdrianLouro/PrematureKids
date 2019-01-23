@@ -74,7 +74,7 @@ export class RegisterParentPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'La cuenta ha sido creada.',
+      message: 'La cuenta ha sido creada correctamente.',
       cssClass: 'success',
       duration: 3000
     });

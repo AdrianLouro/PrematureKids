@@ -87,7 +87,7 @@ export class CreateExercisePage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'El ejercicio ha sido creado.',
+      message: 'El ejercicio ha sido creado correctamente.',
       cssClass: 'success',
       duration: 3000
     });

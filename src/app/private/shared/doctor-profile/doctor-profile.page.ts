@@ -78,7 +78,10 @@ export class DoctorProfilePage implements OnInit {
     this.http.put('/doctors/' + this.doctorId, this.editDoctorForm.value).subscribe((res: any) => {
       this.boardNumberAlreadyRegistered = false;
       this.firebaseChatService.editUser(this.doctorId, this.editDoctorForm.value['name']);
-      this.presentToast(this.authenticatedUserRole === 'doctor' ? 'Su perfil ha sido editado.' : 'El perfil del doctor ha sido editado.');
+      this.presentToast(
+        this.authenticatedUserRole === 'doctor' ?
+          'Su perfil ha sido editado.' : 'El perfil del fisioterapeuta ha sido editado.'
+      );
     },
       err => {
         if (err.status === 409) { this.boardNumberAlreadyRegistered = true; }
@@ -88,8 +91,10 @@ export class DoctorProfilePage implements OnInit {
 
   async editDoctorBlockStatus() {
     const alert = await this.alertController.create({
-      header: '¿Está seguro de que quiere ' + (this.userIsBlocked ? 'desbloquear' : 'bloquear') + ' la cuenta de usuario del doctor?',
-      message: '¡El doctor ' + (this.userIsBlocked ? 'ahora' : 'no') + ' podrá iniciar sesión en la aplicación!',
+      header: '¿Está seguro de que quiere ' +
+        (this.userIsBlocked ? 'desbloquear' : 'bloquear') +
+        ' la cuenta de usuario del fisioterapeuta?',
+      message: '¡El fisioterapeuta ' + (this.userIsBlocked ? 'ahora' : 'no') + ' podrá iniciar sesión en la aplicación!',
       buttons: [
         {
           text: 'Cancelar',
@@ -102,7 +107,7 @@ export class DoctorProfilePage implements OnInit {
           cssClass: 'danger',
           handler: () => {
             this.http.put('/users/' + this.doctorId + '/status', { blocked: !this.userIsBlocked }).subscribe((res: any) => {
-              this.presentToast('La cuenta del doctor ha sido ' + (this.userIsBlocked ? 'desbloqueada' : 'bloqueada') + '.');
+              this.presentToast('La cuenta del fisioterapeuta ha sido ' + (this.userIsBlocked ? 'desbloqueada' : 'bloqueada') + '.');
               this.userIsBlocked = !this.userIsBlocked;
             },
               err => console.log(err)

@@ -7,13 +7,13 @@
 
 <ion-content padding>
   <ion-segment [(ngModel)]="segment">
-    <ion-segment-button value="in progress">
+    <ion-segment-button value="en curso">
       En curso
     </ion-segment-button>
-    <ion-segment-button value="disrupted">
+    <ion-segment-button value="interrumpida">
       Interrumpidas
     </ion-segment-button>
-    <ion-segment-button value="achieved">
+    <ion-segment-button value="superada">
       Superadas
     </ion-segment-button>
   </ion-segment>
@@ -23,7 +23,7 @@
       <ion-card-title>{{ assignment.child.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-text>{{ assignment.exercise.title }}</ion-text>
+      <p>{{ assignment.exercise.title }}</p>
     </ion-card-content>
   </ion-card>
 

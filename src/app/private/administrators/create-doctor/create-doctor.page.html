@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Crear doctor</ion-title>
+    <ion-title>Crear fisioterapeuta</ion-title>
     <ion-buttons slot="end">
       <ion-button style="margin-right: 16px" (click)="createDoctor()" [disabled]="!createDoctorForm.valid">
         <ion-icon name="save"></ion-icon>
@@ -19,7 +19,7 @@
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
     <p class="danger" *ngIf="!createDoctorForm.controls.name.pristine && !createDoctorForm.controls.name.valid">
-      El nombre no puede estár vacío
+      El nombre no puede estar vacío
     </p>
     <ion-item>
       <ion-label position="floating">Número de colegiado*</ion-label>

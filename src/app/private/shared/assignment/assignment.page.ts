@@ -141,7 +141,7 @@ export class AssignmentPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'La tarea ha sido editada.',
+      message: 'La tarea ha sido editada correctamente.',
       cssClass: 'success',
       duration: 3000
     });

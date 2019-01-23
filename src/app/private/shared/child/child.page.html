@@ -54,7 +54,7 @@
           <ion-input type="text" formControlName="name" [readonly]="authenticatedAsParent"></ion-input>
         </ion-item>
         <p class="danger" *ngIf="!editChildForm.controls.name.pristine && !editChildForm.controls.name.valid">
-          El nombre no puede estár vacío
+          El nombre no puede estar vacío
         </p>
         <ion-item *ngIf="!authenticatedAsParent">
           <ion-label position="floating">Identificador de historial médico*</ion-label>
@@ -67,7 +67,7 @@
           El identificador del historial médico no puede estar vacío
         </p>
         <ion-item margin-top class="opaque">
-          <ion-label>Género*</ion-label>
+          <ion-label>Sexo*</ion-label>
           <ion-select placeholder="Seleccionar" formControlName="gender" [disabled]="authenticatedAsParent">
             <ion-select-option value="M">Masculino</ion-select-option>
             <ion-select-option value="F">Femenino</ion-select-option>

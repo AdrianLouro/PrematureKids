@@ -83,7 +83,7 @@ export class CreateSessionPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'La sesión ha sido creada.',
+      message: 'La sesión ha sido creada correctamente.',
       cssClass: 'success',
       duration: 3000
     });

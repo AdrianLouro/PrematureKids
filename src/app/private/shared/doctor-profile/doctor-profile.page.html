@@ -11,7 +11,7 @@
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ authenticatedUserRole === 'doctor' ? 'Mi perfil' : 'Perfil del doctor' }}</ion-title>
+    <ion-title>{{ authenticatedUserRole === 'doctor' ? 'Mi perfil' : 'Perfil del fisioterapeuta' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +22,7 @@
       <ion-input type="text" formControlName="name" [readonly]="authenticatedUserRole === 'parent'"></ion-input>
     </ion-item>
     <p class="danger" *ngIf="!editDoctorForm.controls.name.pristine && !editDoctorForm.controls.name.valid">
-      El nombre no puede estár vacío
+      El nombre no puede estar vacío
     </p>
     <ion-item>
       <ion-label position="floating">Número de colegiado*</ion-label>

@@ -29,7 +29,7 @@ export class ParentAssignmentsPage implements OnInit {
   loadAssignments() {
     this.http.get('/parents/' + this.authService.getUserId() + '/assignments').subscribe((res: any) => {
       this.assignments = res;
-      this.segment = 'in progress';
+      this.segment = 'en curso';
     },
       err => console.log(err)
     );

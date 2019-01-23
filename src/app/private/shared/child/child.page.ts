@@ -120,7 +120,7 @@ export class ChildPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'El paciente ha sido editado',
+      message: 'El paciente ha sido editado correctamente.',
       cssClass: 'success',
       duration: 3000
     });

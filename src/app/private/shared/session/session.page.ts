@@ -118,7 +118,7 @@ export class SessionPage implements OnInit {
       parentNotes: this.editSessionForm.value['parentNotes'],
       doctorNotes: this.editSessionForm.value['doctorNotes']
     }).subscribe((res: any) => {
-      this.presentToast('La sesión ha sido editada.');
+      this.presentToast('La sesión ha sido editada correctamente.');
     },
       err => console.log(err)
     );
@@ -154,7 +154,7 @@ export class SessionPage implements OnInit {
           cssClass: 'danger',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + this.sessionVideo.id).subscribe((res: any) => {
-              this.presentToast('El vídeo ha sido eliminado.');
+              this.presentToast('El vídeo ha sido eliminado correctamente.');
               this.sessionVideo = undefined;
             },
               err => console.log(err)
@@ -197,7 +197,7 @@ export class SessionPage implements OnInit {
           cssClass: 'danger',
           handler: () => {
             this.http.delete('/sessionsAttachments/' + image.id).subscribe((res: any) => {
-              this.presentToast('La imagen ha sido eliminada.');
+              this.presentToast('La imagen ha sido eliminada correctamente.');
               this.sessionImages = this.sessionImages.filter(sessionImage => sessionImage.id !== image.id);
             },
               err => console.log(err)
@@ -232,7 +232,7 @@ export class SessionPage implements OnInit {
       }).then(res => {
         loadingController.dismiss();
         type === 'video' ? this.sessionVideo = JSON.parse(res.response) : this.sessionImages.push(JSON.parse(res.response));
-        this.presentToast('Se ha subido el archivo.');
+        this.presentToast('El archivo se ha subido correctamente.');
       }).catch(err => {
         console.log(err);
         loadingController.dismiss();
