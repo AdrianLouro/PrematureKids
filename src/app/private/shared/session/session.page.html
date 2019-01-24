@@ -76,7 +76,7 @@
         <ion-slide *ngFor="let sessionImage of sessionImages">
           <ion-card>
             <ion-icon *ngIf="iAmAuthor" name="close" float-right margin (click)="deleteImage(sessionImage)"></ion-icon>
-            <img src="{{ sessionImage.fullPath }}" (click)="showImage(sessionImage)" />
+            <img style="padding-bottom: 32px" src="{{ sessionImage.fullPath }}" (click)="showImage(sessionImage)" />
           </ion-card>
         </ion-slide>
       </ion-slides>

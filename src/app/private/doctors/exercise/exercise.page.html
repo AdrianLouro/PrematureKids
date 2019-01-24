@@ -32,8 +32,8 @@
   <div [ngSwitch]="segment" padding-vertical>
 
     <div *ngSwitchCase="'info'">
-      <ion-item lines="none" margin-bottom [disabled]="true">
-        Fisioterapeuta: {{ exercise?.doctor.name }}
+      <ion-item lines="none" margin-bottom style="opacity: 0.8">
+        <div><b>Fisioterapeuta: </b> Dr/a. {{ exercise?.doctor.name }}</div>
       </ion-item>
 
       <form [formGroup]="editExerciseForm">
@@ -80,7 +80,7 @@
         <ion-slide *ngFor="let exerciseImage of exerciseImages">
           <ion-card>
             <ion-icon *ngIf="iAmAuthor" name="close" float-right margin (click)="deleteImage(exerciseImage)"></ion-icon>
-            <img src="{{ exerciseImage.fullPath }}" (click)="showImage(exerciseImage)" />
+            <img style="padding-bottom: 32px" src="{{ exerciseImage.fullPath }}" (click)="showImage(exerciseImage)" />
           </ion-card>
         </ion-slide>
       </ion-slides>
@@ -99,7 +99,7 @@
         <ion-card-header>
           <ion-card-title>{{ opinion.parent.name }} ({{ opinion.date | date : 'dd/MM/yyyy' }})</ion-card-title>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content text-justify>
           <p>{{ opinion.text }}</p>
         </ion-card-content>
       </ion-card>
