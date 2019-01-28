@@ -21,6 +21,10 @@ export class DoctorsPage implements OnInit {
     this.loadDoctors();
   }
 
+  ionViewDidEnter() {
+    document.addEventListener('backbutton', (event) => { }, false);
+  }
+
   loadDoctors(): any {
     this.http.get('/doctors').subscribe((res: any) => {
       this.doctors = res;

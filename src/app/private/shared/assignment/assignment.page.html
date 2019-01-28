@@ -39,9 +39,9 @@
         <ion-item margin-top class="opaque">
           <ion-label>Estado*</ion-label>
           <ion-select placeholder="Seleccionar" formControlName="state" [disabled]="!iAmAuthor">
-            <ion-select-option value="in progress">En curso</ion-select-option>
-            <ion-select-option value="disrupted">Interrumpida</ion-select-option>
-            <ion-select-option value="achieved">Superada</ion-select-option>
+            <ion-select-option value="en curso">En curso</ion-select-option>
+            <ion-select-option value="interrumpida">Interrumpida</ion-select-option>
+            <ion-select-option value="superada">Superada</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
@@ -86,11 +86,11 @@
         <div *ngIf="exerciseVideo != null"><a (click)="playVideo()">Reproducir vídeo</a></div>
       </ion-item>
 
-      <ion-item margin-top *ngIf="exerciseImages?.length === 0">
+      <ion-item *ngIf="exerciseImages?.length === 0">
         No se encontraron imágenes
       </ion-item>
-      <ion-item>
-        <ion-slides pager="true" margin-top margin-bottom *ngIf="exerciseImages?.length > 0">
+      <ion-item *ngIf="exerciseImages?.length > 0">
+        <ion-slides pager=" true" margin-top margin-bottom>
           <ion-slide *ngFor="let exerciseImage of exerciseImages">
             <ion-card (click)="showImage(exerciseImage)">
               <img style="padding-bottom: 32px" src="{{ exerciseImage.fullPath }}" />

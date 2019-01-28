@@ -80,7 +80,7 @@ export class AppComponent {
   setMenuForAdministrator() {
     this.appPages = [
       {
-        title: 'Doctores',
+        title: 'Fisioterapeutas',
         url: '/private/administrators/doctors',
         icon: 'contacts'
       },
@@ -163,6 +163,7 @@ export class AppComponent {
   }
 
   logout() {
+    // document.removeEventListener('backbutton', (event) => { }, false);
     this.authService.logout();
   }
 

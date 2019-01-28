@@ -26,6 +26,10 @@ export class ParentAssignmentsPage implements OnInit {
     this.loadAssignments();
   }
 
+  ionViewDidEnter() {
+    document.addEventListener('backbutton', (event) => { }, false);
+  }
+
   loadAssignments() {
     this.http.get('/parents/' + this.authService.getUserId() + '/assignments').subscribe((res: any) => {
       this.assignments = res;

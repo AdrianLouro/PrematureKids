@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({ hardwareBackButton: false }),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
     HttpClientModule,

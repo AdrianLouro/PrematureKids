@@ -23,6 +23,10 @@ export class PatientsPage implements OnInit {
     this.loadPatients();
   }
 
+  ionViewDidEnter() {
+    document.addEventListener('backbutton', (event) => { }, false);
+  }
+
   loadPatients() {
     this.http.get('/doctors/' + this.authService.getUserId() + '/patients').subscribe((res: any) => {
       this.patients = res;
