@@ -61,7 +61,7 @@ export class CreateAssignmentPage implements OnInit {
       exerciseFrequency: this.createAssignmentForm.value['exerciseFrequency'],
       exerciseDuration: this.createAssignmentForm.value['exerciseDuration'],
       feedbackFrequency: this.createAssignmentForm.value['feedbackFrequency'],
-      state: 'in progress'
+      state: 'en curso'
     }).subscribe((res: any) => {
       this.location.back();
     },

@@ -114,6 +114,7 @@ export class OpinionPage implements OnInit {
           handler: () => {
             this.http.delete('/opinions/' + this.opinion.id).subscribe((res: any) => {
               this.opinion = undefined;
+              this.opinionForm.reset();
               this.presentToast();
             },
               err => console.log(err)
